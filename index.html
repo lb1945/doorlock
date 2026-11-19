@@ -3,52 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <!-- 안드로이드 PWA 및 전체화면 실행 메타 태그 -->
+    <!-- 안드로이드 PWA 및 전체화면(Standalone) 실행 메타 태그 -->
     <meta name="theme-color" content="#1976D2">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="친절한도어락">
+    <meta name="apple-mobile-web-app-title" content="친절한 열쇠 도어락">
     <meta name="application-name" content="친절한 열쇠 도어락">
-    <title>친절한 열쇠 도어락 - 재고·브랜드·매출 관리</title>
-    <!-- 100% 오프라인 인라인 SVG 앱 아이콘 -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='116' fill='%231976D2'/%3E%3Ccircle cx='208' cy='208' r='82' fill='none' stroke='%23FFD54F' stroke-width='38'/%3E%3Cpath d='M266 266 L398 398 M340 340 L384 296 M376 376 L414 338' stroke='%23FFD54F' stroke-width='38' stroke-linecap='round'/%3E%3C/svg%3E">
-    <link rel="apple-touch-icon" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='116' fill='%231976D2'/%3E%3Ccircle cx='208' cy='208' r='82' fill='none' stroke='%23FFD54F' stroke-width='38'/%3E%3Cpath d='M266 266 L398 398 M340 340 L384 296 M376 376 L414 338' stroke='%23FFD54F' stroke-width='38' stroke-linecap='round'/%3E%3C/svg%3E">
+    <title>친절한 열쇠 도어락 - 도어락 재고·순익 관리</title>
+    <!-- 100% 오프라인 머티리얼 모노그램 앱 아이콘 (사업자명 첫 글자 동적 동기화) -->
+    <link id="favicon-link" rel="icon" type="image/svg+xml" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%233949AB'/%3E%3Cstop offset='100%25' stop-color='%231976D2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='116' fill='url(%23g)'/%3E%3Ctext x='256' y='282' text-anchor='middle' dominant-baseline='central' fill='%23FFFFFF' font-family='sans-serif' font-size='250' font-weight='800'%3E%EC%B9%9C%3C/text%3E%3C/svg%3E">
+    <link id="apple-icon-link" rel="apple-touch-icon" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%233949AB'/%3E%3Cstop offset='100%25' stop-color='%231976D2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='116' fill='url(%23g)'/%3E%3Ctext x='256' y='282' text-anchor='middle' dominant-baseline='central' fill='%23FFFFFF' font-family='sans-serif' font-size='250' font-weight='800'%3E%EC%B9%9C%3C/text%3E%3C/svg%3E">
 
     <style>
         /* ==========================================================================
-           Android Material Design 3 (M3) 디자인 시스템 토큰 (외부 CDN 없음)
+           1. Android Material Design 3 디자인 토큰 (외부 CDN 없음 · 100% 오프라인)
            ========================================================================== */
         :root {
             --primary: #1976D2;
             --primary-dark: #1565C0;
             --primary-container: #D3E3FD;
             --on-primary-container: #0842A0;
+
+            --indigo: #3949AB;
             --secondary: #00897B;
-            --secondary-container: #CCFBF1;
-            --on-secondary-container: #004D40;
-            --tertiary: #3949AB;
+            --secondary-dark: #00695C;
+            --secondary-container: #D1FAE5;
+            --on-secondary-container: #065F46;
+
             --danger: #C62828;
             --danger-soft: #FFEBEE;
             --danger-border: #FFCDD2;
+
             --amber: #E65100;
             --amber-soft: #FFF3E0;
-            --bg: #F4F6FA;
+
+            --bg: #F3F6FA;
             --surface: #FFFFFF;
             --surface-variant: #EEF2F7;
-            --outline: #E0E6EF;
-            --outline-strong: #C5D0DF;
+            --outline: #E2E8F0;
+            --outline-strong: #CBD5E1;
+
             --text-main: #111827;
             --text-sub: #4B5563;
             --text-muted: #6B7280;
+
             --radius-sm: 10px;
             --radius-md: 14px;
             --radius-lg: 20px;
             --radius-xl: 28px;
+
             --elev-1: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
-            --elev-2: 0 4px 12px rgba(15, 23, 42, 0.08);
-            --elev-fab: 0 6px 20px rgba(25, 118, 210, 0.34);
-            --nav-height: 70px;
+            --elev-2: 0 4px 14px rgba(15, 23, 42, 0.08);
+            --nav-height: 68px;
             --safe-bottom: env(safe-area-inset-bottom, 0px);
         }
 
@@ -69,7 +76,7 @@
         }
 
         body {
-            padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 86px);
+            padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 18px);
         }
 
         button, input, select {
@@ -95,118 +102,91 @@
             display: none !important;
         }
 
-        /* ==========================================================================
-           상단 Material 3 Top App Bar
-           ========================================================================== */
-        .top-app-bar {
-            position: sticky;
-            top: 0;
-            z-index: 30;
-            background: var(--primary);
-            color: #FFFFFF;
-            padding-top: env(safe-area-inset-top, 0px);
-            box-shadow: 0 2px 10px rgba(25, 118, 210, 0.25);
-        }
-
-        .top-bar-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 62px;
-            gap: 10px;
-        }
-
-        .brand-wrap {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            min-width: 0;
-        }
-
-        .brand-logo {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.16);
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            color: #FFD54F;
-        }
-
-        .brand-title {
-            font-size: 17px;
-            font-weight: 800;
-            letter-spacing: -0.3px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .brand-subtitle {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.82);
-            font-weight: 500;
-        }
-
-        .top-add-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            min-height: 40px;
-            padding: 0 13px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.18);
-            border: 1px solid rgba(255, 255, 255, 0.26);
-            color: #FFFFFF;
-            font-size: 13px;
-            font-weight: 800;
-            flex-shrink: 0;
-            transition: transform 0.14s ease, background 0.14s ease;
-        }
-
-        .top-add-btn:active {
-            transform: scale(0.95);
-            background: rgba(255, 255, 255, 0.28);
-        }
+        .text-primary { color: var(--primary); }
+        .text-teal { color: var(--secondary); }
+        .text-danger { color: var(--danger); }
+        .text-muted { color: var(--text-muted); }
 
         /* ==========================================================================
-           공통 카드, 버튼, 배지
+           2. 공통 컴포넌트 (카드, 버튼, 배지, 아이콘 버튼)
            ========================================================================== */
         .card {
             background: var(--surface);
-            border-radius: var(--radius-lg);
             border: 1px solid var(--outline);
-            box-shadow: var(--elev-1);
+            border-radius: var(--radius-lg);
             padding: 16px;
+            box-shadow: var(--elev-1);
         }
 
         .section-title {
-            font-size: 15px;
-            font-weight: 800;
-            color: var(--text-main);
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 7px;
+            font-size: 15.5px;
+            font-weight: 900;
+            color: var(--text-main);
+            letter-spacing: -0.3px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            padding: 3px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            line-height: 1.25;
+            white-space: nowrap;
+        }
+
+        .badge-type {
+            background: var(--surface-variant);
+            color: var(--text-sub);
+        }
+
+        .badge-low {
+            background: var(--amber-soft);
+            color: var(--amber);
+            border: 1px solid #FFCC80;
+        }
+
+        .badge-out {
+            background: var(--danger-soft);
+            color: var(--danger);
+            border: 1px solid var(--danger-border);
+        }
+
+        .badge-pay-card {
+            background: #E8EAF6;
+            color: #283593;
+        }
+
+        .badge-pay-transfer {
+            background: #E0F2F1;
+            color: #00695C;
+        }
+
+        .badge-pay-cash {
+            background: #FFF3E0;
+            color: #E65100;
         }
 
         .btn {
-            min-height: 46px;
-            border-radius: var(--radius-md);
-            font-size: 14px;
-            font-weight: 800;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
+            min-height: 46px;
             padding: 0 16px;
-            transition: transform 0.12s ease, opacity 0.15s ease, filter 0.15s ease;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 800;
+            transition: transform 0.12s ease, opacity 0.15s ease, background 0.15s ease;
         }
 
         .btn:active:not(:disabled) {
-            transform: scale(0.96);
+            transform: scale(0.97);
         }
 
         .btn:disabled {
@@ -214,10 +194,18 @@
             cursor: not-allowed;
         }
 
+        .btn.full-width {
+            width: 100%;
+        }
+
         .btn-primary {
             background: var(--primary);
             color: #FFFFFF;
-            box-shadow: 0 3px 8px rgba(25, 118, 210, 0.26);
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.24);
+        }
+
+        .btn-primary:active:not(:disabled) {
+            background: var(--primary-dark);
         }
 
         .btn-tonal-primary {
@@ -225,27 +213,15 @@
             color: var(--on-primary-container);
         }
 
-        .btn-tonal-teal {
-            background: var(--secondary-container);
-            color: var(--on-secondary-container);
-            border: 1px solid #99F6E4;
-        }
-
         .btn-teal {
             background: var(--secondary);
             color: #FFFFFF;
-            box-shadow: 0 3px 8px rgba(0, 137, 123, 0.25);
+            box-shadow: 0 2px 8px rgba(0, 137, 123, 0.24);
         }
 
-        .btn-danger-soft {
-            background: var(--danger-soft);
-            color: var(--danger);
-            border: 1px solid var(--danger-border);
-        }
-
-        .btn-danger {
-            background: var(--danger);
-            color: #FFFFFF;
+        .btn-tonal-teal {
+            background: var(--secondary-container);
+            color: var(--on-secondary-container);
         }
 
         .btn-neutral {
@@ -254,169 +230,243 @@
             border: 1px solid var(--outline);
         }
 
-        .full-width {
-            width: 100%;
-        }
-
-        .icon-btn {
-            min-width: 44px;
-            min-height: 44px;
-            border-radius: 12px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-sub);
-            background: var(--surface-variant);
-            flex-shrink: 0;
-            transition: transform 0.12s ease, background 0.15s ease;
-        }
-
-        .icon-btn:active {
-            transform: scale(0.92);
-            background: var(--outline);
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 3px 9px;
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: -0.2px;
-        }
-
-        .badge-type {
-            background: var(--surface-variant);
-            color: var(--text-sub);
-            font-weight: 700;
-        }
-
-        .badge-low {
-            background: var(--danger-soft);
-            color: var(--danger);
-        }
-
-        .badge-out {
+        .btn-danger {
             background: var(--danger);
             color: #FFFFFF;
         }
 
-        .text-primary { color: var(--primary) !important; }
-        .text-teal { color: var(--secondary) !important; }
-        .text-danger { color: var(--danger) !important; }
-        .text-amber { color: var(--amber) !important; }
+        .btn-danger-soft {
+            background: var(--danger-soft);
+            color: var(--danger);
+            border: 1px solid var(--danger-border);
+        }
+
+        .icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: var(--surface-variant);
+            color: var(--text-sub);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .icon-btn:active {
+            background: var(--outline);
+            transform: scale(0.94);
+        }
 
         /* ==========================================================================
-           탭 1: [재고] 3-카드 대시보드, 검색, 동적 브랜드 필터 칩, 품목 카드
+           3. 상단 Material Design 3 App Bar (아이콘 없이 상호명·부제목만 깔끔히 배치)
+           ========================================================================== */
+        .top-app-bar {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            background: linear-gradient(135deg, #3949AB 0%, #1976D2 100%);
+            color: #FFFFFF;
+            box-shadow: 0 3px 12px rgba(25, 118, 210, 0.22);
+        }
+
+        .top-bar-inner {
+            min-height: 62px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        .brand-edit-trigger {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            min-width: 0;
+            flex: 1;
+            padding: 4px 8px 4px 2px;
+            margin-left: -2px;
+            border-radius: 12px;
+            transition: background 0.15s ease, transform 0.12s ease;
+        }
+
+        .brand-edit-trigger:active {
+            background: rgba(255, 255, 255, 0.14);
+            transform: scale(0.985);
+        }
+
+        .brand-title-row {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            max-width: 100%;
+        }
+
+        .brand-title {
+            font-size: 17.5px;
+            font-weight: 900;
+            letter-spacing: -0.4px;
+            line-height: 1.25;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .brand-edit-badge {
+            width: 22px;
+            height: 22px;
+            border-radius: 7px;
+            background: rgba(255, 255, 255, 0.18);
+            color: rgba(255, 255, 255, 0.92);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .brand-subtitle {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.86);
+            margin-top: 2px;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .top-add-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            height: 38px;
+            padding: 0 13px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            color: #FFFFFF;
+            font-size: 12.5px;
+            font-weight: 800;
+            flex-shrink: 0;
+            transition: background 0.15s ease, transform 0.12s ease;
+        }
+
+        .top-add-btn:active {
+            background: rgba(255, 255, 255, 0.28);
+            transform: scale(0.96);
+        }
+
+        /* ==========================================================================
+           4. 탭 1: [재고] 대시보드, 검색, 브랜드 칩, 품목 카드
            ========================================================================== */
         .dashboard-3 {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin: 12px 0 12px;
+            gap: 9px;
+            margin-top: 12px;
+            margin-bottom: 12px;
         }
 
         .dash-card {
             background: var(--surface);
-            border-radius: 16px;
             border: 1px solid var(--outline);
-            box-shadow: var(--elev-1);
+            border-radius: 16px;
             padding: 12px 10px;
             text-align: left;
+            box-shadow: var(--elev-1);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            min-height: 76px;
-            transition: transform 0.14s ease, border-color 0.15s ease, background 0.15s ease;
+            gap: 3px;
+            transition: border-color 0.15s ease, background 0.15s ease, transform 0.12s ease;
         }
 
         .dash-card.clickable:active {
-            transform: scale(0.96);
+            transform: scale(0.97);
         }
 
         .dash-card.low-active {
+            border-color: var(--danger-border);
+            background: #FFF9F9;
+        }
+
+        .dash-card.low-filter-on {
+            border-color: var(--danger);
             background: var(--danger-soft);
-            border-color: #EF9A9A;
-            box-shadow: 0 2px 8px rgba(198, 40, 40, 0.14);
+            box-shadow: 0 0 0 2px rgba(198, 40, 40, 0.14);
         }
 
         .dash-label {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-muted);
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 2px;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-muted);
         }
 
         .dash-val {
-            font-size: 19px;
+            font-size: 20px;
             font-weight: 900;
             letter-spacing: -0.5px;
-            margin-top: 4px;
-            color: var(--text-main);
-            white-space: nowrap;
+            line-height: 1.2;
         }
 
         .dash-sub {
             font-size: 10.5px;
             font-weight: 700;
             color: var(--text-muted);
-            margin-top: 2px;
         }
 
-        /* 검색 바 */
         .search-bar-wrap {
             position: relative;
             margin-bottom: 10px;
         }
 
-        .search-input {
-            width: 100%;
-            height: 46px;
-            padding: 0 44px 0 42px;
-            background: var(--surface);
-            border: 1.5px solid var(--outline);
-            border-radius: 999px;
-            font-size: 14px;
-            color: var(--text-main);
-            box-shadow: var(--elev-1);
-            outline: none;
-            transition: border-color 0.18s ease, box-shadow 0.18s ease;
-        }
-
-        .search-input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.14);
-        }
-
         .search-icon {
             position: absolute;
-            left: 14px;
+            left: 13px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-muted);
             pointer-events: none;
         }
 
+        .search-input {
+            width: 100%;
+            height: 46px;
+            padding: 0 40px 0 40px;
+            border-radius: 14px;
+            border: 1.5px solid var(--outline);
+            background: var(--surface);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            outline: none;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.12);
+        }
+
         .search-clear {
             position: absolute;
-            right: 5px;
+            right: 8px;
             top: 50%;
             transform: translateY(-50%);
-            width: 36px;
-            height: 36px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
+            color: var(--text-muted);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-muted);
         }
 
-        /* 가로 스크롤 필터 칩 바 */
         .chip-scroll {
             display: flex;
             align-items: center;
@@ -424,7 +474,6 @@
             overflow-x: auto;
             padding: 2px 0 10px;
             scrollbar-width: none;
-            -ms-overflow-style: none;
         }
 
         .chip-scroll::-webkit-scrollbar {
@@ -432,105 +481,93 @@
         }
 
         .filter-chip {
-            flex-shrink: 0;
-            min-height: 38px;
-            padding: 0 13px;
-            border-radius: 12px;
-            background: var(--surface);
-            border: 1.5px solid var(--outline-strong);
-            color: var(--text-sub);
-            font-size: 13px;
-            font-weight: 700;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            transition: transform 0.12s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-        }
-
-        .filter-chip:active {
-            transform: scale(0.95);
+            gap: 5px;
+            height: 35px;
+            padding: 0 13px;
+            border-radius: 999px;
+            background: var(--surface);
+            border: 1px solid var(--outline-strong);
+            color: var(--text-sub);
+            font-size: 12.5px;
+            font-weight: 800;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: all 0.14s ease;
         }
 
         .filter-chip.active {
             background: var(--primary);
             border-color: var(--primary);
             color: #FFFFFF;
-            box-shadow: 0 2px 6px rgba(25, 118, 210, 0.25);
+            box-shadow: 0 2px 7px rgba(25, 118, 210, 0.28);
+        }
+
+        .filter-chip.secondary-chip.active {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            color: #FFFFFF;
+            box-shadow: 0 2px 7px rgba(0, 137, 123, 0.28);
         }
 
         .filter-chip.brand-edit-chip {
             background: var(--surface-variant);
-            border: 1.5px dashed var(--outline-strong);
-            color: var(--text-main);
-        }
-
-        .filter-chip.secondary-chip {
-            min-height: 34px;
-            padding: 0 11px;
-            font-size: 12px;
-            border-radius: 10px;
-            background: var(--surface-variant);
-            border-color: transparent;
-        }
-
-        .filter-chip.secondary-chip.active {
-            background: var(--primary-container);
-            color: var(--on-primary-container);
-            border-color: #93C5FD;
-            box-shadow: none;
+            border-style: dashed;
+            border-color: var(--outline-strong);
+            color: var(--text-sub);
         }
 
         .chip-dot {
-            width: 9px;
-            height: 9px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             flex-shrink: 0;
         }
 
-        /* 품절 임박 필터 활성화 알림 배너 */
         .low-filter-banner {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 8px;
             background: var(--danger-soft);
             border: 1px solid var(--danger-border);
             color: var(--danger);
-            border-radius: 12px;
-            padding: 8px 12px;
-            margin-bottom: 10px;
+            border-radius: 13px;
+            padding: 9px 13px;
             font-size: 12px;
             font-weight: 800;
+            margin-bottom: 10px;
         }
 
         .section-meta {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin: 2px 2px 10px;
             font-size: 12px;
+            font-weight: 700;
             color: var(--text-muted);
-            font-weight: 600;
+            margin-bottom: 9px;
+            padding: 0 2px;
         }
 
-        /* 품목 카드 */
         .item-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 11px;
         }
 
         .item-card {
             background: var(--surface);
-            border-radius: var(--radius-lg);
             border: 1px solid var(--outline);
+            border-radius: var(--radius-lg);
+            padding: 14px;
             box-shadow: var(--elev-1);
-            padding: 15px;
-            transition: border-color 0.2s ease;
         }
 
         .item-card.low-stock {
-            border-color: #EF9A9A;
-            box-shadow: 0 2px 10px rgba(198, 40, 40, 0.08);
+            border-color: var(--danger-border);
+            background: linear-gradient(180deg, #FFFFFF 0%, #FFFBFB 100%);
         }
 
         .item-card-top {
@@ -538,182 +575,373 @@
             align-items: flex-start;
             justify-content: space-between;
             gap: 8px;
-            margin-bottom: 6px;
+            margin-bottom: 7px;
         }
 
         .badge-row {
             display: flex;
-            flex-wrap: wrap;
             align-items: center;
-            gap: 6px;
+            flex-wrap: wrap;
+            gap: 5px;
         }
 
         .item-name {
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--text-main);
+            font-size: 15.5px;
+            font-weight: 900;
             letter-spacing: -0.3px;
+            color: var(--text-main);
             margin-bottom: 10px;
         }
 
         .item-meta-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
+            gap: 8px;
             background: var(--surface-variant);
             border-radius: 12px;
             padding: 9px 10px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .meta-cell-label {
             font-size: 10.5px;
             font-weight: 700;
             color: var(--text-muted);
+            margin-bottom: 2px;
         }
 
         .meta-cell-val {
-            font-size: 13px;
-            font-weight: 800;
+            font-size: 12.5px;
+            font-weight: 900;
             color: var(--text-main);
-            margin-top: 1px;
+            letter-spacing: -0.2px;
         }
 
         .item-stock-row {
             display: flex;
-            align-items: baseline;
+            align-items: center;
             justify-content: space-between;
-            margin-bottom: 12px;
+            margin-bottom: 11px;
+            padding: 0 2px;
         }
 
         .stock-now {
-            font-size: 24px;
+            font-size: 19px;
             font-weight: 900;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.4px;
         }
 
         .stock-safe {
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 11.5px;
+            font-weight: 700;
             color: var(--text-muted);
+            background: var(--surface-variant);
+            padding: 3px 9px;
+            border-radius: 999px;
         }
 
         .item-actions {
             display: grid;
-            grid-template-columns: 1fr 1.35fr;
-            gap: 10px;
+            grid-template-columns: 1fr 1.45fr;
+            gap: 8px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 38px 16px;
+            background: var(--surface);
+            border: 1px dashed var(--outline-strong);
+            border-radius: var(--radius-lg);
+            color: var(--text-muted);
         }
 
         /* ==========================================================================
-           FAB (Floating Action Button)
+           5. 탭 2: [달력] 월별 일별 순익 달력 (Daily Net Profit Calendar)
            ========================================================================== */
-        .fab {
-            position: fixed;
-            right: max(16px, calc(50% - 254px));
-            bottom: calc(var(--nav-height) + var(--safe-bottom) + 16px);
-            z-index: 25;
-            height: 54px;
-            padding: 0 20px;
-            border-radius: 18px;
-            background: var(--primary);
+        .cal-kpi-card {
+            margin-top: 12px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #00695C 0%, #00897B 100%);
+            border: none;
             color: #FFFFFF;
-            font-size: 14px;
-            font-weight: 800;
+            box-shadow: 0 4px 14px rgba(0, 137, 123, 0.24);
+        }
+
+        .cal-kpi-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .cal-kpi-pill {
             display: inline-flex;
             align-items: center;
-            gap: 7px;
-            box-shadow: var(--elev-fab);
-            transition: transform 0.14s ease;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.18);
+            font-size: 11.5px;
+            font-weight: 800;
         }
 
-        .fab:active {
-            transform: scale(0.94);
-        }
-
-        /* ==========================================================================
-           하단 Material 3 Navigation Bar (4탭)
-           ========================================================================== */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 35;
-            background: var(--surface);
-            border-top: 1px solid var(--outline);
-            padding-bottom: var(--safe-bottom);
-            box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.05);
-        }
-
-        .bottom-nav-inner {
-            max-width: 540px;
-            margin: 0 auto;
-            height: var(--nav-height);
+        .cal-kpi-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
         }
 
-        .nav-item {
+        .cal-kpi-box {
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 14px;
+            padding: 10px 12px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            color: #FFFFFF;
+        }
+
+        .cal-kpi-box.clickable:active {
+            background: rgba(255, 255, 255, 0.24);
+            transform: scale(0.98);
+        }
+
+        .cal-kpi-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.84);
+        }
+
+        .cal-kpi-val {
+            font-size: 17px;
+            font-weight: 900;
+            letter-spacing: -0.4px;
+        }
+
+        .cal-main-card {
+            margin-bottom: 12px;
+            padding: 14px 12px;
+        }
+
+        .cal-nav-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .cal-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cal-nav-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: var(--surface-variant);
+            color: var(--text-main);
+            font-size: 19px;
+            font-weight: 900;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cal-nav-btn:active {
+            background: var(--outline);
+        }
+
+        .cal-month-title {
+            font-size: 16.5px;
+            font-weight: 900;
+            letter-spacing: -0.3px;
+            min-width: 104px;
+            text-align: center;
+        }
+
+        .cal-today-btn {
+            height: 32px;
+            padding: 0 12px;
+            border-radius: 999px;
+            background: var(--primary-container);
+            color: var(--on-primary-container);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .cal-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: 6px;
+        }
+
+        .cal-wd {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-muted);
+            padding: 4px 0;
+        }
+
+        .cal-wd.sun { color: #D32F2F; }
+        .cal-wd.sat { color: #1976D2; }
+
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .cal-cell {
+            min-height: 54px;
+            border-radius: 11px;
+            padding: 5px 2px;
+            background: var(--surface-variant);
+            border: 1.5px solid transparent;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 4px;
-            color: var(--text-muted);
-            font-size: 11px;
-            font-weight: 700;
-            min-height: 56px;
+            justify-content: space-between;
+            transition: transform 0.1s ease, border-color 0.15s ease;
         }
 
-        .nav-pill {
-            width: 58px;
-            height: 32px;
+        .cal-cell:active:not(.empty) {
+            transform: scale(0.95);
+        }
+
+        .cal-cell.empty {
+            background: transparent;
+            pointer-events: none;
+        }
+
+        .cal-day-num {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--text-sub);
+            line-height: 1.1;
+        }
+
+        .cal-day-num.sun { color: #D32F2F; }
+        .cal-day-num.sat { color: #1976D2; }
+
+        .cal-profit-txt {
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: -0.45px;
+            line-height: 1.15;
+            white-space: nowrap;
+            color: #065F46;
+        }
+
+        /* 일별 순익 강도 에메랄드 히트맵 */
+        .cal-cell.lvl-1 { background: #ECFDF5; }
+        .cal-cell.lvl-2 { background: #D1FAE5; }
+        .cal-cell.lvl-3 { background: #A7F3D0; }
+        .cal-cell.lvl-4 { background: #6EE7B7; }
+        .cal-cell.lvl-4 .cal-profit-txt { color: #064E3B; }
+
+        .cal-cell.lvl-neg {
+            background: var(--danger-soft);
+        }
+        .cal-cell.lvl-neg .cal-profit-txt {
+            color: var(--danger);
+        }
+
+        .cal-cell.is-today .cal-day-num {
+            background: var(--primary);
+            color: #FFFFFF !important;
+            padding: 1px 6px;
             border-radius: 999px;
+        }
+
+        .cal-cell.is-selected {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+        }
+
+        .cal-legend {
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: background 0.18s ease, transform 0.14s ease;
+            justify-content: space-between;
+            margin-top: 11px;
+            padding-top: 9px;
+            border-top: 1px solid var(--outline);
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
         }
 
-        .nav-item.active {
-            color: var(--primary);
+        .cal-legend-swatches {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
-        .nav-item.active .nav-pill {
-            background: var(--primary-container);
-            color: var(--on-primary-container);
+        .cal-legend-box {
+            width: 11px;
+            height: 11px;
+            border-radius: 3px;
+            display: inline-block;
+            border: 1px solid rgba(6, 95, 70, 0.14);
         }
 
-        .nav-item:active .nav-pill {
-            transform: scale(0.92);
+        .cal-detail-card {
+            margin-bottom: 12px;
+        }
+
+        .cal-detail-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .cal-detail-item {
+            background: var(--surface-variant);
+            border: 1px solid var(--outline);
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 8px;
+        }
+
+        .cal-detail-item:last-child {
+            margin-bottom: 0;
         }
 
         /* ==========================================================================
-           탭 2: [매출·통계] Segmented Switch, KPI 요약, 순수 SVG 차트, 정산, TOP 5
+           6. 탭 3: [통계] 기간 토글, KPI, SVG 막대 차트, 결제수단, TOP 5
            ========================================================================== */
         .segmented-control {
             display: grid;
             grid-template-columns: 1fr 1fr;
+            gap: 4px;
             background: var(--surface-variant);
             border: 1px solid var(--outline);
-            border-radius: 16px;
+            border-radius: 15px;
             padding: 4px;
-            margin: 14px 0 12px;
+            margin-top: 12px;
+            margin-bottom: 12px;
         }
 
         .seg-btn {
-            min-height: 44px;
-            border-radius: 12px;
+            height: 40px;
+            border-radius: 11px;
             font-size: 13px;
             font-weight: 800;
             color: var(--text-sub);
-            transition: all 0.18s ease;
+            transition: all 0.15s ease;
         }
 
         .seg-btn.active {
             background: var(--surface);
             color: var(--primary);
-            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+            box-shadow: var(--elev-1);
         }
 
         .kpi-summary-card {
@@ -731,30 +959,25 @@
         .period-scope-pill {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
             padding: 4px 10px;
             border-radius: 999px;
             background: var(--primary-container);
             color: var(--on-primary-container);
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 800;
         }
 
         .scope-reset-btn {
-            min-height: 32px;
-            padding: 0 11px;
-            border-radius: 999px;
-            background: var(--surface-variant);
-            border: 1px solid var(--outline-strong);
             font-size: 11.5px;
             font-weight: 800;
-            color: var(--text-main);
+            color: var(--primary);
+            text-decoration: underline;
         }
 
         .kpi-grid-2x2 {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 9px;
         }
 
         .kpi-inner-box {
@@ -764,27 +987,26 @@
         }
 
         .kpi-inner-label {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-muted);
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-muted);
+            margin-bottom: 4px;
         }
 
         .kpi-inner-val {
-            font-size: 18px;
+            font-size: 17.5px;
             font-weight: 900;
             letter-spacing: -0.4px;
-            margin-top: 4px;
-            color: var(--text-main);
         }
 
         .chart-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
             gap: 8px;
             margin-bottom: 10px;
         }
@@ -792,55 +1014,55 @@
         .legend-row {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 12px;
-            font-weight: 700;
+            gap: 10px;
+            font-size: 11px;
+            font-weight: 800;
             color: var(--text-sub);
         }
 
         .legend-dot {
             display: inline-block;
-            width: 10px;
-            height: 10px;
+            width: 9px;
+            height: 9px;
             border-radius: 3px;
             margin-right: 4px;
+            vertical-align: middle;
         }
 
         .svg-chart-wrap {
             width: 100%;
             overflow: hidden;
-            user-select: none;
         }
 
         .chart-hint {
-            text-align: center;
             font-size: 11px;
+            font-weight: 700;
             color: var(--text-muted);
+            text-align: center;
             margin-top: 6px;
         }
 
-        /* 결제수단 비율 바 */
         .stacked-bar {
             width: 100%;
-            height: 16px;
+            height: 12px;
             border-radius: 999px;
             background: var(--surface-variant);
             overflow: hidden;
             display: flex;
-            margin: 12px 0 14px;
+            margin: 10px 0 12px;
         }
 
         .stacked-seg {
             height: 100%;
-            transition: width 0.35s ease;
+            transition: width 0.25s ease;
         }
 
         .pay-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--surface-variant);
+            padding: 9px 0;
+            border-bottom: 1px solid var(--outline);
         }
 
         .pay-row:last-child {
@@ -855,18 +1077,19 @@
         }
 
         .pay-icon-box {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 11px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 17px;
+            flex-shrink: 0;
         }
 
         .top-model-row {
             padding: 10px 0;
-            border-bottom: 1px solid var(--surface-variant);
+            border-bottom: 1px solid var(--outline);
         }
 
         .top-model-row:last-child {
@@ -878,7 +1101,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 6px;
         }
 
@@ -888,7 +1111,7 @@
             border-radius: 8px;
             background: var(--surface-variant);
             color: var(--text-sub);
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 900;
             display: inline-flex;
             align-items: center;
@@ -896,9 +1119,9 @@
             flex-shrink: 0;
         }
 
-        .rank-1 { background: #FEF3C7; color: #B45309; }
-        .rank-2 { background: #E2E8F0; color: #334155; }
-        .rank-3 { background: #FFEDD5; color: #9A3412; }
+        .rank-badge.rank-1 { background: #FEF3C7; color: #B45309; }
+        .rank-badge.rank-2 { background: #E2E8F0; color: #334155; }
+        .rank-badge.rank-3 { background: #FFEDD5; color: #C2410C; }
 
         .mini-bar-track {
             width: 100%;
@@ -911,37 +1134,38 @@
         .mini-bar-fill {
             height: 100%;
             border-radius: 999px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            background: linear-gradient(90deg, #1976D2, #00897B);
         }
 
         /* ==========================================================================
-           탭 3: [이력]
+           7. 탭 4: [이력] 입출고 장부 카드
            ========================================================================== */
         .history-summary-bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: var(--primary-container);
-            color: var(--on-primary-container);
-            border-radius: 14px;
-            padding: 10px 14px;
-            margin-bottom: 12px;
+            background: var(--surface);
+            border: 1px solid var(--outline);
+            border-radius: 13px;
+            padding: 10px 13px;
+            margin-bottom: 10px;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
+            color: var(--text-sub);
         }
 
         .log-card {
             background: var(--surface);
-            border-radius: 16px;
             border: 1px solid var(--outline);
-            padding: 14px;
-            box-shadow: var(--elev-1);
+            border-radius: 16px;
+            padding: 13px;
             margin-bottom: 10px;
+            box-shadow: var(--elev-1);
         }
 
         .log-top {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             gap: 8px;
             margin-bottom: 8px;
@@ -949,55 +1173,60 @@
 
         .log-badges {
             display: flex;
-            flex-wrap: wrap;
             align-items: center;
-            gap: 6px;
+            flex-wrap: wrap;
+            gap: 5px;
         }
-
-        .pay-badge-card { background: #E8EAF6; color: #283593; }
-        .pay-badge-transfer { background: #E0F2F1; color: #00695C; }
-        .pay-badge-cash { background: #FFF3E0; color: #E65100; }
 
         .log-main {
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
             gap: 10px;
+            margin-bottom: 9px;
         }
 
         .log-memo {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            margin-top: 6px;
-            padding: 4px 9px;
-            border-radius: 8px;
-            background: var(--surface-variant);
-            color: var(--text-sub);
             font-size: 12px;
             font-weight: 600;
+            color: var(--text-sub);
+            background: var(--surface-variant);
+            border-radius: 9px;
+            padding: 5px 9px;
+            margin-top: 6px;
+            display: inline-block;
         }
 
         .log-finance {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid var(--surface-variant);
-            font-size: 12px;
             gap: 8px;
-            flex-wrap: wrap;
+            padding-top: 9px;
+            border-top: 1px dashed var(--outline);
+            font-size: 12.5px;
         }
 
         /* ==========================================================================
-           탭 4: [관리]
+           8. 탭 5: [관리] 사업자 정보, 브랜드, 백업, PWA 가이드
            ========================================================================== */
         .settings-stack {
             display: flex;
             flex-direction: column;
-            gap: 14px;
-            margin-top: 14px;
+            gap: 13px;
+            padding-top: 12px;
+        }
+
+        .biz-preview-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: var(--surface-variant);
+            border: 1px solid var(--outline);
+            border-radius: 14px;
+            padding: 12px 14px;
+            margin-top: 10px;
         }
 
         .brand-preview-pills {
@@ -1007,21 +1236,26 @@
             margin: 12px 0 14px;
         }
 
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 9px;
+            margin-top: 10px;
+        }
+
         .install-card {
-            background: linear-gradient(135deg, #1976D2 0%, #3949AB 100%);
-            color: #FFFFFF;
+            background: linear-gradient(135deg, #3949AB 0%, #1976D2 100%);
             border: none;
+            color: #FFFFFF;
         }
 
         .offline-pill {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 5px 10px;
+            gap: 5px;
+            padding: 4px 10px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.16);
-            border: 1px solid rgba(255, 255, 255, 0.28);
-            color: #E0F2F1;
+            background: rgba(255, 255, 255, 0.18);
             font-size: 11px;
             font-weight: 800;
             margin-bottom: 10px;
@@ -1029,11 +1263,11 @@
 
         .install-step {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 10px;
-            margin-top: 9px;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.92);
+            margin-top: 10px;
+            font-size: 12.5px;
+            color: rgba(255, 255, 255, 0.94);
         }
 
         .step-num {
@@ -1041,54 +1275,117 @@
             height: 22px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.22);
-            color: #FFFFFF;
             font-size: 12px;
-            font-weight: 800;
+            font-weight: 900;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            margin-top: 1px;
-        }
-
-        .action-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 12px;
         }
 
         /* ==========================================================================
-           바텀시트, 폼, 브랜드 관리 스와치 & 인라인 편집/재할당 UI
+           9. 하단 5-탭 Material Design 3 Navigation Bar (하단 플로팅 버튼 없음)
+           ========================================================================== */
+        .bottom-nav {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 40;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--outline);
+            padding-bottom: var(--safe-bottom);
+            box-shadow: 0 -2px 12px rgba(15, 23, 42, 0.06);
+        }
+
+        .bottom-nav-inner {
+            max-width: 540px;
+            margin: 0 auto;
+            height: var(--nav-height);
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            align-items: center;
+            padding: 0 4px;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            height: 100%;
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 700;
+            transition: color 0.15s ease;
+        }
+
+        .nav-pill {
+            width: 48px;
+            height: 30px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s ease, transform 0.12s ease;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            font-weight: 900;
+        }
+
+        .nav-item.active .nav-pill {
+            background: var(--primary-container);
+            color: var(--on-primary-container);
+        }
+
+        .nav-item:active .nav-pill {
+            transform: scale(0.93);
+        }
+
+        /* ==========================================================================
+           10. 바텀시트, 폼, 결제 토글, 브랜드 관리, 다이얼로그 & 스낵바
            ========================================================================== */
         .modal-backdrop {
             position: fixed;
             inset: 0;
-            z-index: 50;
-            background: rgba(15, 23, 42, 0.56);
-            backdrop-filter: blur(2px);
+            z-index: 60;
+            background: rgba(15, 23, 42, 0.54);
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            animation: fadeIn 0.16s ease-out;
+            padding: 0;
+            animation: fadeIn 0.16s ease;
         }
 
         .modal-backdrop.center-modal {
             align-items: center;
-            padding: 16px;
-            z-index: 60;
+            padding: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .bottom-sheet {
             width: 100%;
             max-width: 540px;
-            max-height: 92vh;
+            max-height: 91vh;
             overflow-y: auto;
             background: var(--surface);
-            border-radius: 28px 28px 0 0;
-            padding: 12px 18px calc(22px + var(--safe-bottom));
-            box-shadow: 0 -10px 30px rgba(15, 23, 42, 0.22);
-            animation: slideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 26px 26px 0 0;
+            padding: 10px 18px calc(20px + var(--safe-bottom));
+            box-shadow: 0 -8px 30px rgba(15, 23, 42, 0.22);
+            animation: slideUp 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(36px); opacity: 0.7; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .sheet-handle {
@@ -1096,7 +1393,7 @@
             height: 4px;
             border-radius: 999px;
             background: var(--outline-strong);
-            margin: 0 auto 14px;
+            margin: 0 auto 12px;
         }
 
         .sheet-header {
@@ -1107,17 +1404,8 @@
             margin-bottom: 16px;
         }
 
-        .dialog-box {
-            width: 100%;
-            max-width: 360px;
-            background: var(--surface);
-            border-radius: 24px;
-            padding: 22px 20px;
-            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.28);
-        }
-
         .form-group {
-            margin-bottom: 14px;
+            margin-bottom: 13px;
         }
 
         .form-row-2 {
@@ -1136,133 +1424,121 @@
 
         .form-input, .form-select {
             width: 100%;
-            height: 48px;
+            height: 46px;
             padding: 0 13px;
-            background: var(--surface-variant);
-            border: 1.5px solid var(--outline);
-            border-radius: 14px;
-            font-size: 15px;
+            border-radius: 13px;
+            border: 1.5px solid var(--outline-strong);
+            background: var(--surface);
+            font-size: 14.5px;
             font-weight: 700;
             color: var(--text-main);
             outline: none;
-            transition: border-color 0.15s ease, background 0.15s ease;
         }
 
         .form-input:focus, .form-select:focus {
-            background: var(--surface);
             border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.12);
         }
 
-        /* 수량 스테퍼 */
-        .stepper {
+        .stepper-row {
             display: grid;
-            grid-template-columns: 50px 1fr 50px;
+            grid-template-columns: 52px 1fr 52px;
             gap: 8px;
             align-items: center;
         }
 
         .stepper-btn {
-            height: 48px;
-            border-radius: 14px;
+            height: 46px;
+            border-radius: 13px;
             background: var(--surface-variant);
-            border: 1.5px solid var(--outline);
+            border: 1px solid var(--outline-strong);
             font-size: 22px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-weight: 900;
+            color: var(--text-main);
         }
 
         .stepper-btn:active {
             background: var(--outline);
-            transform: scale(0.94);
         }
 
-        .stepper-input {
-            text-align: center;
-            font-size: 20px;
-            font-weight: 900;
+        .adj-btn-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-top: 7px;
         }
 
-        /* 결제수단 3종 버튼 */
-        .payment-selector {
+        .adj-btn {
+            height: 36px;
+            border-radius: 10px;
+            background: var(--surface-variant);
+            border: 1px solid var(--outline-strong);
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--text-sub);
+        }
+
+        .adj-btn:active {
+            background: var(--primary-container);
+            color: var(--on-primary-container);
+        }
+
+        .profit-preview-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: #ECFDF5;
+            border: 1px solid #A7F3D0;
+            border-radius: 14px;
+            padding: 11px 14px;
+            margin-bottom: 13px;
+        }
+
+        .profit-preview-box.loss {
+            background: var(--danger-soft);
+            border-color: var(--danger-border);
+        }
+
+        .pay-toggle-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
         }
 
         .pay-toggle-btn {
-            min-height: 62px;
-            padding: 8px 6px;
-            border-radius: 16px;
-            background: var(--surface-variant);
-            border: 2px solid var(--outline);
+            min-height: 54px;
+            border-radius: 14px;
+            border: 1.5px solid var(--outline-strong);
+            background: var(--surface);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 4px;
-            font-size: 13px;
+            gap: 2px;
+            font-size: 12.5px;
             font-weight: 800;
             color: var(--text-sub);
-            transition: all 0.15s ease;
+            transition: all 0.14s ease;
         }
 
-        .pay-toggle-btn .pay-emoji {
-            font-size: 20px;
-            line-height: 1;
+        .pay-toggle-btn.active {
+            border-color: var(--primary);
+            background: var(--primary-container);
+            color: var(--on-primary-container);
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.18);
         }
 
-        .pay-toggle-btn.active[data-method="card"] {
-            background: #E8EAF6;
-            border-color: #3949AB;
-            color: #283593;
-            box-shadow: 0 3px 10px rgba(57, 73, 171, 0.18);
-        }
-
-        .pay-toggle-btn.active[data-method="transfer"] {
-            background: #E0F2F1;
-            border-color: #00897B;
-            color: #00695C;
-            box-shadow: 0 3px 10px rgba(0, 137, 123, 0.18);
-        }
-
-        .pay-toggle-btn.active[data-method="cash"] {
-            background: #FFF3E0;
-            border-color: #E65100;
-            color: #BF360C;
-            box-shadow: 0 3px 10px rgba(230, 81, 0, 0.18);
-        }
-
-        /* 실시간 순익 박스 */
-        .profit-preview {
-            background: #E0F2F1;
-            border: 1px solid #80CBC4;
-            border-radius: 14px;
-            padding: 11px 13px;
-            margin-top: 8px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
-            text-align: center;
-        }
-
-        .profit-preview.loss {
-            background: var(--danger-soft);
-            border-color: var(--danger-border);
-        }
-
-        .quick-tags {
+        .quick-tag-wrap {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            margin-top: 8px;
+            margin-top: 7px;
         }
 
         .quick-tag-btn {
-            min-height: 32px;
-            padding: 0 10px;
-            border-radius: 10px;
+            padding: 5px 10px;
+            border-radius: 999px;
             background: var(--surface-variant);
             border: 1px solid var(--outline);
             font-size: 11.5px;
@@ -1275,58 +1551,35 @@
             color: var(--on-primary-container);
         }
 
-        /* 브랜드 색상 스와치 팔레트 */
+        /* 브랜드 관리 리스트 & 색상 스와치 */
         .swatch-row {
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
             gap: 8px;
-            margin: 8px 0;
+            flex-wrap: wrap;
+            margin: 8px 0 4px;
         }
 
         .swatch-btn {
-            width: 34px;
-            height: 34px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             border: 2.5px solid transparent;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.14s ease, box-shadow 0.14s ease;
-            position: relative;
-        }
-
-        .swatch-btn:active {
-            transform: scale(0.9);
+            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.35);
+            transition: transform 0.12s ease;
         }
 
         .swatch-btn.selected {
-            border-color: #111827;
-            transform: scale(1.08);
-            box-shadow: 0 0 0 2px #FFFFFF inset;
-        }
-
-        .swatch-btn.selected::after {
-            content: "✓";
-            color: #FFFFFF;
-            font-size: 14px;
-            font-weight: 900;
-        }
-
-        /* 브랜드 관리 리스트 항목 */
-        .brand-add-box {
-            background: var(--surface-variant);
-            border: 1px solid var(--outline);
-            border-radius: 16px;
-            padding: 13px;
-            margin-bottom: 16px;
+            border-color: var(--text-main);
+            transform: scale(1.12);
         }
 
         .brand-manage-row {
             background: var(--surface);
             border: 1px solid var(--outline);
-            border-radius: 16px;
-            padding: 12px;
-            margin-bottom: 10px;
+            border-radius: 14px;
+            padding: 11px 12px;
+            margin-bottom: 8px;
         }
 
         .brand-row-main {
@@ -1339,125 +1592,102 @@
         .brand-row-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             min-width: 0;
         }
 
         .brand-row-actions {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             flex-shrink: 0;
         }
 
         .mini-action-btn {
-            min-width: 36px;
-            min-height: 36px;
-            padding: 0 8px;
-            border-radius: 10px;
+            height: 31px;
+            padding: 0 9px;
+            border-radius: 9px;
             background: var(--surface-variant);
-            color: var(--text-sub);
-            font-size: 12px;
+            border: 1px solid var(--outline);
+            font-size: 11.5px;
             font-weight: 800;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            color: var(--text-sub);
         }
 
         .mini-action-btn:disabled {
             opacity: 0.35;
+            cursor: not-allowed;
         }
 
         .mini-action-btn.del {
             background: var(--danger-soft);
+            border-color: var(--danger-border);
             color: var(--danger);
         }
 
         .inline-panel {
             margin-top: 10px;
             padding-top: 10px;
-            border-top: 1px dashed var(--outline-strong);
+            border-top: 1px dashed var(--outline);
         }
 
-        .quick-brand-inline {
-            background: var(--surface-variant);
-            border: 1px solid var(--outline-strong);
-            border-radius: 14px;
-            padding: 11px;
-            margin-top: 8px;
+        .dialog-box {
+            width: 100%;
+            max-width: 340px;
+            background: var(--surface);
+            border-radius: 22px;
+            padding: 20px;
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.28);
         }
 
-        /* Android Snackbar / Toast */
         .snackbar {
             position: fixed;
             left: 50%;
-            bottom: calc(var(--nav-height) + var(--safe-bottom) + 18px);
-            transform: translate(-50%, 26px);
-            z-index: 80;
-            background: #1F2937;
+            bottom: calc(var(--nav-height) + var(--safe-bottom) + 14px);
+            transform: translateX(-50%) translateY(16px);
+            background: #1E293B;
             color: #FFFFFF;
-            padding: 12px 18px;
+            padding: 11px 18px;
             border-radius: 14px;
             font-size: 13px;
             font-weight: 700;
-            box-shadow: 0 10px 26px rgba(15, 23, 42, 0.34);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            max-width: calc(100% - 28px);
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.28);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.2s ease, transform 0.2s ease;
-            max-width: calc(100vw - 28px);
-            text-align: center;
+            transition: opacity 0.18s ease, transform 0.18s ease;
+            z-index: 80;
         }
 
         .snackbar.show {
             opacity: 1;
-            transform: translate(-50%, 0);
-        }
-
-        .empty-state {
-            background: var(--surface);
-            border: 1.5px dashed var(--outline-strong);
-            border-radius: var(--radius-lg);
-            padding: 36px 20px;
-            text-align: center;
-            color: var(--text-muted);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
+            transform: translateX(-50%) translateY(0);
         }
     </style>
 </head>
 <body>
 
     <!-- ======================================================================
-         상단 Material Design 3 App Bar
+         상단 Material Design 3 App Bar (열쇠 아이콘 없음 · 상호명 직접 터치 수정)
          ====================================================================== -->
     <header class="top-app-bar">
         <div class="app-container top-bar-inner">
-            <div class="brand-wrap">
-                <div class="brand-logo" aria-hidden="true">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="7.5" cy="15.5" r="5.5"></circle>
-                        <path d="m21 2-9.6 9.6"></path>
-                        <path d="m15.5 7.5 3 3L22 7l-3-3"></path>
-                    </svg>
+            <button type="button" class="brand-edit-trigger" onclick="openBusinessModal()" aria-label="사업자명 수정">
+                <div class="brand-title-row">
+                    <div class="brand-title" id="header-business-name">친절한 열쇠 도어락</div>
+                    <span class="brand-edit-badge" aria-hidden="true">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path>
+                        </svg>
+                    </span>
                 </div>
-                <div>
-                    <div class="brand-title">친절한 열쇠 도어락</div>
-                    <div class="brand-subtitle">재고 · 브랜드 · 매출/순익 장부</div>
-                </div>
-            </div>
-            <button type="button" class="top-add-btn" onclick="openItemModal()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                <div class="brand-subtitle" id="header-subtitle">도어락 재고·순익 관리</div>
+            </button>
+
+            <!-- 상단 헤더 '+ 품목추가' 버튼 (재고 탭에서만 노출, 하단 플로팅 버튼 없음) -->
+            <button type="button" id="header-add-item-btn" class="top-add-btn" onclick="openItemModal()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="12" y1="5" x2="12" y2="19"></line>
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                 </svg>
@@ -1467,7 +1697,7 @@
     </header>
 
     <!-- ======================================================================
-         메인 콘텐츠 컨테이너
+         메인 콘텐츠 영역
          ====================================================================== -->
     <main class="app-container">
 
@@ -1475,7 +1705,7 @@
              탭 1: [재고] (Inventory & One-Touch In/Out)
              ================================================================ -->
         <section id="tab-inventory">
-            <!-- 3-카드 대시보드 요약 -->
+            <!-- 3-카드 요약 스트립 -->
             <div class="dashboard-3">
                 <div class="dash-card">
                     <span class="dash-label">총 보유 재고</span>
@@ -1493,7 +1723,7 @@
                         </svg>
                     </span>
                     <div class="dash-val text-danger"><span id="dash-low-count">0</span><span style="font-size:12px;font-weight:700;margin-left:2px;">건</span></div>
-                    <span class="dash-sub" id="dash-low-hint">안전재고 이하</span>
+                    <span class="dash-sub" id="dash-low-hint">터치해 필터링</span>
                 </button>
 
                 <div class="dash-card">
@@ -1519,39 +1749,108 @@
                 </button>
             </div>
 
-            <!-- 동적 브랜드 필터 칩 바 (전체 + 사용자 브랜드들 + ⚙️ 브랜드 편집) -->
-            <div class="chip-scroll" id="brand-filter-chips">
-                <!-- JS 동적 렌더링 -->
-            </div>
+            <!-- 가로 스크롤 브랜드 필터 칩 + 브랜드 편집 -->
+            <div class="chip-scroll" id="brand-filter-chips"></div>
 
-            <!-- 품절 임박 단독 필터 활성 시 표시되는 배너 -->
+            <!-- 품절 임박 단독 필터 배너 -->
             <div id="low-filter-banner" class="low-filter-banner hidden">
-                <span>⚠️ 안전재고 이하(품절 임박) 품목만 표시 중</span>
+                <span>안전재고 미만(품절 임박) 품목만 표시 중</span>
                 <button type="button" onclick="toggleLowStockOnly()" style="text-decoration:underline;font-weight:900;font-size:12px;">전체보기</button>
             </div>
 
             <div class="section-meta">
                 <span>조회 품목 <strong id="inventory-count" style="color:var(--text-main);">0</strong>종</span>
-                <span>원터치로 바로 입고 · 출고(시공) 처리</span>
+                <span>원터치 입고 · 출고(시공)</span>
             </div>
 
             <!-- 품목 카드 목록 -->
-            <div id="inventory-list" class="item-list">
-                <!-- JS 동적 렌더링 -->
-            </div>
+            <div id="inventory-list" class="item-list"></div>
         </section>
 
         <!-- ================================================================
-             탭 2: [매출·통계] (Weekly & Monthly Interactive Charts)
+             탭 2: [달력] 전용 월별 일별 순익 달력 (Daily Net Profit Calendar)
+             ================================================================ -->
+        <section id="tab-calendar" class="hidden">
+            <!-- 월간 순익 KPI 요약 카드 -->
+            <div class="card cal-kpi-card">
+                <div class="cal-kpi-top">
+                    <span class="cal-kpi-pill" id="cal-kpi-month-badge">2026년 11월 순익 요약</span>
+                    <span style="font-size:11.5px;font-weight:700;color:rgba(255,255,255,0.88);" id="cal-kpi-jobs-text">총 0건 시공</span>
+                </div>
+                <div class="cal-kpi-grid">
+                    <div class="cal-kpi-box">
+                        <span class="cal-kpi-label">월 총 순익</span>
+                        <span class="cal-kpi-val" id="cal-kpi-total-profit">+0원</span>
+                    </div>
+                    <div class="cal-kpi-box">
+                        <span class="cal-kpi-label">시공 일수</span>
+                        <span class="cal-kpi-val" id="cal-kpi-work-days">0일</span>
+                    </div>
+                    <div class="cal-kpi-box">
+                        <span class="cal-kpi-label">일평균 순익</span>
+                        <span class="cal-kpi-val" id="cal-kpi-avg-profit">+0원</span>
+                    </div>
+                    <button type="button" class="cal-kpi-box clickable" id="cal-kpi-best-btn" onclick="jumpToBestProfitDay()">
+                        <span class="cal-kpi-label">최고 순익일 ↗</span>
+                        <span class="cal-kpi-val" id="cal-kpi-best-day" style="font-size:14.5px;">기록 없음</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 월별 7열 달력 카드 (날짜별 순익만 간결히 표시) -->
+            <div class="card cal-main-card">
+                <div class="cal-nav-header">
+                    <div class="cal-nav-left">
+                        <button type="button" class="cal-nav-btn" onclick="changeCalendarMonth(-1)" aria-label="이전 달">‹</button>
+                        <h2 class="cal-month-title" id="cal-month-title">2026년 11월</h2>
+                        <button type="button" class="cal-nav-btn" onclick="changeCalendarMonth(1)" aria-label="다음 달">›</button>
+                    </div>
+                    <button type="button" class="cal-today-btn" onclick="goCalendarToday()">오늘</button>
+                </div>
+
+                <!-- 7열 요일 헤더 -->
+                <div class="cal-weekdays">
+                    <div class="cal-wd sun">일</div>
+                    <div class="cal-wd">월</div>
+                    <div class="cal-wd">화</div>
+                    <div class="cal-wd">수</div>
+                    <div class="cal-wd">목</div>
+                    <div class="cal-wd">금</div>
+                    <div class="cal-wd sat">토</div>
+                </div>
+
+                <!-- 7열 날짜별 순익 그리드 -->
+                <div class="cal-grid" id="cal-grid"></div>
+
+                <!-- 히트맵 범례 -->
+                <div class="cal-legend">
+                    <span>날짜를 터치해 순익 상세 확인</span>
+                    <div class="cal-legend-swatches" aria-label="순익 강도 범례">
+                        <span>낮음</span>
+                        <span class="cal-legend-box" style="background:#ECFDF5;"></span>
+                        <span class="cal-legend-box" style="background:#D1FAE5;"></span>
+                        <span class="cal-legend-box" style="background:#A7F3D0;"></span>
+                        <span class="cal-legend-box" style="background:#6EE7B7;"></span>
+                        <span>높음</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 선택일 순익 상세 카드 -->
+            <div class="card cal-detail-card" id="cal-detail-card"></div>
+        </section>
+
+        <!-- ================================================================
+             탭 3: [통계] 주별(8주)·월별(6개월) 매출/순익 그래프 & 결제수단 & TOP 5
              ================================================================ -->
         <section id="tab-analytics" class="hidden">
-            <!-- 기간 전환 Segmented Button -->
+            <!-- 기간 전환 Segmented Control -->
             <div class="segmented-control" role="tablist">
                 <button type="button" id="seg-weekly" class="seg-btn active" onclick="setAnalyticsMode('weekly')">주별 (최근 8주)</button>
                 <button type="button" id="seg-monthly" class="seg-btn" onclick="setAnalyticsMode('monthly')">월별 (최근 6개월)</button>
             </div>
 
-            <!-- 상단 KPI 요약 카드 (선택된 막대 또는 전체 기간 합계 동기화) -->
+            <!-- 상단 KPI 요약 카드 -->
             <div class="card kpi-summary-card">
                 <div class="kpi-header-row">
                     <span class="period-scope-pill" id="analytics-scope-label">최근 8주 전체 합계</span>
@@ -1581,7 +1880,7 @@
                 </div>
             </div>
 
-            <!-- 인터랙티브 순수 SVG 그룹 막대 그래프 카드 -->
+            <!-- 인터랙티브 순수 SVG 그룹 막대 그래프 -->
             <div class="card" style="margin-bottom: 14px;">
                 <div class="chart-header">
                     <h2 class="section-title">
@@ -1598,13 +1897,11 @@
                     </div>
                 </div>
 
-                <div class="svg-chart-wrap" id="svg-chart-container">
-                    <!-- JS로 순수 SVG 렌더링 -->
-                </div>
-                <div class="chart-hint">막대를 터치하면 해당 기간의 매출·결제·인기모델만 집계됩니다. (다시 누르면 전체 합계)</div>
+                <div class="svg-chart-wrap" id="svg-chart-container"></div>
+                <div class="chart-hint">막대를 터치하면 해당 기간의 매출·결제·인기모델만 집계됩니다. (재터치 시 전체 합계)</div>
             </div>
 
-            <!-- 결제수단별 정산 비율 카드 -->
+            <!-- 결제수단별 정산 현황 -->
             <div class="card" style="margin-bottom: 14px;">
                 <div class="chart-header" style="margin-bottom: 4px;">
                     <h2 class="section-title">
@@ -1623,9 +1920,7 @@
                     <div class="stacked-seg" id="bar-cash" style="width:0%; background:#E65100;"></div>
                 </div>
 
-                <div id="pay-breakdown-rows">
-                    <!-- JS 동적 렌더링 -->
-                </div>
+                <div id="pay-breakdown-rows"></div>
             </div>
 
             <!-- 인기 시공 모델 TOP 5 -->
@@ -1644,24 +1939,20 @@
                     </h2>
                     <span style="font-size:11px;font-weight:700;color:var(--text-muted);" id="top-scope-badge">전체</span>
                 </div>
-                <div id="top-models-list">
-                    <!-- JS 동적 렌더링 -->
-                </div>
+                <div id="top-models-list"></div>
             </div>
         </section>
 
         <!-- ================================================================
-             탭 3: [이력] (Transaction History)
+             탭 4: [이력] 입출고 이력 및 재고 원복 삭제
              ================================================================ -->
         <section id="tab-history" class="hidden" style="padding-top: 12px;">
-            <!-- 1차 필터: 전체 / 출고(시공) / 입고 -->
             <div class="chip-scroll" id="history-type-chips" style="padding-bottom: 6px;">
                 <button type="button" class="filter-chip active" data-htype="ALL" onclick="setHistoryTypeFilter('ALL')">전체</button>
                 <button type="button" class="filter-chip" data-htype="OUT" onclick="setHistoryTypeFilter('OUT')">출고(시공)</button>
                 <button type="button" class="filter-chip" data-htype="IN" onclick="setHistoryTypeFilter('IN')">입고</button>
             </div>
 
-            <!-- 2차 필터: 결제수단별 -->
             <div class="chip-scroll" id="history-pay-chips" style="padding-bottom: 10px;">
                 <button type="button" class="filter-chip secondary-chip active" data-hpay="ALL" onclick="setHistoryPayFilter('ALL')">전체결제</button>
                 <button type="button" class="filter-chip secondary-chip" data-hpay="card" onclick="setHistoryPayFilter('card')">💳 카드</button>
@@ -1669,44 +1960,81 @@
                 <button type="button" class="filter-chip secondary-chip" data-hpay="cash" onclick="setHistoryPayFilter('cash')">💵 현금</button>
             </div>
 
-            <!-- 이력 요약 바 -->
             <div class="history-summary-bar">
                 <span>조회 <strong id="history-count">0</strong>건</span>
                 <span id="history-money-summary">매출 0원 · 순익 0원</span>
             </div>
 
-            <!-- 입출고 목록 -->
-            <div id="history-list">
-                <!-- JS 동적 렌더링 -->
-            </div>
+            <div id="history-list"></div>
         </section>
 
         <!-- ================================================================
-             탭 4: [관리] (Brand Management, Backup/Export & PWA)
+             탭 5: [관리] 사업자 정보 · 브랜드 · 품목 등록 · 백업 · PWA · 초기화
              ================================================================ -->
         <section id="tab-settings" class="hidden">
             <div class="settings-stack">
-
-                <!-- 🏷️ 브랜드 관리 전용 카드 -->
+                <!-- 사업자 정보 설정 카드 -->
                 <div class="card">
                     <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
                         <h2 class="section-title">
-                            <span>🏷️ 브랜드 관리</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+                                <path d="M9 22v-4h6v4"></path>
+                                <path d="M8 6h.01"></path>
+                                <path d="M16 6h.01"></path>
+                                <path d="M12 6h.01"></path>
+                                <path d="M12 10h.01"></path>
+                                <path d="M12 14h.01"></path>
+                                <path d="M16 10h.01"></path>
+                                <path d="M16 14h.01"></path>
+                                <path d="M8 10h.01"></path>
+                                <path d="M8 14h.01"></path>
+                            </svg>
+                            <span>사업자 정보 설정</span>
+                        </h2>
+                        <button type="button" class="btn btn-tonal-primary" style="min-height:36px;padding:0 14px;font-size:12.5px;border-radius:11px;" onclick="openBusinessModal()">
+                            수정
+                        </button>
+                    </div>
+                    <p style="font-size:12px;color:var(--text-muted);margin-top:6px;line-height:1.5;">
+                        상호명을 변경하면 앱 상단 제목, 홈 화면 모노그램 앱 아이콘, 엑셀·JSON 백업 파일명에 자동 반영됩니다.
+                    </p>
+                    <div class="biz-preview-box">
+                        <div style="min-width:0;">
+                            <div id="settings-biz-name" style="font-size:15.5px;font-weight:900;color:var(--text-main);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">친절한 열쇠 도어락</div>
+                            <div id="settings-biz-subtitle" style="font-size:12px;font-weight:600;color:var(--text-muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">도어락 재고·순익 관리</div>
+                        </div>
+                        <span class="badge" style="background:var(--secondary-container);color:var(--on-secondary-container);">적용 중</span>
+                    </div>
+                </div>
+
+                <!-- 브랜드 및 품목 관리 카드 -->
+                <div class="card">
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+                        <h2 class="section-title">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                                <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                            </svg>
+                            <span>브랜드 · 품목 관리</span>
                         </h2>
                         <span class="badge" id="settings-brand-count-badge" style="background:var(--primary-container);color:var(--on-primary-container);">총 5개</span>
                     </div>
                     <p style="font-size:12px;color:var(--text-muted);margin-top:6px;line-height:1.5;">
-                        도어락 브랜드를 임의로 추가하거나 이름·배지 색상·정렬 순서를 변경하고, 쓰지 않는 브랜드를 안전하게 삭제할 수 있습니다.
+                        브랜드를 추가·수정·순서변경·삭제하거나 새 도어락 모델 및 공용 부자재를 등록할 수 있습니다.
                     </p>
-                    <div id="settings-brand-pills" class="brand-preview-pills">
-                        <!-- JS 동적 렌더링 -->
+                    <div id="settings-brand-pills" class="brand-preview-pills"></div>
+                    <div class="action-grid" style="margin-top:0;">
+                        <button type="button" class="btn btn-tonal-primary" style="font-size:13px;" onclick="openBrandManagerModal()">
+                            <span>브랜드 편집</span>
+                        </button>
+                        <button type="button" class="btn btn-primary" style="font-size:13px;" onclick="openItemModal()">
+                            <span>+ 새 품목 등록</span>
+                        </button>
                     </div>
-                    <button type="button" class="btn btn-tonal-primary full-width" onclick="openBrandManagerModal()">
-                        <span>⚙️ 브랜드 추가 · 편집 · 삭제하기</span>
-                    </button>
                 </div>
 
-                <!-- 엑셀 CSV 내보내기 & JSON 백업/복원 카드 -->
+                <!-- 엑셀(CSV) 내보내기 & JSON 백업/복원 -->
                 <div class="card">
                     <h2 class="section-title" style="margin-bottom:6px;">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
@@ -1717,7 +2045,7 @@
                         <span>장부 내보내기 및 백업·복원</span>
                     </h2>
                     <p style="font-size:12px;color:var(--text-muted);line-height:1.5;">
-                        브랜드·품목·입출고 내역이 기기에 자동 저장됩니다. 세무 정산용 엑셀(CSV) 다운로드 및 JSON 전체 백업/복원을 지원합니다.
+                        모든 데이터는 기기 내부에 자동 저장됩니다. 세무·정산용 엑셀(CSV) 내보내기 및 JSON 전체 백업/복원을 지원합니다.
                     </p>
 
                     <button type="button" onclick="exportCSV()" class="btn btn-teal full-width" style="margin-top:14px;">
@@ -1751,7 +2079,7 @@
                     </div>
                 </div>
 
-                <!-- 안드로이드 PWA 설치 가이드 카드 -->
+                <!-- 안드로이드 PWA 설치 가이드 -->
                 <div class="card install-card">
                     <div class="offline-pill">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1762,9 +2090,8 @@
                     </div>
                     <h2 style="font-size:17px;font-weight:900;margin-bottom:6px;">안드로이드 홈 화면에 앱으로 설치</h2>
                     <p style="font-size:12px;color:rgba(255,255,255,0.88);line-height:1.5;">
-                        플레이스토어 설치 없이 안드로이드 바탕화면에 아이콘을 추가해 일반 앱처럼 전체화면으로 실행할 수 있습니다.
+                        안드로이드 Chrome에서 홈 화면에 추가하면 주소창 없는 네이티브 앱처럼 즉시 실행할 수 있습니다.
                     </p>
-
                     <div class="install-step">
                         <span class="step-num">1</span>
                         <span>안드로이드 <strong>Chrome</strong> 우측 상단 <strong>⋮ (메뉴)</strong> 버튼을 누릅니다.</span>
@@ -1775,9 +2102,8 @@
                     </div>
                     <div class="install-step">
                         <span class="step-num">3</span>
-                        <span>바탕화면에 생성된 <strong>'친절한도어락'</strong> 아이콘으로 바로 실행하세요.</span>
+                        <span>바탕화면의 <strong id="pwa-install-short-name">'친절한 열쇠 도어락'</strong> 아이콘으로 바로 실행하세요.</span>
                     </div>
-
                     <button type="button" id="pwa-install-btn" onclick="triggerPwaInstall()" class="btn full-width" style="margin-top:15px;background:#FFFFFF;color:#1976D2;">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -1788,7 +2114,7 @@
                     </button>
                 </div>
 
-                <!-- 초기화 카드 -->
+                <!-- 데이터 초기화 -->
                 <div class="card">
                     <h2 class="section-title" style="margin-bottom:6px;">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
@@ -1798,7 +2124,7 @@
                         <span>데이터 초기화</span>
                     </h2>
                     <p style="font-size:12px;color:var(--text-muted);line-height:1.5;">
-                        실사용 시작 전 샘플 입출고 이력만 비우거나, 기본 브랜드·품목 샘플 상태로 되돌릴 수 있습니다.
+                        실제 영업을 시작할 때 샘플 이력만 비우거나 전체 장부를 초기화할 수 있습니다.
                     </p>
                     <div class="action-grid">
                         <button type="button" onclick="confirmResetSample()" class="btn btn-neutral" style="font-size:13px;">
@@ -1808,10 +2134,13 @@
                             이력만 전체 비우기
                         </button>
                     </div>
+                    <button type="button" onclick="confirmEmptyStart()" class="btn btn-danger-soft full-width" style="margin-top:10px;font-size:13px;">
+                        빈 장부로 새로 시작 (품목·이력 비우기)
+                    </button>
                 </div>
 
-                <div style="text-align:center;padding:6px 0 4px;font-size:11px;color:var(--text-muted);font-weight:600;">
-                    친절한 열쇠 도어락 v3.0 · Custom Brands & Material 3 Offline PWA
+                <div style="text-align:center;padding:4px 0 6px;font-size:11px;color:var(--text-muted);font-weight:600;">
+                    <span id="settings-footer-biz">친절한 열쇠 도어락</span> v4.2 · Material 3 Offline PWA
                 </div>
             </div>
         </section>
@@ -1819,60 +2148,60 @@
     </main>
 
     <!-- ======================================================================
-         FAB (+ 품목) — 재고 탭 전용
+         하단 5-탭 Android Material Design 3 Navigation Bar (플로팅 버튼 없음)
          ====================================================================== -->
-    <button type="button" id="fab-add-item" class="fab" onclick="openItemModal()">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-        <span>품목</span>
-    </button>
-
-    <!-- ======================================================================
-         하단 Material 3 고정 내비게이션 바 (4탭)
-         ====================================================================== -->
-    <nav class="bottom-nav" aria-label="하단 내비게이션">
+    <nav class="bottom-nav" aria-label="하단 메뉴">
         <div class="bottom-nav-inner">
-            <button type="button" class="nav-item active" id="nav-inventory" onclick="switchTab('inventory')">
+            <button type="button" id="nav-inventory" class="nav-item active" onclick="switchTab('inventory')">
                 <span class="nav-pill">
-                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path>
-                        <path d="m3.3 7 8.7 5 8.7-5"></path>
-                        <path d="M12 22V12"></path>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
                     </svg>
                 </span>
                 <span>재고</span>
             </button>
 
-            <button type="button" class="nav-item" id="nav-analytics" onclick="switchTab('analytics')">
+            <button type="button" id="nav-calendar" class="nav-item" onclick="switchTab('calendar')">
                 <span class="nav-pill">
-                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 3v18h18"></path>
-                        <rect width="4" height="7" x="7" y="10" rx="1"></rect>
-                        <rect width="4" height="12" x="15" y="5" rx="1"></rect>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
                     </svg>
                 </span>
-                <span>매출·통계</span>
+                <span>달력</span>
             </button>
 
-            <button type="button" class="nav-item" id="nav-history" onclick="switchTab('history')">
+            <button type="button" id="nav-analytics" class="nav-item" onclick="switchTab('analytics')">
                 <span class="nav-pill">
-                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
-                        <line x1="8" y1="13" x2="16" y2="13"></line>
-                        <line x1="8" y1="17" x2="13" y2="17"></line>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                </span>
+                <span>통계</span>
+            </button>
+
+            <button type="button" id="nav-history" class="nav-item" onclick="switchTab('history')">
+                <span class="nav-pill">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16l3-2 3 2 2-1.5L14 20l3-2 3 2V8z"></path>
+                        <line x1="8" y1="10" x2="16" y2="10"></line>
+                        <line x1="8" y1="14" x2="13" y2="14"></line>
                     </svg>
                 </span>
                 <span>이력</span>
             </button>
 
-            <button type="button" class="nav-item" id="nav-settings" onclick="switchTab('settings')">
+            <button type="button" id="nav-settings" class="nav-item" onclick="switchTab('settings')">
                 <span class="nav-pill">
-                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="3"></circle>
-                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z"></path>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
                     </svg>
                 </span>
                 <span>관리</span>
@@ -1881,62 +2210,17 @@
     </nav>
 
     <!-- ======================================================================
-         바텀시트 1: 브랜드 관리 (추가 · 이름/색상 수정 · 순서 변경 · 안전한 삭제)
-         ====================================================================== -->
-    <div id="brand-modal" class="modal-backdrop hidden" onclick="backdropClose(event, 'brand-modal')">
-        <div class="bottom-sheet">
-            <div class="sheet-handle"></div>
-            <div class="sheet-header">
-                <div>
-                    <h3 style="font-size:18px;font-weight:900;">🏷️ 브랜드 관리</h3>
-                    <p style="font-size:12px;color:var(--text-muted);margin-top:2px;">브랜드를 추가·수정·순서변경·삭제하면 앱 전체에 즉시 반영됩니다.</p>
-                </div>
-                <button type="button" class="icon-btn" onclick="closeModal('brand-modal')" aria-label="닫기">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </div>
-
-            <!-- 새 브랜드 추가 폼 -->
-            <div class="brand-add-box">
-                <label class="form-label">새 브랜드 추가</label>
-                <div style="display:flex;gap:8px;">
-                    <input type="text" id="new-brand-name" class="form-input" style="background:#FFFFFF;" placeholder="새 브랜드명 (예: 밀레, 유니코, 코콤)" onkeydown="if(event.key==='Enter'){event.preventDefault();addNewBrand();}">
-                    <button type="button" class="btn btn-primary" style="flex-shrink:0;padding:0 18px;" onclick="addNewBrand()">추가</button>
-                </div>
-                <div style="margin-top:8px;">
-                    <span style="font-size:11px;font-weight:700;color:var(--text-muted);">배지 색상 선택</span>
-                    <div class="swatch-row" id="new-brand-swatches">
-                        <!-- JS 렌더링 -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- 등록된 브랜드 목록 (순서 변경 · 인라인 수정 · 품목 이동 후 삭제) -->
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                <span class="form-label" style="margin-bottom:0;">등록된 브랜드 목록 (<span id="brand-modal-count">0</span>개)</span>
-                <span style="font-size:11px;color:var(--text-muted);font-weight:600;">▲▼ 버튼으로 필터 순서 변경</span>
-            </div>
-            <div id="brand-manage-list">
-                <!-- JS 동적 렌더링 -->
-            </div>
-        </div>
-    </div>
-
-    <!-- ======================================================================
-         바텀시트 2: 출고(시공) / 입고 처리
+         바텀시트 1: 원터치 입고 / 출고(시공) 등록
          ====================================================================== -->
     <div id="tx-modal" class="modal-backdrop hidden" onclick="backdropClose(event, 'tx-modal')">
         <div class="bottom-sheet">
             <div class="sheet-handle"></div>
             <div class="sheet-header">
-                <div>
-                    <span id="tx-mode-badge" class="badge" style="margin-bottom:6px;">출고(시공)</span>
-                    <h3 id="tx-item-title" style="font-size:17px;font-weight:900;line-height:1.3;">품목명</h3>
-                    <div style="font-size:12px;color:var(--text-muted);margin-top:3px;font-weight:600;">
-                        현재 재고 <strong id="tx-stock-now" style="color:var(--text-main);">0</strong>개 · 매입가 <strong id="tx-unit-cost-text">0원</strong>
+                <div style="min-width:0;">
+                    <span id="tx-mode-badge" class="badge" style="margin-bottom:5px;">출고 (현장 시공)</span>
+                    <h3 id="tx-item-title" style="font-size:17px;font-weight:900;letter-spacing:-0.3px;">모델명</h3>
+                    <div style="font-size:12px;color:var(--text-muted);font-weight:700;margin-top:2px;">
+                        현재 재고 <strong id="tx-stock-now" style="color:var(--text-main);">0</strong>개 · 매입단가 <strong id="tx-unit-cost-text">0원</strong>
                     </div>
                 </div>
                 <button type="button" class="icon-btn" onclick="closeModal('tx-modal')" aria-label="닫기">
@@ -1952,85 +2236,78 @@
                 <input type="hidden" id="tx-mode">
                 <input type="hidden" id="tx-payment" value="card">
 
-                <!-- 수량 & 날짜 -->
-                <div class="form-row-2" style="margin-bottom: 14px;">
-                    <div>
-                        <label class="form-label">수량</label>
-                        <div class="stepper">
-                            <button type="button" class="stepper-btn" onclick="stepTxQty(-1)">−</button>
-                            <input type="number" id="tx-qty" class="form-input stepper-input" value="1" min="1" required oninput="onTxQtyChange()">
-                            <button type="button" class="stepper-btn" onclick="stepTxQty(1)">+</button>
+                <!-- 수량 스테퍼 & 날짜 -->
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label" for="tx-qty">수량 (개)</label>
+                        <div class="stepper-row">
+                            <button type="button" class="stepper-btn" onclick="stepTxQty(-1)" aria-label="수량 감소">−</button>
+                            <input type="number" id="tx-qty" class="form-input" min="1" value="1" style="text-align:center;font-size:17px;" oninput="onTxQtyChange()" required>
+                            <button type="button" class="stepper-btn" onclick="stepTxQty(1)" aria-label="수량 증가">+</button>
                         </div>
                     </div>
-                    <div>
-                        <label class="form-label" id="tx-date-label">시공 날짜</label>
-                        <input type="date" id="tx-date" class="form-input" style="font-size:14px;" required>
+                    <div class="form-group">
+                        <label class="form-label" id="tx-date-label" for="tx-date">시공 날짜</label>
+                        <input type="date" id="tx-date" class="form-input" required>
                     </div>
                 </div>
 
-                <!-- 출고(시공) 전용: 결제수단 3종 + 최종 결제금액 + 실시간 순익 -->
+                <!-- 출고(시공) 전용: 최종 결제금액, 빠른 가감, 순익 미리보기, 결제수단 -->
                 <div id="tx-out-section">
                     <div class="form-group">
-                        <label class="form-label">결제수단 선택 *</label>
-                        <div class="payment-selector" role="radiogroup" aria-label="결제수단">
+                        <label class="form-label" for="tx-revenue">최종 결제 금액 (원)</label>
+                        <input type="number" id="tx-revenue" class="form-input" min="0" step="1000" style="font-size:18px;font-weight:900;color:var(--primary);" oninput="updateProfitPreview()">
+                        <div class="adj-btn-row">
+                            <button type="button" class="adj-btn" onclick="adjustTxAmount(-20000)">−2만</button>
+                            <button type="button" class="adj-btn" onclick="adjustTxAmount(-10000)">−1만</button>
+                            <button type="button" class="adj-btn" onclick="adjustTxAmount(10000)">+1만</button>
+                            <button type="button" class="adj-btn" onclick="adjustTxAmount(20000)">+2만</button>
+                        </div>
+                    </div>
+
+                    <div id="profit-preview-box" class="profit-preview-box">
+                        <div>
+                            <div style="font-size:11px;font-weight:800;color:var(--text-muted);">예상 순익 (원가 <span id="preview-cost-val">0원</span>)</div>
+                            <div id="preview-profit-val" style="font-size:19px;font-weight:900;color:var(--secondary);">+0원</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="font-size:11px;font-weight:800;color:var(--text-muted);">마진율</div>
+                            <div id="preview-margin-val" style="font-size:16px;font-weight:900;color:var(--secondary);">0.0%</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">결제 수단</label>
+                        <div class="pay-toggle-grid">
                             <button type="button" class="pay-toggle-btn active" data-method="card" onclick="selectPaymentMethod('card')">
-                                <span class="pay-emoji">💳</span>
+                                <span style="font-size:18px;">💳</span>
                                 <span>카드</span>
                             </button>
                             <button type="button" class="pay-toggle-btn" data-method="transfer" onclick="selectPaymentMethod('transfer')">
-                                <span class="pay-emoji">🏦</span>
+                                <span style="font-size:18px;">🏦</span>
                                 <span>계좌이체</span>
                             </button>
                             <button type="button" class="pay-toggle-btn" data-method="cash" onclick="selectPaymentMethod('cash')">
-                                <span class="pay-emoji">💵</span>
+                                <span style="font-size:18px;">💵</span>
                                 <span>현금</span>
                             </button>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="form-label">최종 결제금액 (원)</label>
-                        <input type="number" id="tx-revenue" class="form-input" min="0" step="1000" required oninput="updateProfitPreview()" style="font-size:18px;font-weight:900;color:var(--primary);">
-                        <div class="quick-tags">
-                            <button type="button" class="quick-tag-btn" onclick="adjustTxAmount(-20000)">−2만</button>
-                            <button type="button" class="quick-tag-btn" onclick="adjustTxAmount(-10000)">−1만</button>
-                            <button type="button" class="quick-tag-btn" onclick="adjustTxAmount(10000)">+1만</button>
-                            <button type="button" class="quick-tag-btn" onclick="adjustTxAmount(20000)">+2만</button>
-                        </div>
-
-                        <!-- 실시간 예상 원가 / 순이익 / 마진율 -->
-                        <div id="profit-preview-box" class="profit-preview">
-                            <div>
-                                <div style="font-size:10.5px;font-weight:700;color:var(--text-sub);">예상 원가</div>
-                                <div id="preview-cost-val" style="font-size:13.5px;font-weight:800;margin-top:2px;">0원</div>
-                            </div>
-                            <div>
-                                <div style="font-size:10.5px;font-weight:700;color:var(--text-sub);">예상 순이익</div>
-                                <div id="preview-profit-val" style="font-size:14px;font-weight:900;color:var(--secondary);margin-top:2px;">+0원</div>
-                            </div>
-                            <div>
-                                <div style="font-size:10.5px;font-weight:700;color:var(--text-sub);">마진율</div>
-                                <div id="preview-margin-val" style="font-size:14px;font-weight:900;color:var(--secondary);margin-top:2px;">0%</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
-                <!-- 입고 전용: 입고 매입단가 -->
+                <!-- 입고 전용: 매입 단가 수정 -->
                 <div id="tx-in-section" class="hidden">
                     <div class="form-group">
-                        <label class="form-label">매입 단가 (개당 원)</label>
+                        <label class="form-label" for="tx-in-cost">입고 개당 매입단가 (원)</label>
                         <input type="number" id="tx-in-cost" class="form-input" min="0" step="1000">
                     </div>
                 </div>
 
-                <!-- 현장 메모 & 빠른 태그 -->
+                <!-- 현장 메모 + 빠른 태그 -->
                 <div class="form-group">
-                    <label class="form-label" id="tx-memo-label">현장 주소 / 시공 메모</label>
-                    <input type="text" id="tx-memo" class="form-input" placeholder="예: 김포 한강메트로자이 204동 1201호">
-                    <div class="quick-tags" id="tx-quick-tags">
-                        <!-- JS 렌더링 -->
-                    </div>
+                    <label class="form-label" id="tx-memo-label" for="tx-memo">현장 주소 / 시공 메모</label>
+                    <input type="text" id="tx-memo" class="form-input" placeholder="예: 김포 한강메트로자이 2단지">
+                    <div id="tx-quick-tags" class="quick-tag-wrap"></div>
                 </div>
 
                 <button type="submit" id="tx-submit-btn" class="btn btn-primary full-width" style="min-height:52px;font-size:15px;">
@@ -2041,7 +2318,7 @@
     </div>
 
     <!-- ======================================================================
-         바텀시트 3: 품목 추가 / 수정 (+ 새 브랜드 빠른 추가 내장)
+         바텀시트 2: 품목 추가 / 수정 (+ 새 브랜드 빠른 추가 내장)
          ====================================================================== -->
     <div id="item-modal" class="modal-backdrop hidden" onclick="backdropClose(event, 'item-modal')">
         <div class="bottom-sheet">
@@ -2059,75 +2336,150 @@
             <form id="item-form" onsubmit="saveItem(event)">
                 <input type="hidden" id="edit-item-id">
 
-                <!-- 브랜드 선택 + 새 브랜드 빠른 추가 버튼 -->
-                <div class="form-group">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                        <label class="form-label" style="margin-bottom:0;">브랜드 *</label>
-                        <button type="button" class="quick-tag-btn" style="color:var(--primary);border-color:#93C5FD;background:var(--primary-container);" onclick="toggleQuickBrandAdd()">+ 새 브랜드</button>
-                    </div>
-                    <select id="item-brand-select" class="form-select" required>
-                        <!-- JS 동적 렌더링 -->
-                    </select>
-
-                    <!-- 인라인 빠른 브랜드 추가 패널 -->
-                    <div id="quick-brand-box" class="quick-brand-inline hidden">
-                        <div style="display:flex;gap:6px;">
-                            <input type="text" id="quick-brand-name" class="form-input" style="height:42px;background:#FFFFFF;font-size:14px;" placeholder="새 브랜드명 (예: 밀레, 유니코)">
-                            <button type="button" class="btn btn-primary" style="min-height:42px;padding:0 14px;font-size:13px;" onclick="submitQuickBrandAdd()">추가</button>
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                            <label class="form-label" for="item-brand-select" style="margin-bottom:0;">브랜드</label>
+                            <button type="button" onclick="toggleQuickBrandAdd()" style="font-size:11.5px;font-weight:800;color:var(--primary);">+ 새 브랜드</button>
                         </div>
-                        <div class="swatch-row" id="quick-brand-swatches" style="margin-bottom:0;">
-                            <!-- JS 렌더링 -->
-                        </div>
+                        <select id="item-brand-select" class="form-select"></select>
                     </div>
-                </div>
-
-                <div class="form-row-2 form-group">
-                    <div>
-                        <label class="form-label">제품 분류 *</label>
-                        <select id="item-type" class="form-select" required>
+                    <div class="form-group">
+                        <label class="form-label" for="item-type">제품 분류</label>
+                        <select id="item-type" class="form-select">
                             <option value="푸시풀">푸시풀</option>
                             <option value="주키">주키</option>
                             <option value="보조키">보조키</option>
+                            <option value="유리문">유리문</option>
+                            <option value="샷시문">샷시문</option>
                             <option value="부자재">부자재</option>
                         </select>
                     </div>
-                    <div>
-                        <label class="form-label">안전재고 기준 (개) *</label>
+                </div>
+
+                <!-- 새 브랜드 인라인 빠른 추가 패널 -->
+                <div id="quick-brand-box" class="hidden" style="background:var(--surface-variant);border:1px solid var(--outline-strong);border-radius:14px;padding:12px;margin-bottom:13px;">
+                    <div style="font-size:12px;font-weight:800;color:var(--text-sub);margin-bottom:7px;">새 브랜드 바로 추가</div>
+                    <div style="display:flex;gap:8px;">
+                        <input type="text" id="quick-brand-name" class="form-input" style="height:40px;font-size:13.5px;background:#FFFFFF;" placeholder="예: 직방, 밀레, 에버넷">
+                        <button type="button" class="btn btn-primary" style="min-height:40px;padding:0 14px;font-size:13px;flex-shrink:0;" onclick="submitQuickBrandAdd()">추가</button>
+                    </div>
+                    <div class="swatch-row" id="quick-brand-swatches"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="item-name">모델명 / 품목명 *</label>
+                    <input type="text" id="item-name" class="form-input" required placeholder="예: 솔리티 GP-7000BK">
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label" for="item-stock">현재 재고 (개)</label>
+                        <input type="number" id="item-stock" class="form-input" min="0" value="2" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="item-min-stock">안전 재고 알림 기준 (개)</label>
                         <input type="number" id="item-min-stock" class="form-input" min="0" value="2" required>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">모델명 / 품목명 *</label>
-                    <input type="text" id="item-name" class="form-input" required placeholder="예: 솔리티 안면인식 푸시풀 GP-7000BK">
-                </div>
-
-                <div class="form-row-2 form-group">
-                    <div>
-                        <label class="form-label">현재 재고 (개) *</label>
-                        <input type="number" id="item-stock" class="form-input" min="0" value="2" required>
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label" for="item-cost">매입 원가 (원)</label>
+                        <input type="number" id="item-cost" class="form-input" min="0" step="1000" required placeholder="200000">
                     </div>
-                    <div>
-                        <label class="form-label">매입가 (원) *</label>
-                        <input type="number" id="item-cost" class="form-input" min="0" step="1000" placeholder="150000" required>
+                    <div class="form-group">
+                        <label class="form-label" for="item-price">기본 시공가 (원)</label>
+                        <input type="number" id="item-price" class="form-input" min="0" step="1000" required placeholder="340000">
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">기본 시공가 (원) *</label>
-                    <input type="number" id="item-price" class="form-input" min="0" step="1000" placeholder="250000" required>
-                </div>
-
-                <div style="display:flex;gap:10px;margin-top:16px;">
-                    <button type="button" id="item-delete-btn" class="btn btn-danger-soft hidden" onclick="confirmDeleteItem()" style="padding:0 18px;">삭제</button>
-                    <button type="submit" class="btn btn-primary" style="flex:1;min-height:52px;">저장하기</button>
+                <div style="display:flex;gap:10px;margin-top:6px;">
+                    <button type="button" id="item-delete-btn" class="btn btn-danger-soft hidden" style="flex:1;min-height:50px;" onclick="confirmDeleteItem()">삭제</button>
+                    <button type="submit" class="btn btn-primary" style="flex:2;min-height:50px;">저장하기</button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- ======================================================================
-         커스텀 확인 다이얼로그 (alert / confirm 완전 대체)
+         바텀시트 3: 커스텀 브랜드 관리 (추가 · 수정 · 순서변경 · 안전삭제)
+         ====================================================================== -->
+    <div id="brand-modal" class="modal-backdrop hidden" onclick="backdropClose(event, 'brand-modal')">
+        <div class="bottom-sheet">
+            <div class="sheet-handle"></div>
+            <div class="sheet-header">
+                <div>
+                    <h3 style="font-size:18px;font-weight:900;">브랜드 관리 (<span id="brand-modal-count">0</span>)</h3>
+                    <p style="font-size:12px;color:var(--text-muted);margin-top:2px;">추가·수정·순서변경·삭제가 재고 및 이력에 즉시 반영됩니다.</p>
+                </div>
+                <button type="button" class="icon-btn" onclick="closeModal('brand-modal')" aria-label="닫기">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- 새 브랜드 추가 카드 -->
+            <div style="background:var(--surface-variant);border:1px solid var(--outline);border-radius:16px;padding:12px;margin-bottom:14px;">
+                <label class="form-label" for="new-brand-name">새 브랜드 추가</label>
+                <div style="display:flex;gap:8px;">
+                    <input type="text" id="new-brand-name" class="form-input" style="height:42px;background:#FFFFFF;font-size:14px;" placeholder="브랜드명 입력 (예: 직방, 밀레)" onkeydown="if(event.key==='Enter'){event.preventDefault();addNewBrand();}">
+                    <button type="button" class="btn btn-primary" style="min-height:42px;padding:0 16px;flex-shrink:0;" onclick="addNewBrand()">추가</button>
+                </div>
+                <div class="swatch-row" id="new-brand-swatches"></div>
+            </div>
+
+            <!-- 브랜드 목록 -->
+            <div id="brand-manage-list"></div>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         바텀시트 4: 사업자 정보(상호명 · 부제목) 수정
+         ====================================================================== -->
+    <div id="business-modal" class="modal-backdrop hidden" onclick="backdropClose(event, 'business-modal')">
+        <div class="bottom-sheet">
+            <div class="sheet-handle"></div>
+            <div class="sheet-header">
+                <div>
+                    <h3 style="font-size:18px;font-weight:900;">사업자 정보 수정</h3>
+                    <p style="font-size:12px;color:var(--text-muted);margin-top:2px;">상호명과 한 줄 소개를 원하시는 이름으로 변경할 수 있습니다.</p>
+                </div>
+                <button type="button" class="icon-btn" onclick="closeModal('business-modal')" aria-label="닫기">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <form id="business-form" onsubmit="saveBusinessProfile(event)">
+                <div class="form-group">
+                    <label class="form-label" for="biz-name-input">사업자명 (상호명) *</label>
+                    <input type="text" id="biz-name-input" class="form-input" maxlength="30" required placeholder="예: 친절한 열쇠 도어락">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="biz-subtitle-input">상단 한 줄 소개 (선택)</label>
+                    <input type="text" id="biz-subtitle-input" class="form-input" maxlength="40" placeholder="예: 도어락 재고·순익 관리 (비우면 탭별 안내 표시)">
+                </div>
+
+                <div style="background:var(--surface-variant);border-radius:12px;padding:10px 12px;font-size:11.5px;color:var(--text-sub);line-height:1.5;margin-bottom:16px;">
+                    저장 시 상단 헤더, 브라우저 제목, 홈 화면 추가 앱 이름 및 첫 글자 모노그램 아이콘, 엑셀(CSV)·JSON 백업 파일명에 즉시 반영됩니다.
+                </div>
+
+                <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:10px;">
+                    <button type="button" class="btn btn-neutral" style="min-height:50px;" onclick="resetBusinessFormDefault()">기본값</button>
+                    <button type="submit" class="btn btn-primary" style="min-height:50px;">저장하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         커스텀 확인 다이얼로그 (alert / confirm 대체)
          ====================================================================== -->
     <div id="confirm-modal" class="modal-backdrop center-modal hidden" onclick="backdropClose(event, 'confirm-modal')">
         <div class="dialog-box">
@@ -2140,94 +2492,165 @@
         </div>
     </div>
 
-    <!-- Android Snackbar / Toast -->
+    <!-- Android Snackbar -->
     <div id="snackbar" class="snackbar" role="status" aria-live="polite">
         <span id="snackbar-text">처리되었습니다.</span>
     </div>
 
     <script>
         /* ==========================================================================
-           1. 안드로이드 PWA 동적 Web App Manifest 등록 & 설치 프롬프트 핸들러
+           1. 동적 머티리얼 모노그램 앱 아이콘 & PWA Manifest 등록
            ========================================================================== */
         let deferredPrompt = null;
+        let currentManifestBlobUrl = null;
 
-        (function setupDynamicPwaManifest() {
+        /**
+         * 사업자명의 첫 글자(예: '친')를 인디고/블루 그라데이션 둥근 사각형에 담은
+         * 100% 오프라인 인라인 SVG Data URI 생성 (열쇠 아이콘 없음)
+         */
+        function buildMonogramIconDataUri(bizName) {
+            const clean = String(bizName || "친절한 열쇠 도어락").trim();
+            const firstChar = Array.from(clean)[0] || "친";
+            const safeChar = firstChar
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">` +
+                `<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">` +
+                `<stop offset="0%" stop-color="#3949AB"/>` +
+                `<stop offset="100%" stop-color="#1976D2"/>` +
+                `</linearGradient></defs>` +
+                `<rect width="512" height="512" rx="116" fill="url(#g)"/>` +
+                `<text x="256" y="282" text-anchor="middle" dominant-baseline="central" fill="#FFFFFF" ` +
+                `font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="250" font-weight="800">${safeChar}</text>` +
+                `</svg>`;
+            return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+        }
+
+        function updateDynamicPwaManifest(bizName, bizSubtitle) {
             try {
-                const iconSvg = "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='116' fill='%231976D2'/%3E%3Ccircle cx='208' cy='208' r='82' fill='none' stroke='%23FFD54F' stroke-width='38'/%3E%3Cpath d='M266 266 L398 398 M340 340 L384 296 M376 376 L414 338' stroke='%23FFD54F' stroke-width='38' stroke-linecap='round'/%3E%3C/svg%3E";
+                const displayName = String(bizName || "친절한 열쇠 도어락").trim() || "친절한 열쇠 도어락";
+                const subtitle = String(bizSubtitle || "도어락 재고·순익 관리").trim() || "도어락 재고·순익 관리";
+                const shortName = displayName.length > 12 ? displayName.slice(0, 12) : displayName;
+                const iconUri = buildMonogramIconDataUri(displayName);
+
+                // 파비콘 및 애플 터치 아이콘 동적 갱신
+                const favLink = document.getElementById("favicon-link");
+                if (favLink) favLink.href = iconUri;
+                const appleIcon = document.getElementById("apple-icon-link");
+                if (appleIcon) appleIcon.href = iconUri;
+
                 const manifest = {
-                    name: "친절한 열쇠 도어락 - 재고·매출관리",
-                    short_name: "친절한도어락",
-                    description: "출장 도어락 시공 재고, 사용자 정의 브랜드, 결제수단, 주별·월별 매출/순익 관리 PWA",
+                    name: `${displayName} - ${subtitle}`,
+                    short_name: shortName,
+                    description: `${displayName} 오프라인 도어락 재고, 일별 순익 달력, 주별·월별 매출 통계 관리 PWA`,
                     start_url: "./",
                     display: "standalone",
                     orientation: "portrait",
-                    background_color: "#F4F6FA",
+                    background_color: "#F3F6FA",
                     theme_color: "#1976D2",
                     icons: [
-                        { src: iconSvg, sizes: "192x192", type: "image/svg+xml", purpose: "any maskable" },
-                        { src: iconSvg, sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }
+                        { src: iconUri, sizes: "192x192", type: "image/svg+xml", purpose: "any maskable" },
+                        { src: iconUri, sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }
                     ]
                 };
+
+                if (currentManifestBlobUrl) {
+                    URL.revokeObjectURL(currentManifestBlobUrl);
+                }
                 const blob = new Blob([JSON.stringify(manifest)], { type: "application/manifest+json" });
-                const link = document.createElement("link");
-                link.rel = "manifest";
-                link.href = URL.createObjectURL(blob);
-                document.head.appendChild(link);
+                currentManifestBlobUrl = URL.createObjectURL(blob);
+
+                let link = document.getElementById("pwa-manifest-link");
+                if (!link) {
+                    link = document.createElement("link");
+                    link.id = "pwa-manifest-link";
+                    link.rel = "manifest";
+                    document.head.appendChild(link);
+                }
+                link.href = currentManifestBlobUrl;
+
+                document.title = `${displayName} - ${subtitle}`;
+                const appleTitle = document.querySelector('meta[name="apple-mobile-web-app-title"]');
+                if (appleTitle) appleTitle.setAttribute("content", shortName);
+                const appNameMeta = document.querySelector('meta[name="application-name"]');
+                if (appNameMeta) appNameMeta.setAttribute("content", displayName);
             } catch (e) {
-                console.warn("PWA Manifest creation skipped:", e);
+                console.warn("PWA Manifest update skipped:", e);
             }
-        })();
+        }
 
         window.addEventListener("beforeinstallprompt", (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            const btnText = document.getElementById("pwa-install-btn-text");
-            if (btnText) btnText.textContent = "지금 안드로이드 홈 화면에 바로 설치";
+            const txt = document.getElementById("pwa-install-btn-text");
+            if (txt) txt.textContent = "지금 바로 홈 화면에 앱 설치";
         });
 
         async function triggerPwaInstall() {
             if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const choice = await deferredPrompt.userChoice;
-                if (choice && choice.outcome === "accepted") {
-                    showSnackbar("안드로이드 홈 화면 설치가 시작되었습니다.");
+                try {
+                    deferredPrompt.prompt();
+                    const res = await deferredPrompt.userChoice;
+                    if (res && res.outcome === "accepted") {
+                        showSnackbar("홈 화면에 앱 설치가 시작되었습니다.");
+                    }
+                    deferredPrompt = null;
+                } catch (err) {
+                    showSnackbar("Chrome 우측 상단 ⋮ → '홈 화면에 추가'를 눌러 설치해 주세요.");
                 }
-                deferredPrompt = null;
             } else {
-                showSnackbar("Chrome 우측 상단 ⋮ 메뉴 → '홈 화면에 추가'를 눌러 설치하세요.");
+                showSnackbar("안드로이드 Chrome 우측 상단 ⋮ → '홈 화면에 추가(앱 설치)'를 눌러주세요.");
             }
         }
 
         /* ==========================================================================
-           2. 상수, 색상 팔레트, 스토리지 키 및 유틸리티
+           2. 상수, 색상 팔레트, 스토리지 키 및 포맷 유틸리티
            ========================================================================== */
-        const STORAGE_BRANDS = "kindkey_m3_brands_v3";
-        const STORAGE_ITEMS  = "kindkey_m3_items_v3";
-        const STORAGE_LOGS   = "kindkey_m3_logs_v3";
-        // 구버전 마이그레이션 키
-        const LEGACY_ITEMS_V2 = "kindkey_m3_items_v2";
-        const LEGACY_LOGS_V2  = "kindkey_m3_logs_v2";
+        const STORAGE_BUSINESS = "kindkey_m3_business_v3";
+        const STORAGE_BRANDS   = "kindkey_m3_brands_v3";
+        const STORAGE_ITEMS    = "kindkey_m3_items_v3";
+        const STORAGE_LOGS     = "kindkey_m3_logs_v3";
+        const LEGACY_ITEMS_V2  = "kindkey_m3_items_v2";
+        const LEGACY_LOGS_V2   = "kindkey_m3_logs_v2";
 
-        // Material Design 3 브랜드 배지 색상 스와치 8종
+        const DEFAULT_BUSINESS = {
+            name: "친절한 열쇠 도어락",
+            subtitle: "도어락 재고·순익 관리"
+        };
+
+        // 8가지 Material Design 3 브랜드 팔레트
         const BRAND_COLORS = [
-            "#1976D2", // Blue (솔리티)
-            "#00897B", // Teal (게이트맨)
-            "#3949AB", // Indigo (삼성)
-            "#E65100", // Deep Orange (혜강)
-            "#546E7A", // Blue Grey (부자재)
-            "#7B1FA2", // Purple
+            "#1976D2", // Blue
+            "#00897B", // Teal
+            "#3949AB", // Indigo
+            "#E65100", // Deep Orange
+            "#6A1B9A", // Purple
+            "#2E7D32", // Green
             "#C62828", // Red
-            "#2E7D32"  // Green
+            "#546E7A"  // Blue Grey
         ];
 
         const PAYMENT_META = {
-            card:     { label: "카드",     emoji: "💳", color: "#3949AB", bg: "#E8EAF6", badgeClass: "pay-badge-card" },
-            transfer: { label: "계좌이체", emoji: "🏦", color: "#00897B", bg: "#E0F2F1", badgeClass: "pay-badge-transfer" },
-            cash:     { label: "현금",     emoji: "💵", color: "#E65100", bg: "#FFF3E0", badgeClass: "pay-badge-cash" }
+            card:     { label: "카드",     emoji: "💳", color: "#3949AB", bg: "#E8EAF6", badgeClass: "badge-pay-card" },
+            transfer: { label: "계좌이체", emoji: "🏦", color: "#00897B", bg: "#E0F2F1", badgeClass: "badge-pay-transfer" },
+            cash:     { label: "현금",     emoji: "💵", color: "#E65100", bg: "#FFF3E0", badgeClass: "badge-pay-cash" }
         };
 
-        const OUT_MEMO_TAGS = ["김포 한강메트로자이", "일산 위시티", "파주 운정", "긴급 출장", "단체 시공"];
+        const OUT_MEMO_TAGS = ["김포 한강메트로자이 2단지", "신규 입주", "고장 교체", "기존 고객", "일산 아파트"];
         const IN_MEMO_TAGS  = ["본사 정기 입고", "대리점 긴급 발주", "부자재 보충", "반품 재입고"];
+
+        function hexToRgba(hex, alpha) {
+            const clean = String(hex || "#1976D2").replace("#", "");
+            if (clean.length !== 6) return `rgba(25, 118, 210, ${alpha})`;
+            const r = parseInt(clean.slice(0, 2), 16);
+            const g = parseInt(clean.slice(2, 4), 16);
+            const b = parseInt(clean.slice(4, 6), 16);
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
 
         function formatLocalDate(d) {
             const y = d.getFullYear();
@@ -2251,6 +2674,12 @@
             return Math.round(Number(num) || 0).toLocaleString("ko-KR") + "원";
         }
 
+        function formatSignedWon(num) {
+            const n = Math.round(Number(num) || 0);
+            if (n > 0) return "+" + n.toLocaleString("ko-KR") + "원";
+            return n.toLocaleString("ko-KR") + "원";
+        }
+
         function formatCompactWon(num) {
             const val = Math.round(Number(num) || 0);
             const abs = Math.abs(val);
@@ -2263,6 +2692,23 @@
             return sign + abs.toLocaleString("ko-KR") + "원";
         }
 
+        // 달력 날짜 칸 전용 초간결 순익 포맷 (예: +16.8만, +25만, -1.5만)
+        function formatCalCellProfit(profit) {
+            const val = Math.round(Number(profit) || 0);
+            if (val === 0) return "";
+            const abs = Math.abs(val);
+            const sign = val > 0 ? "+" : "-";
+            if (abs >= 10000) {
+                const man = abs / 10000;
+                const str = man >= 100 ? Math.round(man).toString() : man.toFixed(1).replace(/\.0$/, "");
+                return `${sign}${str}만`;
+            }
+            if (abs >= 1000) {
+                return `${sign}${(abs / 1000).toFixed(1).replace(/\.0$/, "")}천`;
+            }
+            return `${sign}${abs}`;
+        }
+
         function escapeHtml(str) {
             return String(str || "")
                 .replace(/&/g, "&amp;")
@@ -2272,40 +2718,38 @@
                 .replace(/'/g, "&#39;");
         }
 
-        // Hex 색상을 반투명 배지 배경(RGBA)으로 변환
-        function hexToRgba(hex, alpha) {
-            const clean = String(hex || "#546E7A").replace("#", "");
-            if (clean.length !== 6) return `rgba(84, 110, 122, ${alpha})`;
-            const r = parseInt(clean.slice(0, 2), 16);
-            const g = parseInt(clean.slice(2, 4), 16);
-            const b = parseInt(clean.slice(4, 6), 16);
-            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        function sanitizeFilenamePart(str) {
+            const cleaned = String(str || DEFAULT_BUSINESS.name)
+                .trim()
+                .replace(/[\\/:*?"<>|]/g, "")
+                .replace(/\s+/g, "_");
+            return cleaned || "도어락_재고관리";
         }
 
         /* ==========================================================================
-           3. 초기 샘플 데이터 (기본 브랜드 5종, 실무 도어락/부자재 9종, 6개월 시공 이력)
+           3. 초기 샘플 데이터 (현재 월 달력 + 최근 6개월 통계에 즉시 반영)
            ========================================================================== */
         function createDefaultBrands() {
             return [
-                { id: "br-solity",  name: "솔리티",   color: "#1976D2" },
-                { id: "br-gateman", name: "게이트맨", color: "#00897B" },
-                { id: "br-samsung", name: "삼성",     color: "#3949AB" },
-                { id: "br-hyegang", name: "혜강",     color: "#E65100" },
-                { id: "br-parts",   name: "부자재",   color: "#546E7A" }
+                { id: "br-solity",  name: "솔리티",    color: "#1976D2" },
+                { id: "br-gateman", name: "게이트맨",  color: "#00897B" },
+                { id: "br-samsung", name: "삼성",      color: "#3949AB" },
+                { id: "br-hyegang", name: "혜강",      color: "#E65100" },
+                { id: "br-parts",   name: "공용 부자재", color: "#546E7A" }
             ];
         }
 
         function createDefaultItems() {
             return [
-                { id: "item-1", brandId: "br-solity",  brand: "솔리티",   type: "푸시풀", name: "솔리티 안면인식 푸시풀 GP-7000BK", stock: 3,  minStock: 2, cost: 255000, price: 390000 },
-                { id: "item-2", brandId: "br-solity",  brand: "솔리티",   type: "주키",   name: "솔리티 P2000-BH",                   stock: 1,  minStock: 2, cost: 115000, price: 200000 },
-                { id: "item-3", brandId: "br-gateman", brand: "게이트맨", type: "푸시풀", name: "게이트맨 R110-F",                   stock: 4,  minStock: 2, cost: 210000, price: 340000 },
-                { id: "item-4", brandId: "br-gateman", brand: "게이트맨", type: "주키",   name: "게이트맨 G-TOUCH",                  stock: 2,  minStock: 2, cost: 140000, price: 240000 },
-                { id: "item-5", brandId: "br-samsung", brand: "삼성",     type: "푸시풀", name: "삼성 SHP-DP751",                    stock: 3,  minStock: 2, cost: 220000, price: 350000 },
-                { id: "item-6", brandId: "br-hyegang", brand: "혜강",     type: "보조키", name: "혜강 탱크 RT301",                   stock: 5,  minStock: 3, cost: 58000,  price: 120000 },
-                { id: "item-7", brandId: "br-parts",   brand: "부자재",   type: "부자재", name: "Wi-Fi 연동 모듈",                   stock: 2,  minStock: 3, cost: 32000,  price: 65000  },
-                { id: "item-8", brandId: "br-parts",   brand: "부자재",   type: "부자재", name: "NFC 카드키",                        stock: 12, minStock: 5, cost: 10000,  price: 30000  },
-                { id: "item-9", brandId: "br-parts",   brand: "부자재",   type: "부자재", name: "보강판/타공판",                     stock: 9,  minStock: 4, cost: 8000,   price: 25000  }
+                { id: "item-1", brandId: "br-solity",  brand: "솔리티",     type: "푸시풀", name: "솔리티 안면인식 푸시풀 GP-7000BK", stock: 3,  minStock: 2, cost: 255000, price: 390000 },
+                { id: "item-2", brandId: "br-solity",  brand: "솔리티",     type: "주키",   name: "솔리티 P2000-BH",                   stock: 1,  minStock: 2, cost: 115000, price: 200000 },
+                { id: "item-3", brandId: "br-gateman", brand: "게이트맨",   type: "푸시풀", name: "게이트맨 R110-F",                   stock: 4,  minStock: 2, cost: 210000, price: 340000 },
+                { id: "item-4", brandId: "br-gateman", brand: "게이트맨",   type: "주키",   name: "게이트맨 G-TOUCH",                  stock: 1,  minStock: 2, cost: 140000, price: 240000 },
+                { id: "item-5", brandId: "br-samsung", brand: "삼성",       type: "푸시풀", name: "삼성 SHP-DP751",                    stock: 3,  minStock: 2, cost: 220000, price: 350000 },
+                { id: "item-6", brandId: "br-hyegang", brand: "혜강",       type: "보조키", name: "혜강 탱크 RT301",                   stock: 5,  minStock: 3, cost: 58000,  price: 120000 },
+                { id: "item-7", brandId: "br-parts",   brand: "공용 부자재", type: "부자재", name: "Wi-Fi 연동 모듈",                   stock: 2,  minStock: 3, cost: 32000,  price: 65000  },
+                { id: "item-8", brandId: "br-parts",   brand: "공용 부자재", type: "부자재", name: "NFC 카드키",                        stock: 12, minStock: 5, cost: 10000,  price: 30000  },
+                { id: "item-9", brandId: "br-parts",   brand: "공용 부자재", type: "부자재", name: "보강판/타공판",                     stock: 9,  minStock: 4, cost: 8000,   price: 25000  }
             ];
         }
 
@@ -2315,60 +2759,43 @@
             baseItems.forEach(it => { map[it.id] = it; });
 
             const specs = [
-                // 오늘 & 이번 주
-                { daysAgo: 0,   type: "OUT", itemId: "item-1", qty: 1, adj: 0,      pay: "card",     memo: "김포 한강메트로자이 204동 시공" },
-                { daysAgo: 0,   type: "OUT", itemId: "item-7", qty: 1, adj: 0,      pay: "transfer", memo: "김포 한강메트로자이 모듈 추가" },
+                { daysAgo: 0,   type: "OUT", itemId: "item-1", qty: 1, adj: 0,      pay: "card",     memo: "김포 한강메트로자이 2단지 · 신규 입주" },
+                { daysAgo: 0,   type: "OUT", itemId: "item-7", qty: 1, adj: 0,      pay: "transfer", memo: "김포 한강메트로자이 2단지 Wi-Fi 추가" },
                 { daysAgo: 0,   type: "IN",  itemId: "item-3", qty: 2, adj: 0,      pay: null,       memo: "본사 정기 입고" },
-                { daysAgo: 1,   type: "OUT", itemId: "item-4", qty: 1, adj: 10000,  pay: "cash",     memo: "일산 위시티 긴급 출장 교체" },
-                { daysAgo: 2,   type: "OUT", itemId: "item-3", qty: 1, adj: -10000, pay: "card",     memo: "파주 운정 단체 시공" },
-                // 1주 전
-                { daysAgo: 6,   type: "OUT", itemId: "item-5", qty: 1, adj: 0,      pay: "card",     memo: "파주 운정 힐스테이트 시공" },
-                { daysAgo: 8,   type: "OUT", itemId: "item-2", qty: 2, adj: -10000, pay: "transfer", memo: "일산 위시티 단체 시공 2세대" },
-                { daysAgo: 10,  type: "OUT", itemId: "item-6", qty: 1, adj: 10000,  pay: "cash",     memo: "백석역 오피스텔 긴급 출장" },
-                // 2주 전
-                { daysAgo: 14,  type: "OUT", itemId: "item-1", qty: 1, adj: 0,      pay: "card",     memo: "김포 한강메트로자이 3단지 시공" },
-                { daysAgo: 16,  type: "OUT", itemId: "item-4", qty: 1, adj: 0,      pay: "transfer", memo: "화정 별빛마을 주키 교체" },
-                { daysAgo: 18,  type: "OUT", itemId: "item-9", qty: 2, adj: 0,      pay: "cash",     memo: "마두동 상가 보강판/타공판" },
-                // 3주 전
-                { daysAgo: 21,  type: "OUT", itemId: "item-3", qty: 1, adj: 0,      pay: "card",     memo: "일산 위시티 블루밍 시공" },
-                { daysAgo: 23,  type: "OUT", itemId: "item-1", qty: 1, adj: 10000,  pay: "card",     memo: "대화동 긴급 출장 교체" },
-                { daysAgo: 25,  type: "OUT", itemId: "item-6", qty: 2, adj: 0,      pay: "transfer", memo: "라페스타 상가 보조키 2대" },
-                // 4주 전
-                { daysAgo: 29,  type: "OUT", itemId: "item-5", qty: 1, adj: -10000, pay: "transfer", memo: "삼송 아이파크 단체 시공" },
-                { daysAgo: 31,  type: "OUT", itemId: "item-2", qty: 1, adj: 0,      pay: "card",     memo: "탄현 제니스 주키 시공" },
-                { daysAgo: 33,  type: "IN",  itemId: "item-1", qty: 4, adj: 0,      pay: null,       memo: "솔리티 대리점 정기 입고" },
-                // 5주 전
-                { daysAgo: 36,  type: "OUT", itemId: "item-1", qty: 2, adj: -20000, pay: "card",     memo: "파주 운정 단체 시공 2세대" },
-                { daysAgo: 38,  type: "OUT", itemId: "item-4", qty: 1, adj: 0,      pay: "cash",     memo: "주엽동 강선마을 아파트 시공" },
-                { daysAgo: 40,  type: "OUT", itemId: "item-7", qty: 2, adj: 0,      pay: "transfer", memo: "파주 운정 Wi-Fi 모듈 추가" },
-                // 6주 전
-                { daysAgo: 44,  type: "OUT", itemId: "item-3", qty: 1, adj: 10000,  pay: "card",     memo: "중산동 긴급 출장 교체" },
-                { daysAgo: 46,  type: "OUT", itemId: "item-6", qty: 1, adj: 0,      pay: "cash",     memo: "정발산동 주택 보조키 시공" },
-                // 7주 전
-                { daysAgo: 50,  type: "OUT", itemId: "item-5", qty: 1, adj: 0,      pay: "card",     memo: "덕은지구 DMC자이 시공" },
-                { daysAgo: 52,  type: "OUT", itemId: "item-2", qty: 1, adj: 0,      pay: "transfer", memo: "원흥 동일스위트 주키 시공" },
+                { daysAgo: 1,   type: "OUT", itemId: "item-4", qty: 1, adj: 10000,  pay: "cash",     memo: "일산 아파트 · 고장 교체" },
+                { daysAgo: 2,   type: "OUT", itemId: "item-3", qty: 2, adj: -10000, pay: "card",     memo: "파주 운정 단체 시공 2세대" },
+                { daysAgo: 4,   type: "OUT", itemId: "item-6", qty: 1, adj: 10000,  pay: "cash",     memo: "상가/오피스 고장 교체" },
+                { daysAgo: 6,   type: "OUT", itemId: "item-5", qty: 1, adj: 0,      pay: "card",     memo: "파주 운정 힐스테이트 · 신규 입주" },
+                { daysAgo: 8,   type: "OUT", itemId: "item-2", qty: 2, adj: -10000, pay: "transfer", memo: "일산 아파트 단체 시공 2세대" },
+                { daysAgo: 10,  type: "OUT", itemId: "item-1", qty: 2, adj: -10000, pay: "card",     memo: "김포 한강메트로자이 2단지 2세대" },
+                { daysAgo: 12,  type: "OUT", itemId: "item-6", qty: 1, adj: 0,      pay: "cash",     memo: "백석역 상가 고장 교체" },
+                { daysAgo: 15,  type: "OUT", itemId: "item-4", qty: 1, adj: 0,      pay: "transfer", memo: "화정 별빛마을 · 기존 고객" },
+                { daysAgo: 17,  type: "OUT", itemId: "item-3", qty: 1, adj: 0,      pay: "card",     memo: "일산 아파트 위시티 블루밍 시공" },
+                { daysAgo: 19,  type: "OUT", itemId: "item-9", qty: 2, adj: 0,      pay: "cash",     memo: "마두동 상가 보강판 시공" },
+                { daysAgo: 23,  type: "OUT", itemId: "item-1", qty: 1, adj: 10000,  pay: "card",     memo: "대화동 고장 교체" },
+                { daysAgo: 26,  type: "OUT", itemId: "item-6", qty: 2, adj: 0,      pay: "transfer", memo: "라페스타 상가 보조키 2대" },
+                { daysAgo: 29,  type: "OUT", itemId: "item-5", qty: 1, adj: -10000, pay: "transfer", memo: "삼송 아이파크 · 신규 입주" },
+                { daysAgo: 32,  type: "OUT", itemId: "item-2", qty: 1, adj: 0,      pay: "card",     memo: "탄현 제니스 주키 시공" },
+                { daysAgo: 34,  type: "IN",  itemId: "item-1", qty: 4, adj: 0,      pay: null,       memo: "솔리티 대리점 정기 입고" },
+                { daysAgo: 37,  type: "OUT", itemId: "item-1", qty: 2, adj: -20000, pay: "card",     memo: "파주 운정 단체 시공 2세대" },
+                { daysAgo: 40,  type: "OUT", itemId: "item-4", qty: 1, adj: 0,      pay: "cash",     memo: "일산 아파트 강선마을 시공" },
+                { daysAgo: 43,  type: "OUT", itemId: "item-3", qty: 1, adj: 10000,  pay: "card",     memo: "중산동 고장 교체" },
+                { daysAgo: 47,  type: "OUT", itemId: "item-6", qty: 1, adj: 0,      pay: "cash",     memo: "정발산동 주택 보조키 시공" },
+                { daysAgo: 51,  type: "OUT", itemId: "item-5", qty: 1, adj: 0,      pay: "card",     memo: "덕은지구 DMC자이 시공" },
                 { daysAgo: 54,  type: "OUT", itemId: "item-1", qty: 1, adj: 0,      pay: "card",     memo: "풍동 숲속마을 푸시풀 시공" },
-                // 2~3개월 전
-                { daysAgo: 64,  type: "OUT", itemId: "item-1", qty: 2, adj: -20000, pay: "transfer", memo: "김포 한강메트로자이 단체 시공" },
+                { daysAgo: 63,  type: "OUT", itemId: "item-1", qty: 2, adj: -20000, pay: "transfer", memo: "김포 한강메트로자이 단체 시공" },
                 { daysAgo: 69,  type: "OUT", itemId: "item-4", qty: 2, adj: 0,      pay: "card",     memo: "백석 흰돌마을 시공" },
-                { daysAgo: 74,  type: "OUT", itemId: "item-3", qty: 1, adj: 0,      pay: "cash",     memo: "일산 후곡마을 푸시풀 교체" },
-                { daysAgo: 80,  type: "OUT", itemId: "item-6", qty: 2, adj: 0,      pay: "transfer", memo: "웨스턴돔 오피스 보조키 2대" },
-                { daysAgo: 86,  type: "OUT", itemId: "item-5", qty: 1, adj: 10000,  pay: "card",     memo: "파주 운정 긴급 출장" },
-                // 3~4개월 전
-                { daysAgo: 94,  type: "OUT", itemId: "item-1", qty: 1, adj: 0,      pay: "card",     memo: "원흥 도래울마을 시공" },
-                { daysAgo: 99,  type: "OUT", itemId: "item-3", qty: 2, adj: -20000, pay: "transfer", memo: "삼송 e편한세상 단체 시공" },
-                { daysAgo: 105, type: "OUT", itemId: "item-2", qty: 2, adj: 0,      pay: "cash",     memo: "행신동 신축빌라 시공" },
-                { daysAgo: 112, type: "OUT", itemId: "item-4", qty: 1, adj: 0,      pay: "card",     memo: "대화동 성저마을 교체" },
-                // 4~5개월 전
-                { daysAgo: 122, type: "OUT", itemId: "item-5", qty: 2, adj: -10000, pay: "card",     memo: "김포 한강메트로자이 1단지" },
-                { daysAgo: 128, type: "OUT", itemId: "item-1", qty: 1, adj: 0,      pay: "transfer", memo: "일산 위시티 4단지 시공" },
-                { daysAgo: 135, type: "OUT", itemId: "item-6", qty: 3, adj: 0,      pay: "cash",     memo: "장항동 상가 3개실 일괄" },
-                { daysAgo: 141, type: "OUT", itemId: "item-3", qty: 1, adj: 0,      pay: "card",     memo: "화정 옥빛마을 푸시풀 설치" },
-                // 5~6개월 전
-                { daysAgo: 149, type: "OUT", itemId: "item-1", qty: 1, adj: 0,      pay: "card",     memo: "일산 문촌마을 푸시풀 시공" },
-                { daysAgo: 154, type: "OUT", itemId: "item-4", qty: 2, adj: 0,      pay: "transfer", memo: "파주 운정 야당역 단체 시공" },
-                { daysAgo: 160, type: "OUT", itemId: "item-2", qty: 1, adj: 10000,  pay: "cash",     memo: "능곡동 긴급 출장 교체" },
-                { daysAgo: 165, type: "OUT", itemId: "item-8", qty: 3, adj: 0,      pay: "card",     memo: "덕양구 사무실 NFC 카드키 납품" }
+                { daysAgo: 75,  type: "OUT", itemId: "item-3", qty: 1, adj: 0,      pay: "cash",     memo: "일산 아파트 후곡마을 교체" },
+                { daysAgo: 83,  type: "OUT", itemId: "item-5", qty: 1, adj: 10000,  pay: "card",     memo: "파주 운정 긴급 출장" },
+                { daysAgo: 95,  type: "OUT", itemId: "item-1", qty: 1, adj: 0,      pay: "card",     memo: "원흥 도래울마을 시공" },
+                { daysAgo: 101, type: "OUT", itemId: "item-3", qty: 2, adj: -20000, pay: "transfer", memo: "삼송 e편한세상 단체 시공" },
+                { daysAgo: 108, type: "OUT", itemId: "item-2", qty: 2, adj: 0,      pay: "cash",     memo: "행신동 신축빌라 시공" },
+                { daysAgo: 123, type: "OUT", itemId: "item-5", qty: 2, adj: -10000, pay: "card",     memo: "김포 한강메트로자이 1단지" },
+                { daysAgo: 131, type: "OUT", itemId: "item-1", qty: 1, adj: 0,      pay: "transfer", memo: "일산 아파트 4단지 시공" },
+                { daysAgo: 138, type: "OUT", itemId: "item-6", qty: 3, adj: 0,      pay: "cash",     memo: "장항동 상가 3개실 일괄" },
+                { daysAgo: 150, type: "OUT", itemId: "item-1", qty: 1, adj: 0,      pay: "card",     memo: "일산 아파트 문촌마을 시공" },
+                { daysAgo: 157, type: "OUT", itemId: "item-4", qty: 2, adj: 0,      pay: "transfer", memo: "파주 운정 야당역 단체 시공" },
+                { daysAgo: 164, type: "OUT", itemId: "item-8", qty: 3, adj: 0,      pay: "card",     memo: "덕양구 상가 카드키 납품" }
             ];
 
             return specs.map((sp, idx) => {
@@ -2400,26 +2827,38 @@
         }
 
         /* ==========================================================================
-           4. 앱 상태, 로컬스토리지 저장 및 자동 마이그레이션
+           4. 앱 상태, 로컬스토리지 저장 및 구버전 자동 마이그레이션
            ========================================================================== */
+        let business = { ...DEFAULT_BUSINESS };
         let brands = [];
         let items = [];
         let logs = [];
 
         let activeTab = "inventory";
-        let invBrandFilter = "ALL";     // "ALL" 또는 brand.id
-        let invLowStockOnly = false;    // 품절 임박 단독 필터
-        let analyticsMode = "weekly";   // "weekly" | "monthly"
-        let selectedBarIndex = null;    // null = 기간 전체 합계, 숫자 = 해당 막대
-        let historyTypeFilter = "ALL";  // "ALL" | "OUT" | "IN"
-        let historyPayFilter = "ALL";   // "ALL" | "card" | "transfer" | "cash"
+        let invBrandFilter = "ALL";
+        let invLowStockOnly = false;
 
-        // 브랜드 관리 모달 내부 상태
+        // 달력 상태
+        const _nowInit = new Date();
+        let calYear = _nowInit.getFullYear();
+        let calMonth = _nowInit.getMonth();
+        let selectedCalendarDate = formatLocalDate(_nowInit);
+        let currentMonthBestDate = null;
+
+        // 통계 상태
+        let analyticsMode = "weekly";
+        let selectedBarIndex = null;
+
+        // 이력 상태
+        let historyTypeFilter = "ALL";
+        let historyPayFilter = "ALL";
+
+        // 브랜드 관리 모달 상태
         let newBrandColor = BRAND_COLORS[0];
         let quickBrandColor = BRAND_COLORS[5];
         let editingBrandId = null;
         let editingBrandColor = BRAND_COLORS[0];
-        let deletingBrandId = null;     // 품목 이동 선택 UI를 연 브랜드 ID
+        let deletingBrandId = null;
 
         function getBrandById(brandId) {
             return brands.find(b => b.id === brandId) || null;
@@ -2429,7 +2868,6 @@
             return brands.find(b => b.name === name) || null;
         }
 
-        // 품목/로그의 최신 브랜드 정보(이름, 색상) 반환
         function resolveBrandInfo(brandId, fallbackName) {
             const byId = brandId ? getBrandById(brandId) : null;
             if (byId) return byId;
@@ -2438,7 +2876,6 @@
             return { id: brandId || "", name: fallbackName || "기타", color: "#546E7A" };
         }
 
-        // 브랜드 목록과 품목/로그 간의 brandId 정합성 보장 (레거시 백업 및 v2 마이그레이션 공용)
         function ensureBrandIntegrity(loadedBrands, loadedItems, loadedLogs) {
             let nextBrands = Array.isArray(loadedBrands) && loadedBrands.length > 0
                 ? loadedBrands.map((b, i) => ({
@@ -2481,6 +2918,19 @@
 
         function loadData() {
             try {
+                const rawBiz = localStorage.getItem(STORAGE_BUSINESS);
+                if (rawBiz) {
+                    const parsedBiz = JSON.parse(rawBiz);
+                    if (parsedBiz && typeof parsedBiz.name === "string" && parsedBiz.name.trim()) {
+                        business = {
+                            name: parsedBiz.name.trim(),
+                            subtitle: typeof parsedBiz.subtitle === "string" ? parsedBiz.subtitle.trim() : ""
+                        };
+                    }
+                } else {
+                    business = { ...DEFAULT_BUSINESS };
+                }
+
                 const rawBrands = localStorage.getItem(STORAGE_BRANDS);
                 const rawItems = localStorage.getItem(STORAGE_ITEMS);
                 const rawLogs = localStorage.getItem(STORAGE_LOGS);
@@ -2493,7 +2943,6 @@
                     return;
                 }
 
-                // 구버전(v2) 데이터가 있으면 자동 마이그레이션
                 const legacyItems = localStorage.getItem(LEGACY_ITEMS_V2);
                 const legacyLogs = localStorage.getItem(LEGACY_LOGS_V2);
                 if (legacyItems && legacyLogs) {
@@ -2505,7 +2954,6 @@
                     return;
                 }
 
-                // 최초 실행: 샘플 데이터 생성
                 brands = createDefaultBrands();
                 items = createDefaultItems();
                 logs = createDefaultLogs(items);
@@ -2520,6 +2968,7 @@
 
         function saveData() {
             try {
+                localStorage.setItem(STORAGE_BUSINESS, JSON.stringify(business));
                 localStorage.setItem(STORAGE_BRANDS, JSON.stringify(brands));
                 localStorage.setItem(STORAGE_ITEMS, JSON.stringify(items));
                 localStorage.setItem(STORAGE_LOGS, JSON.stringify(logs));
@@ -2528,17 +2977,87 @@
             }
         }
 
+        const TAB_SUBTITLES = {
+            inventory: "도어락 재고·순익 관리",
+            calendar:  "월별 달력 · 일별 순익 한눈에 보기",
+            analytics: "주별·월별 매출 · 순이익 통계",
+            history:   "전체 입출고 · 결제 이력 장부",
+            settings:  "사업자 정보 · 브랜드 · 백업"
+        };
+
+        function applyBusinessProfile() {
+            const name = (business && business.name ? business.name.trim() : "") || DEFAULT_BUSINESS.name;
+            const subtitle = business && typeof business.subtitle === "string" ? business.subtitle.trim() : "";
+
+            const headerName = document.getElementById("header-business-name");
+            if (headerName) headerName.textContent = name;
+
+            const headerSub = document.getElementById("header-subtitle");
+            if (headerSub) headerSub.textContent = subtitle || TAB_SUBTITLES[activeTab] || DEFAULT_BUSINESS.subtitle;
+
+            const setBizName = document.getElementById("settings-biz-name");
+            if (setBizName) setBizName.textContent = name;
+
+            const setBizSub = document.getElementById("settings-biz-subtitle");
+            if (setBizSub) setBizSub.textContent = subtitle || "탭별 기본 안내 표시 중";
+
+            const pwaShort = document.getElementById("pwa-install-short-name");
+            if (pwaShort) pwaShort.textContent = `'${name}'`;
+
+            const footerBiz = document.getElementById("settings-footer-biz");
+            if (footerBiz) footerBiz.textContent = name;
+
+            updateDynamicPwaManifest(name, subtitle || DEFAULT_BUSINESS.subtitle);
+        }
+
+        function openBusinessModal() {
+            document.getElementById("biz-name-input").value = business.name || DEFAULT_BUSINESS.name;
+            document.getElementById("biz-subtitle-input").value = business.subtitle || "";
+            document.getElementById("business-modal").classList.remove("hidden");
+            setTimeout(() => {
+                const inp = document.getElementById("biz-name-input");
+                if (inp) inp.focus();
+            }, 80);
+        }
+
+        function resetBusinessFormDefault() {
+            document.getElementById("biz-name-input").value = DEFAULT_BUSINESS.name;
+            document.getElementById("biz-subtitle-input").value = DEFAULT_BUSINESS.subtitle;
+        }
+
+        function saveBusinessProfile(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById("biz-name-input");
+            const subInput = document.getElementById("biz-subtitle-input");
+            const newName = nameInput.value.trim();
+            const newSub = subInput.value.trim();
+
+            if (!newName) {
+                showSnackbar("사업자명을 입력해 주세요.");
+                nameInput.focus();
+                return;
+            }
+
+            business = { name: newName, subtitle: newSub };
+            saveData();
+            applyBusinessProfile();
+            closeModal("business-modal");
+            showSnackbar(`사업자명이 '${newName}'(으)로 변경되었습니다.`);
+        }
+
         function refreshAllViews() {
+            applyBusinessProfile();
             renderDashboard();
             renderBrandFilterChips();
             renderInventory();
             renderSettingsBrandPreview();
+            if (activeTab === "calendar") renderCalendarTab();
             if (activeTab === "analytics") renderAnalytics();
             if (activeTab === "history") renderHistory();
         }
 
         /* ==========================================================================
-           5. 핵심 기능 1: 커스텀 브랜드 관리 (추가 · 수정 · 순서변경 · 안전삭제)
+           5. 커스텀 브랜드 관리 (추가 · 수정 · 순서변경 · 안전삭제)
            ========================================================================== */
         function renderColorSwatches(containerId, selectedColor, onSelectFnName) {
             const wrap = document.getElementById(containerId);
@@ -2589,15 +3108,8 @@
                 showSnackbar(`'${name}' 브랜드는 이미 등록되어 있습니다.`);
                 return;
             }
-
-            const created = {
-                id: "br-" + Date.now(),
-                name,
-                color: newBrandColor
-            };
-            brands.push(created);
+            brands.push({ id: "br-" + Date.now(), name, color: newBrandColor });
             saveData();
-
             input.value = "";
             newBrandColor = BRAND_COLORS[brands.length % BRAND_COLORS.length];
             renderColorSwatches("new-brand-swatches", newBrandColor, "selectNewBrandColor");
@@ -2653,7 +3165,6 @@
             b.name = newName;
             b.color = editingBrandColor;
 
-            // 소속 품목 및 기존 입출고 이력의 브랜드명 자동 동기화
             items.forEach(it => {
                 if (it.brandId === brandId || it.brand === oldName) {
                     it.brandId = brandId;
@@ -2671,7 +3182,7 @@
             saveData();
             renderBrandManageList();
             refreshAllViews();
-            showSnackbar(`'${newName}' 브랜드 정보가 수정되었습니다.`);
+            showSnackbar(`'${newName}' 브랜드가 수정되었습니다.`);
         }
 
         function requestDeleteBrand(brandId) {
@@ -2679,7 +3190,6 @@
                 showSnackbar("최소 1개 이상의 브랜드는 남겨두어야 합니다.");
                 return;
             }
-
             const b = getBrandById(brandId);
             if (!b) return;
             const assignedCount = items.filter(it => it.brandId === brandId).length;
@@ -2687,7 +3197,7 @@
             if (assignedCount === 0) {
                 openConfirmDialog(
                     "브랜드 삭제",
-                    `'${b.name}' 브랜드에 등록된 품목이 없습니다.\n이 브랜드를 삭제하시겠습니까?`,
+                    `'${b.name}' 브랜드에 소속된 품목이 없습니다.\n이 브랜드를 삭제할까요?`,
                     () => {
                         brands = brands.filter(x => x.id !== brandId);
                         if (invBrandFilter === brandId) invBrandFilter = "ALL";
@@ -2698,7 +3208,6 @@
                     }
                 );
             } else {
-                // 소속 품목이 있으면 인라인 이동 대상 선택 패널 표시
                 editingBrandId = null;
                 deletingBrandId = deletingBrandId === brandId ? null : brandId;
                 renderBrandManageList();
@@ -2711,24 +3220,15 @@
             const selectEl = document.getElementById(`reassign-select-${brandId}`);
             if (!selectEl) return;
 
-            let targetBrandId = selectEl.value;
             let targetBrand = null;
-
-            if (targetBrandId === "__CREATE_ETC__") {
-                targetBrand = {
-                    id: "br-etc-" + Date.now(),
-                    name: "기타",
-                    color: "#546E7A"
-                };
+            if (selectEl.value === "__CREATE_ETC__") {
+                targetBrand = { id: "br-etc-" + Date.now(), name: "기타", color: "#546E7A" };
                 brands.push(targetBrand);
-                targetBrandId = targetBrand.id;
             } else {
-                targetBrand = getBrandById(targetBrandId);
+                targetBrand = getBrandById(selectEl.value);
             }
-
             if (!targetBrand) return;
 
-            // 소속 품목 전부 새 브랜드로 안전 이동
             let movedCount = 0;
             items.forEach(it => {
                 if (it.brandId === brandId) {
@@ -2741,11 +3241,10 @@
             brands = brands.filter(x => x.id !== brandId);
             if (invBrandFilter === brandId) invBrandFilter = "ALL";
             deletingBrandId = null;
-
             saveData();
             renderBrandManageList();
             refreshAllViews();
-            showSnackbar(`품목 ${movedCount}개를 '${targetBrand.name}'(으)로 이동 후 '${b.name}'을 삭제했습니다.`);
+            showSnackbar(`품목 ${movedCount}개를 '${targetBrand.name}'(으)로 이동 후 삭제했습니다.`);
         }
 
         function renderBrandManageList() {
@@ -2767,8 +3266,8 @@
                                 <span style="font-size:12px;font-weight:700;color:var(--text-muted);">${count}개 품목</span>
                             </div>
                             <div class="brand-row-actions">
-                                <button type="button" class="mini-action-btn" ${idx === 0 ? "disabled" : ""} onclick="moveBrand(${idx}, -1)" aria-label="위로 이동">▲</button>
-                                <button type="button" class="mini-action-btn" ${idx === brands.length - 1 ? "disabled" : ""} onclick="moveBrand(${idx}, 1)" aria-label="아래로 이동">▼</button>
+                                <button type="button" class="mini-action-btn" ${idx === 0 ? "disabled" : ""} onclick="moveBrand(${idx}, -1)" aria-label="위로">▲</button>
+                                <button type="button" class="mini-action-btn" ${idx === brands.length - 1 ? "disabled" : ""} onclick="moveBrand(${idx}, 1)" aria-label="아래로">▼</button>
                                 <button type="button" class="mini-action-btn" onclick="startEditBrand('${b.id}')">수정</button>
                                 <button type="button" class="mini-action-btn del" onclick="requestDeleteBrand('${b.id}')">삭제</button>
                             </div>
@@ -2819,10 +3318,10 @@
         }
 
         /* ==========================================================================
-           6. 탭 1: [재고] 3-카드 대시보드, 동적 브랜드 필터 칩, 품목 리스트
+           6. 탭 1: [재고] 대시보드, 동적 브랜드 필터 칩, 품목 카드 목록
            ========================================================================== */
         function isItemLowStock(it) {
-            return Number(it.stock) <= Number(it.minStock);
+            return Number(it.stock) < Number(it.minStock);
         }
 
         function renderDashboard() {
@@ -2846,14 +3345,15 @@
             document.getElementById("dash-today-total").textContent = todayIn + todayOut;
             document.getElementById("dash-today-split").textContent = `입 ${todayIn} · 출 ${todayOut}`;
 
-            document.getElementById("dash-low-card").classList.toggle("low-active", invLowStockOnly || lowCount > 0);
+            const lowCard = document.getElementById("dash-low-card");
+            lowCard.classList.toggle("low-active", lowCount > 0 && !invLowStockOnly);
+            lowCard.classList.toggle("low-filter-on", invLowStockOnly);
             document.getElementById("low-filter-banner").classList.toggle("hidden", !invLowStockOnly);
         }
 
         function renderBrandFilterChips() {
             const wrap = document.getElementById("brand-filter-chips");
             const isAll = invBrandFilter === "ALL";
-
             let html = `<button type="button" class="filter-chip ${isAll ? "active" : ""}" onclick="setInvBrandFilter('ALL')">전체</button>`;
 
             html += brands.map(b => {
@@ -2869,7 +3369,7 @@
                 `;
             }).join("");
 
-            html += `<button type="button" class="filter-chip brand-edit-chip" onclick="openBrandManagerModal()">⚙️ 브랜드 편집</button>`;
+            html += `<button type="button" class="filter-chip brand-edit-chip" onclick="openBrandManagerModal()">브랜드 편집</button>`;
             wrap.innerHTML = html;
         }
 
@@ -2912,7 +3412,7 @@
                 listEl.innerHTML = `
                     <div class="empty-state">
                         <div style="font-size:15px;font-weight:800;color:var(--text-sub);margin-bottom:4px;">조건에 맞는 품목이 없습니다</div>
-                        <div style="font-size:12px;">필터를 해제하거나 '+ 품목추가' 버튼으로 새 모델을 등록해 보세요.</div>
+                        <div style="font-size:12px;">상단 '+ 품목추가' 버튼으로 새 도어락 모델을 등록해 보세요.</div>
                     </div>
                 `;
                 return;
@@ -2923,7 +3423,7 @@
                 const stock = Number(it.stock);
                 const minStock = Number(it.minStock);
                 const isOut = stock <= 0;
-                const isLow = stock <= minStock;
+                const isLow = stock < minStock;
                 const margin = Number(it.price || 0) - Number(it.cost || 0);
 
                 return `
@@ -2972,7 +3472,7 @@
 
                         <div class="item-actions">
                             <button type="button" class="btn btn-tonal-teal" onclick="openTxModal('${it.id}', 'IN')">
-                                <span>+입고</span>
+                                <span>+ 입고</span>
                             </button>
                             <button type="button" class="btn btn-primary" ${isOut ? "disabled" : ""} onclick="openTxModal('${it.id}', 'OUT')">
                                 <span>출고(시공)</span>
@@ -2984,7 +3484,218 @@
         }
 
         /* ==========================================================================
-           7. 출고(시공) / 입고 바텀시트 로직
+           7. 탭 2: [달력] 전용 월별 일별 순익 달력 (Daily Net Profit Calendar)
+           ========================================================================== */
+        function changeCalendarMonth(delta) {
+            calMonth += delta;
+            if (calMonth < 0) {
+                calMonth = 11;
+                calYear -= 1;
+            } else if (calMonth > 11) {
+                calMonth = 0;
+                calYear += 1;
+            }
+
+            const ymPrefix = `${calYear}-${String(calMonth + 1).padStart(2, "0")}`;
+            const todayStr = getTodayStr();
+            if (todayStr.startsWith(ymPrefix)) {
+                selectedCalendarDate = todayStr;
+            } else {
+                const monthLogs = logs
+                    .filter(l => l.type === "OUT" && (l.date || "").startsWith(ymPrefix))
+                    .sort((a, b) => b.date.localeCompare(a.date));
+                selectedCalendarDate = monthLogs.length > 0 ? monthLogs[0].date : `${ymPrefix}-01`;
+            }
+
+            renderCalendarTab();
+        }
+
+        function goCalendarToday() {
+            const now = new Date();
+            calYear = now.getFullYear();
+            calMonth = now.getMonth();
+            selectedCalendarDate = formatLocalDate(now);
+            renderCalendarTab();
+        }
+
+        function selectCalendarDate(dateStr) {
+            selectedCalendarDate = dateStr;
+            renderCalendarTab();
+        }
+
+        function jumpToBestProfitDay() {
+            if (!currentMonthBestDate) return;
+            selectedCalendarDate = currentMonthBestDate;
+            renderCalendarTab();
+            const detailCard = document.getElementById("cal-detail-card");
+            if (detailCard) detailCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }
+
+        function renderCalendarTab() {
+            const ymPrefix = `${calYear}-${String(calMonth + 1).padStart(2, "0")}`;
+            document.getElementById("cal-month-title").textContent = `${calYear}년 ${calMonth + 1}월`;
+            document.getElementById("cal-kpi-month-badge").textContent = `${calYear}년 ${calMonth + 1}월 순익 요약`;
+
+            const dailyMap = {};
+            let monthTotalProfit = 0;
+            let monthTotalJobs = 0;
+
+            logs.forEach(l => {
+                if (l.type !== "OUT") return;
+                if (!(l.date || "").startsWith(ymPrefix)) return;
+                if (!dailyMap[l.date]) {
+                    dailyMap[l.date] = { profit: 0, rev: 0, cost: 0, logs: [] };
+                }
+                const p = Number(l.profit || 0);
+                dailyMap[l.date].profit += p;
+                dailyMap[l.date].rev += Number(l.totalRevenue || 0);
+                dailyMap[l.date].cost += Number(l.totalCost || 0);
+                dailyMap[l.date].logs.push(l);
+                monthTotalProfit += p;
+                monthTotalJobs += 1;
+            });
+
+            const activeDates = Object.keys(dailyMap);
+            const activeDaysCount = activeDates.length;
+            const avgDailyProfit = activeDaysCount > 0 ? Math.round(monthTotalProfit / activeDaysCount) : 0;
+
+            let bestDate = null;
+            let bestProfit = -Infinity;
+            activeDates.forEach(dStr => {
+                if (dailyMap[dStr].profit > bestProfit) {
+                    bestProfit = dailyMap[dStr].profit;
+                    bestDate = dStr;
+                }
+            });
+            currentMonthBestDate = bestDate;
+
+            document.getElementById("cal-kpi-jobs-text").textContent = `총 ${monthTotalJobs}건 시공`;
+            document.getElementById("cal-kpi-total-profit").textContent = formatSignedWon(monthTotalProfit);
+            document.getElementById("cal-kpi-work-days").textContent = `${activeDaysCount}일`;
+            document.getElementById("cal-kpi-avg-profit").textContent = activeDaysCount > 0 ? formatSignedWon(avgDailyProfit) : "0원";
+
+            const bestEl = document.getElementById("cal-kpi-best-day");
+            if (bestDate) {
+                const parts = bestDate.split("-");
+                bestEl.textContent = `${Number(parts[1])}/${Number(parts[2])} (${formatCalCellProfit(bestProfit)})`;
+            } else {
+                bestEl.textContent = "기록 없음";
+            }
+
+            const firstWeekday = new Date(calYear, calMonth, 1).getDay();
+            const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+            const todayStr = getTodayStr();
+
+            if (!selectedCalendarDate || !selectedCalendarDate.startsWith(ymPrefix)) {
+                selectedCalendarDate = todayStr.startsWith(ymPrefix) ? todayStr : `${ymPrefix}-01`;
+            }
+
+            let cellsHtml = "";
+            for (let i = 0; i < firstWeekday; i++) {
+                cellsHtml += `<div class="cal-cell empty"></div>`;
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateStr = `${ymPrefix}-${String(day).padStart(2, "0")}`;
+                const weekday = (firstWeekday + day - 1) % 7;
+                const dayClass = weekday === 0 ? "sun" : weekday === 6 ? "sat" : "";
+                const info = dailyMap[dateStr];
+                const hasJobs = !!info && info.logs.length > 0;
+                const profit = hasJobs ? info.profit : 0;
+
+                let levelClass = "";
+                if (hasJobs) {
+                    if (profit < 0) levelClass = "lvl-neg";
+                    else if (profit >= 350000) levelClass = "lvl-4";
+                    else if (profit >= 200000) levelClass = "lvl-3";
+                    else if (profit >= 100000) levelClass = "lvl-2";
+                    else if (profit > 0) levelClass = "lvl-1";
+                }
+
+                const isToday = dateStr === todayStr;
+                const isSelected = dateStr === selectedCalendarDate;
+                const compactProfit = hasJobs ? formatCalCellProfit(profit) : "";
+
+                cellsHtml += `
+                    <button type="button"
+                            class="cal-cell ${levelClass} ${isToday ? "is-today" : ""} ${isSelected ? "is-selected" : ""}"
+                            onclick="selectCalendarDate('${dateStr}')">
+                        <span class="cal-day-num ${dayClass}">${day}</span>
+                        ${compactProfit
+                            ? `<span class="cal-profit-txt">${compactProfit}</span>`
+                            : `<span style="height:12px;"></span>`
+                        }
+                    </button>
+                `;
+            }
+
+            document.getElementById("cal-grid").innerHTML = cellsHtml;
+            renderCalendarDetailCard(dailyMap[selectedCalendarDate]);
+        }
+
+        function renderCalendarDetailCard(dayInfo) {
+            const card = document.getElementById("cal-detail-card");
+            const parts = (selectedCalendarDate || getTodayStr()).split("-");
+            const dObj = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+            const wdNames = ["일", "월", "화", "수", "목", "금", "토"];
+            const dateLabel = `${Number(parts[1])}월 ${Number(parts[2])}일 (${wdNames[dObj.getDay()]})`;
+
+            if (!dayInfo || dayInfo.logs.length === 0) {
+                card.innerHTML = `
+                    <div class="cal-detail-head" style="margin-bottom:10px;">
+                        <h3 class="section-title">${dateLabel} 순익 상세</h3>
+                        <span class="badge badge-type">시공 0건</span>
+                    </div>
+                    <div style="text-align:center;padding:22px 10px;font-size:12.5px;color:var(--text-muted);background:var(--surface-variant);border-radius:14px;">
+                        선택한 날짜에는 등록된 시공 순익 내역이 없습니다.
+                    </div>
+                `;
+                return;
+            }
+
+            const dayProfit = dayInfo.profit;
+            const listHtml = dayInfo.logs.map(l => {
+                const pm = PAYMENT_META[l.paymentMethod] || PAYMENT_META.card;
+                const bInfo = resolveBrandInfo(l.brandId, l.brand);
+                return `
+                    <div class="cal-detail-item">
+                        <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px;">
+                            <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;min-width:0;">
+                                <span class="badge" style="background:${hexToRgba(bInfo.color, 0.14)};color:${bInfo.color};">${escapeHtml(bInfo.name)}</span>
+                                <span class="badge ${pm.badgeClass}">${pm.emoji} ${pm.label}</span>
+                                <span class="badge badge-type">${l.qty}개</span>
+                            </div>
+                            <span style="font-size:14.5px;font-weight:900;color:${l.profit >= 0 ? "var(--secondary)" : "var(--danger)"};flex-shrink:0;">
+                                순익 ${formatSignedWon(l.profit)}
+                            </span>
+                        </div>
+                        <div style="font-size:14px;font-weight:900;color:var(--text-main);">${escapeHtml(l.itemName)}</div>
+                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-top:6px;font-size:12px;color:var(--text-sub);font-weight:600;">
+                            <span>시공가 <strong style="color:var(--text-main);">${formatWon(l.totalRevenue)}</strong> · 원가 ${formatWon(l.totalCost)}</span>
+                        </div>
+                        ${l.memo ? `<div class="log-memo" style="background:#FFFFFF;margin-top:7px;">📍 ${escapeHtml(l.memo)}</div>` : ""}
+                    </div>
+                `;
+            }).join("");
+
+            card.innerHTML = `
+                <div class="cal-detail-head">
+                    <div>
+                        <h3 class="section-title">${dateLabel} 순익 상세</h3>
+                        <div style="font-size:11.5px;color:var(--text-muted);font-weight:700;margin-top:3px;">
+                            시공 ${dayInfo.logs.length}건 · 총 매출 ${formatWon(dayInfo.rev)}
+                        </div>
+                    </div>
+                    <span class="badge" style="padding:6px 11px;font-size:13px;background:${dayProfit >= 0 ? "var(--secondary-container)" : "var(--danger-soft)"};color:${dayProfit >= 0 ? "var(--on-secondary-container)" : "var(--danger)"};">
+                        순익 ${formatSignedWon(dayProfit)}
+                    </span>
+                </div>
+                ${listHtml}
+            `;
+        }
+
+        /* ==========================================================================
+           8. 원터치 입·출고(시공) 바텀시트
            ========================================================================== */
         let currentTxItem = null;
 
@@ -3019,7 +3730,7 @@
                 inSec.classList.add("hidden");
                 dateLabel.textContent = "시공 날짜";
                 memoLabel.textContent = "현장 주소 / 시공 메모";
-                memoInput.placeholder = "예: 김포 한강메트로자이 204동 1201호";
+                memoInput.placeholder = "예: 김포 한강메트로자이 2단지";
                 submitBtn.textContent = "출고(시공) 등록 완료";
                 submitBtn.className = "btn btn-primary full-width";
 
@@ -3087,8 +3798,9 @@
             const box = document.getElementById("profit-preview-box");
             const profitEl = document.getElementById("preview-profit-val");
             const marginEl = document.getElementById("preview-margin-val");
+
             document.getElementById("preview-cost-val").textContent = formatWon(totalCost);
-            profitEl.textContent = (profit >= 0 ? "+" : "") + formatWon(profit);
+            profitEl.textContent = formatSignedWon(profit);
             marginEl.textContent = marginPct + "%";
 
             const isLoss = profit < 0;
@@ -3153,7 +3865,7 @@
                     memo: memo || "현장 출장 시공"
                 });
 
-                showSnackbar(`${PAYMENT_META[paymentMethod].label} ${formatWon(totalRevenue)} 출고(시공) 등록 완료`);
+                showSnackbar(`${PAYMENT_META[paymentMethod].label} ${formatWon(totalRevenue)} (순익 ${formatSignedWon(profit)}) 등록 완료`);
             } else {
                 const inCost = Math.max(0, parseInt(document.getElementById("tx-in-cost").value, 10) || Number(item.cost || 0));
                 items[idx].stock = Number(item.stock) + qty;
@@ -3186,7 +3898,7 @@
         }
 
         /* ==========================================================================
-           8. 품목 추가 / 수정 / 삭제 (+ 새 브랜드 빠른 추가 포함)
+           9. 품목 추가 / 수정 / 삭제 (+ 새 브랜드 빠른 추가 내장)
            ========================================================================== */
         function populateItemBrandSelect(selectedBrandId) {
             const select = document.getElementById("item-brand-select");
@@ -3254,20 +3966,14 @@
                 showSnackbar(`'${name}' 브랜드가 이미 존재합니다.`);
                 return;
             }
-
-            const created = {
-                id: "br-" + Date.now(),
-                name,
-                color: quickBrandColor
-            };
+            const created = { id: "br-" + Date.now(), name, color: quickBrandColor };
             brands.push(created);
             saveData();
-
             populateItemBrandSelect(created.id);
             document.getElementById("quick-brand-box").classList.add("hidden");
             inp.value = "";
             refreshAllViews();
-            showSnackbar(`'${name}' 브랜드가 추가되고 자동 선택되었습니다.`);
+            showSnackbar(`'${name}' 브랜드가 추가되고 선택되었습니다.`);
         }
 
         function saveItem(e) {
@@ -3330,7 +4036,7 @@
             if (!editId) return;
             openConfirmDialog(
                 "품목 삭제",
-                "선택한 품목을 재고 목록에서 삭제하시겠습니까?\n(기존 매출·시공 이력은 유지됩니다.)",
+                "선택한 품목을 재고 목록에서 삭제할까요?\n(기존 매출·달력 순익 이력은 그대로 유지됩니다.)",
                 () => {
                     items = items.filter(x => x.id !== editId);
                     saveData();
@@ -3342,10 +4048,8 @@
         }
 
         /* ==========================================================================
-           9. 탭 2: [매출·통계] 주별(8주) / 월별(6개월) 인터랙티브 순수 SVG 차트
+           10. 탭 3: [통계] 주별(8주)·월별(6개월) 인터랙티브 SVG 차트
            ========================================================================== */
-        let cachedAnalytics = { buckets: [], allLogs: [] };
-
         function setAnalyticsMode(mode) {
             analyticsMode = mode;
             selectedBarIndex = null;
@@ -3433,8 +4137,7 @@
 
         function renderAnalytics() {
             const isWeekly = analyticsMode === "weekly";
-            cachedAnalytics = isWeekly ? buildWeeklyData() : buildMonthlyData();
-            const { buckets, allLogs } = cachedAnalytics;
+            const { buckets, allLogs } = isWeekly ? buildWeeklyData() : buildMonthlyData();
 
             if (selectedBarIndex !== null && selectedBarIndex >= buckets.length) {
                 selectedBarIndex = null;
@@ -3472,11 +4175,8 @@
         }
 
         function selectChartBar(index) {
-            if (index === null) {
-                selectedBarIndex = null;
-            } else {
-                selectedBarIndex = (selectedBarIndex === index) ? null : index;
-            }
+            if (index === null) selectedBarIndex = null;
+            else selectedBarIndex = (selectedBarIndex === index) ? null : index;
             renderAnalytics();
         }
 
@@ -3643,7 +4343,7 @@
         }
 
         /* ==========================================================================
-           10. 탭 3: [이력] 필터링, 렌더링 및 삭제 시 재고 자동 원복
+           11. 탭 4: [이력] 필터링, 목록 렌더링, 재고 자동 원복 삭제
            ========================================================================== */
         function setHistoryTypeFilter(type) {
             historyTypeFilter = type;
@@ -3735,7 +4435,7 @@
                             ${isOut
                                 ? `
                                     <span style="color:var(--text-sub);font-weight:700;">결제 <strong style="color:var(--text-main);">${formatWon(l.totalRevenue)}</strong> <span style="color:var(--text-muted);">(원가 ${formatWon(l.totalCost)})</span></span>
-                                    <span style="font-weight:900;color:${l.profit >= 0 ? "var(--secondary)" : "var(--danger)"};">순익 ${l.profit >= 0 ? "+" : ""}${formatWon(l.profit)}</span>
+                                    <span style="font-weight:900;color:${l.profit >= 0 ? "var(--secondary)" : "var(--danger)"};">순익 ${formatSignedWon(l.profit)}</span>
                                 `
                                 : `
                                     <span style="color:var(--text-sub);font-weight:700;">입고 단가 ${formatWon(l.unitCost)}</span>
@@ -3771,7 +4471,7 @@
         }
 
         /* ==========================================================================
-           11. 탭 4: 엑셀(CSV) 내보내기, JSON 백업/복원, 초기화
+           12. 탭 5: 엑셀(CSV) 내보내기, JSON 백업/복원, 초기화
            ========================================================================== */
         function exportCSV() {
             const header = ["날짜", "구분", "브랜드", "품목명", "수량", "결제수단", "매출액", "매입원가", "순이익", "현장메모"];
@@ -3791,23 +4491,27 @@
                 ].map(esc).join(",");
             });
 
-            // UTF-8 BOM 추가로 엑셀 한글 깨짐 완벽 방지
+            // UTF-8 BOM 추가로 엑셀 한글 깨짐 방지
             const csv = "\uFEFF" + [header.join(","), ...rows].join("\r\n");
-            downloadBlob(csv, "text/csv;charset=utf-8;", `친절한열쇠_매출재고장부_${getTodayStr()}.csv`);
+            const filePrefix = sanitizeFilenamePart(business.name);
+            downloadBlob(csv, "text/csv;charset=utf-8;", `${filePrefix}_매출장부_${getTodayStr()}.csv`);
             showSnackbar("엑셀(CSV) 장부 파일이 다운로드되었습니다.");
         }
 
         function exportJSON() {
+            const bizName = (business && business.name) || DEFAULT_BUSINESS.name;
             const payload = {
-                app: "친절한 열쇠 도어락 재고·매출관리",
-                version: 3,
+                app: `${bizName} 재고·달력·매출관리`,
+                version: 4.2,
                 exportedAt: new Date().toISOString(),
+                business,
                 brands,
                 items,
                 logs
             };
-            downloadBlob(JSON.stringify(payload, null, 2), "application/json;charset=utf-8;", `친절한열쇠_전체백업_${getTodayStr()}.json`);
-            showSnackbar("브랜드·재고·이력 전체 JSON 백업이 저장되었습니다.");
+            const filePrefix = sanitizeFilenamePart(bizName);
+            downloadBlob(JSON.stringify(payload, null, 2), "application/json;charset=utf-8;", `${filePrefix}_전체백업_${getTodayStr()}.json`);
+            showSnackbar("사업자정보·브랜드·재고·이력 전체 JSON 백업이 저장되었습니다.");
         }
 
         function downloadBlob(content, mime, filename) {
@@ -3830,7 +4534,12 @@
                 try {
                     const data = JSON.parse(e.target.result);
                     if (Array.isArray(data.items) && Array.isArray(data.logs)) {
-                        // brands가 없는 구버전 JSON 백업도 자동 복원
+                        if (data.business && typeof data.business.name === "string" && data.business.name.trim()) {
+                            business = {
+                                name: data.business.name.trim(),
+                                subtitle: typeof data.business.subtitle === "string" ? data.business.subtitle.trim() : ""
+                            };
+                        }
                         const synced = ensureBrandIntegrity(data.brands || null, data.items, data.logs);
                         brands = synced.brands;
                         items = synced.items;
@@ -3853,8 +4562,8 @@
 
         function confirmResetSample() {
             openConfirmDialog(
-                "샘플 데이터로 초기화",
-                "현재 저장된 브랜드·재고·이력을 초기화하고 기본 샘플 데이터로 되돌릴까요?",
+                "샘플 데이터로 복원",
+                "현재 저장된 브랜드·재고·이력을 기본 샘플 데이터로 되돌릴까요?",
                 () => {
                     brands = createDefaultBrands();
                     items = createDefaultItems();
@@ -3862,9 +4571,10 @@
                     invBrandFilter = "ALL";
                     invLowStockOnly = false;
                     selectedBarIndex = null;
+                    goCalendarToday();
                     saveData();
                     refreshAllViews();
-                    showSnackbar("기본 샘플 데이터로 초기화되었습니다.");
+                    showSnackbar("기본 샘플 데이터로 복원되었습니다.");
                 }
             );
         }
@@ -3872,7 +4582,7 @@
         function confirmClearHistory() {
             openConfirmDialog(
                 "입출고 이력 전체 비우기",
-                "등록된 브랜드와 품목 재고는 그대로 두고, 모든 입출고·매출 이력만 깨끗하게 비울까요?",
+                "등록된 브랜드와 품목 재고는 그대로 두고, 모든 입출고·매출·달력 이력만 비울까요?",
                 () => {
                     logs = [];
                     selectedBarIndex = null;
@@ -3883,18 +4593,39 @@
             );
         }
 
+        function confirmEmptyStart() {
+            openConfirmDialog(
+                "빈 장부로 새로 시작",
+                "기본 브랜드 목록만 남기고 샘플 품목과 입출고 이력을 모두 비울까요?\n(실사용 장부를 처음부터 직접 입력할 때 유용합니다.)",
+                () => {
+                    items = [];
+                    logs = [];
+                    invBrandFilter = "ALL";
+                    invLowStockOnly = false;
+                    selectedBarIndex = null;
+                    saveData();
+                    refreshAllViews();
+                    showSnackbar("품목과 이력이 비워졌습니다. 새 품목을 등록해 시작하세요.");
+                }
+            );
+        }
+
         /* ==========================================================================
-           12. 탭 전환, 모달, 확인 다이얼로그 & 스낵바
+           13. 5-탭 전환, 모달, 확인 다이얼로그 & 스낵바
            ========================================================================== */
         function switchTab(tab) {
             activeTab = tab;
-            ["inventory", "analytics", "history", "settings"].forEach(t => {
+            ["inventory", "calendar", "analytics", "history", "settings"].forEach(t => {
                 document.getElementById(`tab-${t}`).classList.toggle("hidden", t !== tab);
                 document.getElementById(`nav-${t}`).classList.toggle("active", t === tab);
             });
 
-            document.getElementById("fab-add-item").classList.toggle("hidden", tab !== "inventory");
+            // 상단 헤더 '+ 품목추가' 버튼은 '재고' 탭에서만 표시
+            document.getElementById("header-add-item-btn").classList.toggle("hidden", tab !== "inventory");
+            const customSub = business && typeof business.subtitle === "string" ? business.subtitle.trim() : "";
+            document.getElementById("header-subtitle").textContent = customSub || TAB_SUBTITLES[tab] || "";
 
+            if (tab === "calendar") renderCalendarTab();
             if (tab === "analytics") renderAnalytics();
             if (tab === "history") renderHistory();
             if (tab === "settings") renderSettingsBrandPreview();
@@ -3930,7 +4661,7 @@
             snackTimer = setTimeout(() => el.classList.remove("show"), 2600);
         }
 
-        // 앱 초기화 시작
+        // 앱 시작
         window.addEventListener("DOMContentLoaded", () => {
             loadData();
             refreshAllViews();
