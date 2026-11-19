@@ -1,0 +1,3940 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <!-- 안드로이드 PWA 및 전체화면 실행 메타 태그 -->
+    <meta name="theme-color" content="#1976D2">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="친절한도어락">
+    <meta name="application-name" content="친절한 열쇠 도어락">
+    <title>친절한 열쇠 도어락 - 재고·브랜드·매출 관리</title>
+    <!-- 100% 오프라인 인라인 SVG 앱 아이콘 -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='116' fill='%231976D2'/%3E%3Ccircle cx='208' cy='208' r='82' fill='none' stroke='%23FFD54F' stroke-width='38'/%3E%3Cpath d='M266 266 L398 398 M340 340 L384 296 M376 376 L414 338' stroke='%23FFD54F' stroke-width='38' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='116' fill='%231976D2'/%3E%3Ccircle cx='208' cy='208' r='82' fill='none' stroke='%23FFD54F' stroke-width='38'/%3E%3Cpath d='M266 266 L398 398 M340 340 L384 296 M376 376 L414 338' stroke='%23FFD54F' stroke-width='38' stroke-linecap='round'/%3E%3C/svg%3E">
+
+    <style>
+        /* ==========================================================================
+           Android Material Design 3 (M3) 디자인 시스템 토큰 (외부 CDN 없음)
+           ========================================================================== */
+        :root {
+            --primary: #1976D2;
+            --primary-dark: #1565C0;
+            --primary-container: #D3E3FD;
+            --on-primary-container: #0842A0;
+            --secondary: #00897B;
+            --secondary-container: #CCFBF1;
+            --on-secondary-container: #004D40;
+            --tertiary: #3949AB;
+            --danger: #C62828;
+            --danger-soft: #FFEBEE;
+            --danger-border: #FFCDD2;
+            --amber: #E65100;
+            --amber-soft: #FFF3E0;
+            --bg: #F4F6FA;
+            --surface: #FFFFFF;
+            --surface-variant: #EEF2F7;
+            --outline: #E0E6EF;
+            --outline-strong: #C5D0DF;
+            --text-main: #111827;
+            --text-sub: #4B5563;
+            --text-muted: #6B7280;
+            --radius-sm: 10px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --elev-1: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+            --elev-2: 0 4px 12px rgba(15, 23, 42, 0.08);
+            --elev-fab: 0 6px 20px rgba(25, 118, 210, 0.34);
+            --nav-height: 70px;
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Noto Sans KR", "Roboto", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+            line-height: 1.45;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        body {
+            padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 86px);
+        }
+
+        button, input, select {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: inherit;
+            touch-action: manipulation;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 540px;
+            margin: 0 auto;
+            padding: 0 14px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ==========================================================================
+           상단 Material 3 Top App Bar
+           ========================================================================== */
+        .top-app-bar {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            background: var(--primary);
+            color: #FFFFFF;
+            padding-top: env(safe-area-inset-top, 0px);
+            box-shadow: 0 2px 10px rgba(25, 118, 210, 0.25);
+        }
+
+        .top-bar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 62px;
+            gap: 10px;
+        }
+
+        .brand-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .brand-logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: #FFD54F;
+        }
+
+        .brand-title {
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .brand-subtitle {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.82);
+            font-weight: 500;
+        }
+
+        .top-add-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            min-height: 40px;
+            padding: 0 13px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.26);
+            color: #FFFFFF;
+            font-size: 13px;
+            font-weight: 800;
+            flex-shrink: 0;
+            transition: transform 0.14s ease, background 0.14s ease;
+        }
+
+        .top-add-btn:active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.28);
+        }
+
+        /* ==========================================================================
+           공통 카드, 버튼, 배지
+           ========================================================================== */
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--outline);
+            box-shadow: var(--elev-1);
+            padding: 16px;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .btn {
+            min-height: 46px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 0 16px;
+            transition: transform 0.12s ease, opacity 0.15s ease, filter 0.15s ease;
+        }
+
+        .btn:active:not(:disabled) {
+            transform: scale(0.96);
+        }
+
+        .btn:disabled {
+            opacity: 0.42;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #FFFFFF;
+            box-shadow: 0 3px 8px rgba(25, 118, 210, 0.26);
+        }
+
+        .btn-tonal-primary {
+            background: var(--primary-container);
+            color: var(--on-primary-container);
+        }
+
+        .btn-tonal-teal {
+            background: var(--secondary-container);
+            color: var(--on-secondary-container);
+            border: 1px solid #99F6E4;
+        }
+
+        .btn-teal {
+            background: var(--secondary);
+            color: #FFFFFF;
+            box-shadow: 0 3px 8px rgba(0, 137, 123, 0.25);
+        }
+
+        .btn-danger-soft {
+            background: var(--danger-soft);
+            color: var(--danger);
+            border: 1px solid var(--danger-border);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: #FFFFFF;
+        }
+
+        .btn-neutral {
+            background: var(--surface-variant);
+            color: var(--text-main);
+            border: 1px solid var(--outline);
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        .icon-btn {
+            min-width: 44px;
+            min-height: 44px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+            background: var(--surface-variant);
+            flex-shrink: 0;
+            transition: transform 0.12s ease, background 0.15s ease;
+        }
+
+        .icon-btn:active {
+            transform: scale(0.92);
+            background: var(--outline);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 9px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: -0.2px;
+        }
+
+        .badge-type {
+            background: var(--surface-variant);
+            color: var(--text-sub);
+            font-weight: 700;
+        }
+
+        .badge-low {
+            background: var(--danger-soft);
+            color: var(--danger);
+        }
+
+        .badge-out {
+            background: var(--danger);
+            color: #FFFFFF;
+        }
+
+        .text-primary { color: var(--primary) !important; }
+        .text-teal { color: var(--secondary) !important; }
+        .text-danger { color: var(--danger) !important; }
+        .text-amber { color: var(--amber) !important; }
+
+        /* ==========================================================================
+           탭 1: [재고] 3-카드 대시보드, 검색, 동적 브랜드 필터 칩, 품목 카드
+           ========================================================================== */
+        .dashboard-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 12px 0 12px;
+        }
+
+        .dash-card {
+            background: var(--surface);
+            border-radius: 16px;
+            border: 1px solid var(--outline);
+            box-shadow: var(--elev-1);
+            padding: 12px 10px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 76px;
+            transition: transform 0.14s ease, border-color 0.15s ease, background 0.15s ease;
+        }
+
+        .dash-card.clickable:active {
+            transform: scale(0.96);
+        }
+
+        .dash-card.low-active {
+            background: var(--danger-soft);
+            border-color: #EF9A9A;
+            box-shadow: 0 2px 8px rgba(198, 40, 40, 0.14);
+        }
+
+        .dash-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2px;
+        }
+
+        .dash-val {
+            font-size: 19px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            margin-top: 4px;
+            color: var(--text-main);
+            white-space: nowrap;
+        }
+
+        .dash-sub {
+            font-size: 10.5px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* 검색 바 */
+        .search-bar-wrap {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 46px;
+            padding: 0 44px 0 42px;
+            background: var(--surface);
+            border: 1.5px solid var(--outline);
+            border-radius: 999px;
+            font-size: 14px;
+            color: var(--text-main);
+            box-shadow: var(--elev-1);
+            outline: none;
+            transition: border-color 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.14);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+
+        /* 가로 스크롤 필터 칩 바 */
+        .chip-scroll {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            overflow-x: auto;
+            padding: 2px 0 10px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .chip-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-chip {
+            flex-shrink: 0;
+            min-height: 38px;
+            padding: 0 13px;
+            border-radius: 12px;
+            background: var(--surface);
+            border: 1.5px solid var(--outline-strong);
+            color: var(--text-sub);
+            font-size: 13px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: transform 0.12s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .filter-chip:active {
+            transform: scale(0.95);
+        }
+
+        .filter-chip.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #FFFFFF;
+            box-shadow: 0 2px 6px rgba(25, 118, 210, 0.25);
+        }
+
+        .filter-chip.brand-edit-chip {
+            background: var(--surface-variant);
+            border: 1.5px dashed var(--outline-strong);
+            color: var(--text-main);
+        }
+
+        .filter-chip.secondary-chip {
+            min-height: 34px;
+            padding: 0 11px;
+            font-size: 12px;
+            border-radius: 10px;
+            background: var(--surface-variant);
+            border-color: transparent;
+        }
+
+        .filter-chip.secondary-chip.active {
+            background: var(--primary-container);
+            color: var(--on-primary-container);
+            border-color: #93C5FD;
+            box-shadow: none;
+        }
+
+        .chip-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* 품절 임박 필터 활성화 알림 배너 */
+        .low-filter-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--danger-soft);
+            border: 1px solid var(--danger-border);
+            color: var(--danger);
+            border-radius: 12px;
+            padding: 8px 12px;
+            margin-bottom: 10px;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .section-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 2px 2px 10px;
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* 품목 카드 */
+        .item-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .item-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--outline);
+            box-shadow: var(--elev-1);
+            padding: 15px;
+            transition: border-color 0.2s ease;
+        }
+
+        .item-card.low-stock {
+            border-color: #EF9A9A;
+            box-shadow: 0 2px 10px rgba(198, 40, 40, 0.08);
+        }
+
+        .item-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .item-name {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.3px;
+            margin-bottom: 10px;
+        }
+
+        .item-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            background: var(--surface-variant);
+            border-radius: 12px;
+            padding: 9px 10px;
+            margin-bottom: 12px;
+        }
+
+        .meta-cell-label {
+            font-size: 10.5px;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .meta-cell-val {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-top: 1px;
+        }
+
+        .item-stock-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .stock-now {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        .stock-safe {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .item-actions {
+            display: grid;
+            grid-template-columns: 1fr 1.35fr;
+            gap: 10px;
+        }
+
+        /* ==========================================================================
+           FAB (Floating Action Button)
+           ========================================================================== */
+        .fab {
+            position: fixed;
+            right: max(16px, calc(50% - 254px));
+            bottom: calc(var(--nav-height) + var(--safe-bottom) + 16px);
+            z-index: 25;
+            height: 54px;
+            padding: 0 20px;
+            border-radius: 18px;
+            background: var(--primary);
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            box-shadow: var(--elev-fab);
+            transition: transform 0.14s ease;
+        }
+
+        .fab:active {
+            transform: scale(0.94);
+        }
+
+        /* ==========================================================================
+           하단 Material 3 Navigation Bar (4탭)
+           ========================================================================== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 35;
+            background: var(--surface);
+            border-top: 1px solid var(--outline);
+            padding-bottom: var(--safe-bottom);
+            box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.05);
+        }
+
+        .bottom-nav-inner {
+            max-width: 540px;
+            margin: 0 auto;
+            height: var(--nav-height);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 700;
+            min-height: 56px;
+        }
+
+        .nav-pill {
+            width: 58px;
+            height: 32px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.18s ease, transform 0.14s ease;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item.active .nav-pill {
+            background: var(--primary-container);
+            color: var(--on-primary-container);
+        }
+
+        .nav-item:active .nav-pill {
+            transform: scale(0.92);
+        }
+
+        /* ==========================================================================
+           탭 2: [매출·통계] Segmented Switch, KPI 요약, 순수 SVG 차트, 정산, TOP 5
+           ========================================================================== */
+        .segmented-control {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--surface-variant);
+            border: 1px solid var(--outline);
+            border-radius: 16px;
+            padding: 4px;
+            margin: 14px 0 12px;
+        }
+
+        .seg-btn {
+            min-height: 44px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-sub);
+            transition: all 0.18s ease;
+        }
+
+        .seg-btn.active {
+            background: var(--surface);
+            color: var(--primary);
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+        }
+
+        .kpi-summary-card {
+            margin-bottom: 14px;
+        }
+
+        .kpi-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .period-scope-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--primary-container);
+            color: var(--on-primary-container);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .scope-reset-btn {
+            min-height: 32px;
+            padding: 0 11px;
+            border-radius: 999px;
+            background: var(--surface-variant);
+            border: 1px solid var(--outline-strong);
+            font-size: 11.5px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .kpi-grid-2x2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .kpi-inner-box {
+            background: var(--surface-variant);
+            border-radius: 14px;
+            padding: 11px 12px;
+        }
+
+        .kpi-inner-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .kpi-inner-val {
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: -0.4px;
+            margin-top: 4px;
+            color: var(--text-main);
+        }
+
+        .chart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .legend-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-sub);
+        }
+
+        .legend-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+
+        .svg-chart-wrap {
+            width: 100%;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .chart-hint {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* 결제수단 비율 바 */
+        .stacked-bar {
+            width: 100%;
+            height: 16px;
+            border-radius: 999px;
+            background: var(--surface-variant);
+            overflow: hidden;
+            display: flex;
+            margin: 12px 0 14px;
+        }
+
+        .stacked-seg {
+            height: 100%;
+            transition: width 0.35s ease;
+        }
+
+        .pay-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--surface-variant);
+        }
+
+        .pay-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .pay-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pay-icon-box {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .top-model-row {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--surface-variant);
+        }
+
+        .top-model-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .top-model-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .rank-badge {
+            width: 24px;
+            height: 24px;
+            border-radius: 8px;
+            background: var(--surface-variant);
+            color: var(--text-sub);
+            font-size: 12px;
+            font-weight: 900;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: #FEF3C7; color: #B45309; }
+        .rank-2 { background: #E2E8F0; color: #334155; }
+        .rank-3 { background: #FFEDD5; color: #9A3412; }
+
+        .mini-bar-track {
+            width: 100%;
+            height: 6px;
+            border-radius: 999px;
+            background: var(--surface-variant);
+            overflow: hidden;
+        }
+
+        .mini-bar-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        /* ==========================================================================
+           탭 3: [이력]
+           ========================================================================== */
+        .history-summary-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--primary-container);
+            color: var(--on-primary-container);
+            border-radius: 14px;
+            padding: 10px 14px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .log-card {
+            background: var(--surface);
+            border-radius: 16px;
+            border: 1px solid var(--outline);
+            padding: 14px;
+            box-shadow: var(--elev-1);
+            margin-bottom: 10px;
+        }
+
+        .log-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .log-badges {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pay-badge-card { background: #E8EAF6; color: #283593; }
+        .pay-badge-transfer { background: #E0F2F1; color: #00695C; }
+        .pay-badge-cash { background: #FFF3E0; color: #E65100; }
+
+        .log-main {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .log-memo {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 6px;
+            padding: 4px 9px;
+            border-radius: 8px;
+            background: var(--surface-variant);
+            color: var(--text-sub);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .log-finance {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--surface-variant);
+            font-size: 12px;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* ==========================================================================
+           탭 4: [관리]
+           ========================================================================== */
+        .settings-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .brand-preview-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 12px 0 14px;
+        }
+
+        .install-card {
+            background: linear-gradient(135deg, #1976D2 0%, #3949AB 100%);
+            color: #FFFFFF;
+            border: none;
+        }
+
+        .offline-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            color: #E0F2F1;
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .install-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 9px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .step-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.22);
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        /* ==========================================================================
+           바텀시트, 폼, 브랜드 관리 스와치 & 인라인 편집/재할당 UI
+           ========================================================================== */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            background: rgba(15, 23, 42, 0.56);
+            backdrop-filter: blur(2px);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            animation: fadeIn 0.16s ease-out;
+        }
+
+        .modal-backdrop.center-modal {
+            align-items: center;
+            padding: 16px;
+            z-index: 60;
+        }
+
+        .bottom-sheet {
+            width: 100%;
+            max-width: 540px;
+            max-height: 92vh;
+            overflow-y: auto;
+            background: var(--surface);
+            border-radius: 28px 28px 0 0;
+            padding: 12px 18px calc(22px + var(--safe-bottom));
+            box-shadow: 0 -10px 30px rgba(15, 23, 42, 0.22);
+            animation: slideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .sheet-handle {
+            width: 40px;
+            height: 4px;
+            border-radius: 999px;
+            background: var(--outline-strong);
+            margin: 0 auto 14px;
+        }
+
+        .sheet-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .dialog-box {
+            width: 100%;
+            max-width: 360px;
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 22px 20px;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.28);
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            height: 48px;
+            padding: 0 13px;
+            background: var(--surface-variant);
+            border: 1.5px solid var(--outline);
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+            outline: none;
+            transition: border-color 0.15s ease, background 0.15s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            background: var(--surface);
+            border-color: var(--primary);
+        }
+
+        /* 수량 스테퍼 */
+        .stepper {
+            display: grid;
+            grid-template-columns: 50px 1fr 50px;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .stepper-btn {
+            height: 48px;
+            border-radius: 14px;
+            background: var(--surface-variant);
+            border: 1.5px solid var(--outline);
+            font-size: 22px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stepper-btn:active {
+            background: var(--outline);
+            transform: scale(0.94);
+        }
+
+        .stepper-input {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        /* 결제수단 3종 버튼 */
+        .payment-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .pay-toggle-btn {
+            min-height: 62px;
+            padding: 8px 6px;
+            border-radius: 16px;
+            background: var(--surface-variant);
+            border: 2px solid var(--outline);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-sub);
+            transition: all 0.15s ease;
+        }
+
+        .pay-toggle-btn .pay-emoji {
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .pay-toggle-btn.active[data-method="card"] {
+            background: #E8EAF6;
+            border-color: #3949AB;
+            color: #283593;
+            box-shadow: 0 3px 10px rgba(57, 73, 171, 0.18);
+        }
+
+        .pay-toggle-btn.active[data-method="transfer"] {
+            background: #E0F2F1;
+            border-color: #00897B;
+            color: #00695C;
+            box-shadow: 0 3px 10px rgba(0, 137, 123, 0.18);
+        }
+
+        .pay-toggle-btn.active[data-method="cash"] {
+            background: #FFF3E0;
+            border-color: #E65100;
+            color: #BF360C;
+            box-shadow: 0 3px 10px rgba(230, 81, 0, 0.18);
+        }
+
+        /* 실시간 순익 박스 */
+        .profit-preview {
+            background: #E0F2F1;
+            border: 1px solid #80CBC4;
+            border-radius: 14px;
+            padding: 11px 13px;
+            margin-top: 8px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            text-align: center;
+        }
+
+        .profit-preview.loss {
+            background: var(--danger-soft);
+            border-color: var(--danger-border);
+        }
+
+        .quick-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .quick-tag-btn {
+            min-height: 32px;
+            padding: 0 10px;
+            border-radius: 10px;
+            background: var(--surface-variant);
+            border: 1px solid var(--outline);
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--text-sub);
+        }
+
+        .quick-tag-btn:active {
+            background: var(--primary-container);
+            color: var(--on-primary-container);
+        }
+
+        /* 브랜드 색상 스와치 팔레트 */
+        .swatch-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 8px 0;
+        }
+
+        .swatch-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2.5px solid transparent;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.14s ease, box-shadow 0.14s ease;
+            position: relative;
+        }
+
+        .swatch-btn:active {
+            transform: scale(0.9);
+        }
+
+        .swatch-btn.selected {
+            border-color: #111827;
+            transform: scale(1.08);
+            box-shadow: 0 0 0 2px #FFFFFF inset;
+        }
+
+        .swatch-btn.selected::after {
+            content: "✓";
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: 900;
+        }
+
+        /* 브랜드 관리 리스트 항목 */
+        .brand-add-box {
+            background: var(--surface-variant);
+            border: 1px solid var(--outline);
+            border-radius: 16px;
+            padding: 13px;
+            margin-bottom: 16px;
+        }
+
+        .brand-manage-row {
+            background: var(--surface);
+            border: 1px solid var(--outline);
+            border-radius: 16px;
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+
+        .brand-row-main {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .brand-row-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .brand-row-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .mini-action-btn {
+            min-width: 36px;
+            min-height: 36px;
+            padding: 0 8px;
+            border-radius: 10px;
+            background: var(--surface-variant);
+            color: var(--text-sub);
+            font-size: 12px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mini-action-btn:disabled {
+            opacity: 0.35;
+        }
+
+        .mini-action-btn.del {
+            background: var(--danger-soft);
+            color: var(--danger);
+        }
+
+        .inline-panel {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--outline-strong);
+        }
+
+        .quick-brand-inline {
+            background: var(--surface-variant);
+            border: 1px solid var(--outline-strong);
+            border-radius: 14px;
+            padding: 11px;
+            margin-top: 8px;
+        }
+
+        /* Android Snackbar / Toast */
+        .snackbar {
+            position: fixed;
+            left: 50%;
+            bottom: calc(var(--nav-height) + var(--safe-bottom) + 18px);
+            transform: translate(-50%, 26px);
+            z-index: 80;
+            background: #1F2937;
+            color: #FFFFFF;
+            padding: 12px 18px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 10px 26px rgba(15, 23, 42, 0.34);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            max-width: calc(100vw - 28px);
+            text-align: center;
+        }
+
+        .snackbar.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        .empty-state {
+            background: var(--surface);
+            border: 1.5px dashed var(--outline-strong);
+            border-radius: var(--radius-lg);
+            padding: 36px 20px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======================================================================
+         상단 Material Design 3 App Bar
+         ====================================================================== -->
+    <header class="top-app-bar">
+        <div class="app-container top-bar-inner">
+            <div class="brand-wrap">
+                <div class="brand-logo" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="7.5" cy="15.5" r="5.5"></circle>
+                        <path d="m21 2-9.6 9.6"></path>
+                        <path d="m15.5 7.5 3 3L22 7l-3-3"></path>
+                    </svg>
+                </div>
+                <div>
+                    <div class="brand-title">친절한 열쇠 도어락</div>
+                    <div class="brand-subtitle">재고 · 브랜드 · 매출/순익 장부</div>
+                </div>
+            </div>
+            <button type="button" class="top-add-btn" onclick="openItemModal()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span>품목추가</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ======================================================================
+         메인 콘텐츠 컨테이너
+         ====================================================================== -->
+    <main class="app-container">
+
+        <!-- ================================================================
+             탭 1: [재고] (Inventory & One-Touch In/Out)
+             ================================================================ -->
+        <section id="tab-inventory">
+            <!-- 3-카드 대시보드 요약 -->
+            <div class="dashboard-3">
+                <div class="dash-card">
+                    <span class="dash-label">총 보유 재고</span>
+                    <div class="dash-val"><span id="dash-total-stock">0</span><span style="font-size:12px;font-weight:700;color:var(--text-muted);margin-left:2px;">개</span></div>
+                    <span class="dash-sub" id="dash-item-kinds">0개 모델</span>
+                </div>
+
+                <button type="button" id="dash-low-card" class="dash-card clickable" onclick="toggleLowStockOnly()">
+                    <span class="dash-label text-danger">
+                        <span>품절 임박</span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </span>
+                    <div class="dash-val text-danger"><span id="dash-low-count">0</span><span style="font-size:12px;font-weight:700;margin-left:2px;">건</span></div>
+                    <span class="dash-sub" id="dash-low-hint">안전재고 이하</span>
+                </button>
+
+                <div class="dash-card">
+                    <span class="dash-label text-primary">오늘 입/출고</span>
+                    <div class="dash-val text-primary"><span id="dash-today-total">0</span><span style="font-size:12px;font-weight:700;color:var(--text-muted);margin-left:2px;">건</span></div>
+                    <span class="dash-sub" id="dash-today-split">입 0 · 출 0</span>
+                </div>
+            </div>
+
+            <!-- 검색 바 -->
+            <div class="search-bar-wrap">
+                <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.3-4.3"></path>
+                </svg>
+                <input type="text" id="search-input" class="search-input" placeholder="모델명, 브랜드, 분류 검색 (예: GP-7000, 게이트맨)" oninput="renderInventory()">
+                <button type="button" id="search-clear-btn" class="search-clear hidden" onclick="clearSearch()" aria-label="검색어 지우기">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="m15 9-6 6"></path>
+                        <path d="m9 9 6 6"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- 동적 브랜드 필터 칩 바 (전체 + 사용자 브랜드들 + ⚙️ 브랜드 편집) -->
+            <div class="chip-scroll" id="brand-filter-chips">
+                <!-- JS 동적 렌더링 -->
+            </div>
+
+            <!-- 품절 임박 단독 필터 활성 시 표시되는 배너 -->
+            <div id="low-filter-banner" class="low-filter-banner hidden">
+                <span>⚠️ 안전재고 이하(품절 임박) 품목만 표시 중</span>
+                <button type="button" onclick="toggleLowStockOnly()" style="text-decoration:underline;font-weight:900;font-size:12px;">전체보기</button>
+            </div>
+
+            <div class="section-meta">
+                <span>조회 품목 <strong id="inventory-count" style="color:var(--text-main);">0</strong>종</span>
+                <span>원터치로 바로 입고 · 출고(시공) 처리</span>
+            </div>
+
+            <!-- 품목 카드 목록 -->
+            <div id="inventory-list" class="item-list">
+                <!-- JS 동적 렌더링 -->
+            </div>
+        </section>
+
+        <!-- ================================================================
+             탭 2: [매출·통계] (Weekly & Monthly Interactive Charts)
+             ================================================================ -->
+        <section id="tab-analytics" class="hidden">
+            <!-- 기간 전환 Segmented Button -->
+            <div class="segmented-control" role="tablist">
+                <button type="button" id="seg-weekly" class="seg-btn active" onclick="setAnalyticsMode('weekly')">주별 (최근 8주)</button>
+                <button type="button" id="seg-monthly" class="seg-btn" onclick="setAnalyticsMode('monthly')">월별 (최근 6개월)</button>
+            </div>
+
+            <!-- 상단 KPI 요약 카드 (선택된 막대 또는 전체 기간 합계 동기화) -->
+            <div class="card kpi-summary-card">
+                <div class="kpi-header-row">
+                    <span class="period-scope-pill" id="analytics-scope-label">최근 8주 전체 합계</span>
+                    <button type="button" id="analytics-reset-scope-btn" class="scope-reset-btn hidden" onclick="selectChartBar(null)">전체 기간 합계</button>
+                </div>
+
+                <div class="kpi-grid-2x2">
+                    <div class="kpi-inner-box">
+                        <div class="kpi-inner-label">총 매출</div>
+                        <div class="kpi-inner-val text-primary" id="stat-rev">0원</div>
+                    </div>
+                    <div class="kpi-inner-box">
+                        <div class="kpi-inner-label">총 원가</div>
+                        <div class="kpi-inner-val" id="stat-cost">0원</div>
+                    </div>
+                    <div class="kpi-inner-box">
+                        <div class="kpi-inner-label">
+                            <span>순이익</span>
+                            <span id="stat-margin" class="badge" style="background:var(--secondary-container);color:var(--on-secondary-container);">마진 0%</span>
+                        </div>
+                        <div class="kpi-inner-val text-teal" id="stat-profit">0원</div>
+                    </div>
+                    <div class="kpi-inner-box">
+                        <div class="kpi-inner-label">시공 건수</div>
+                        <div class="kpi-inner-val"><span id="stat-jobs">0</span><span style="font-size:12px;font-weight:700;color:var(--text-muted);margin-left:2px;">건</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 인터랙티브 순수 SVG 그룹 막대 그래프 카드 -->
+            <div class="card" style="margin-bottom: 14px;">
+                <div class="chart-header">
+                    <h2 class="section-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                        </svg>
+                        <span id="chart-title">주별 매출 · 순이익 추이</span>
+                    </h2>
+                    <div class="legend-row">
+                        <span><i class="legend-dot" style="background:#1976D2;"></i>매출</span>
+                        <span><i class="legend-dot" style="background:#00897B;"></i>순이익</span>
+                    </div>
+                </div>
+
+                <div class="svg-chart-wrap" id="svg-chart-container">
+                    <!-- JS로 순수 SVG 렌더링 -->
+                </div>
+                <div class="chart-hint">막대를 터치하면 해당 기간의 매출·결제·인기모델만 집계됩니다. (다시 누르면 전체 합계)</div>
+            </div>
+
+            <!-- 결제수단별 정산 비율 카드 -->
+            <div class="card" style="margin-bottom: 14px;">
+                <div class="chart-header" style="margin-bottom: 4px;">
+                    <h2 class="section-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="14" x="2" y="5" rx="2"></rect>
+                            <line x1="2" y1="10" x2="22" y2="10"></line>
+                        </svg>
+                        <span>결제수단별 정산 현황</span>
+                    </h2>
+                    <span style="font-size:11px;font-weight:700;color:var(--text-muted);" id="pay-scope-badge">전체</span>
+                </div>
+
+                <div class="stacked-bar">
+                    <div class="stacked-seg" id="bar-card" style="width:0%; background:#3949AB;"></div>
+                    <div class="stacked-seg" id="bar-transfer" style="width:0%; background:#00897B;"></div>
+                    <div class="stacked-seg" id="bar-cash" style="width:0%; background:#E65100;"></div>
+                </div>
+
+                <div id="pay-breakdown-rows">
+                    <!-- JS 동적 렌더링 -->
+                </div>
+            </div>
+
+            <!-- 인기 시공 모델 TOP 5 -->
+            <div class="card">
+                <div class="chart-header" style="margin-bottom: 6px;">
+                    <h2 class="section-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                            <path d="M4 22h16"></path>
+                            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+                        </svg>
+                        <span>인기 시공 모델 TOP 5</span>
+                    </h2>
+                    <span style="font-size:11px;font-weight:700;color:var(--text-muted);" id="top-scope-badge">전체</span>
+                </div>
+                <div id="top-models-list">
+                    <!-- JS 동적 렌더링 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================
+             탭 3: [이력] (Transaction History)
+             ================================================================ -->
+        <section id="tab-history" class="hidden" style="padding-top: 12px;">
+            <!-- 1차 필터: 전체 / 출고(시공) / 입고 -->
+            <div class="chip-scroll" id="history-type-chips" style="padding-bottom: 6px;">
+                <button type="button" class="filter-chip active" data-htype="ALL" onclick="setHistoryTypeFilter('ALL')">전체</button>
+                <button type="button" class="filter-chip" data-htype="OUT" onclick="setHistoryTypeFilter('OUT')">출고(시공)</button>
+                <button type="button" class="filter-chip" data-htype="IN" onclick="setHistoryTypeFilter('IN')">입고</button>
+            </div>
+
+            <!-- 2차 필터: 결제수단별 -->
+            <div class="chip-scroll" id="history-pay-chips" style="padding-bottom: 10px;">
+                <button type="button" class="filter-chip secondary-chip active" data-hpay="ALL" onclick="setHistoryPayFilter('ALL')">전체결제</button>
+                <button type="button" class="filter-chip secondary-chip" data-hpay="card" onclick="setHistoryPayFilter('card')">💳 카드</button>
+                <button type="button" class="filter-chip secondary-chip" data-hpay="transfer" onclick="setHistoryPayFilter('transfer')">🏦 계좌이체</button>
+                <button type="button" class="filter-chip secondary-chip" data-hpay="cash" onclick="setHistoryPayFilter('cash')">💵 현금</button>
+            </div>
+
+            <!-- 이력 요약 바 -->
+            <div class="history-summary-bar">
+                <span>조회 <strong id="history-count">0</strong>건</span>
+                <span id="history-money-summary">매출 0원 · 순익 0원</span>
+            </div>
+
+            <!-- 입출고 목록 -->
+            <div id="history-list">
+                <!-- JS 동적 렌더링 -->
+            </div>
+        </section>
+
+        <!-- ================================================================
+             탭 4: [관리] (Brand Management, Backup/Export & PWA)
+             ================================================================ -->
+        <section id="tab-settings" class="hidden">
+            <div class="settings-stack">
+
+                <!-- 🏷️ 브랜드 관리 전용 카드 -->
+                <div class="card">
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+                        <h2 class="section-title">
+                            <span>🏷️ 브랜드 관리</span>
+                        </h2>
+                        <span class="badge" id="settings-brand-count-badge" style="background:var(--primary-container);color:var(--on-primary-container);">총 5개</span>
+                    </div>
+                    <p style="font-size:12px;color:var(--text-muted);margin-top:6px;line-height:1.5;">
+                        도어락 브랜드를 임의로 추가하거나 이름·배지 색상·정렬 순서를 변경하고, 쓰지 않는 브랜드를 안전하게 삭제할 수 있습니다.
+                    </p>
+                    <div id="settings-brand-pills" class="brand-preview-pills">
+                        <!-- JS 동적 렌더링 -->
+                    </div>
+                    <button type="button" class="btn btn-tonal-primary full-width" onclick="openBrandManagerModal()">
+                        <span>⚙️ 브랜드 추가 · 편집 · 삭제하기</span>
+                    </button>
+                </div>
+
+                <!-- 엑셀 CSV 내보내기 & JSON 백업/복원 카드 -->
+                <div class="card">
+                    <h2 class="section-title" style="margin-bottom:6px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                            <path d="M3 5V19A9 3 0 0 0 21 19V5"></path>
+                            <path d="M3 12A9 3 0 0 0 21 12"></path>
+                        </svg>
+                        <span>장부 내보내기 및 백업·복원</span>
+                    </h2>
+                    <p style="font-size:12px;color:var(--text-muted);line-height:1.5;">
+                        브랜드·품목·입출고 내역이 기기에 자동 저장됩니다. 세무 정산용 엑셀(CSV) 다운로드 및 JSON 전체 백업/복원을 지원합니다.
+                    </p>
+
+                    <button type="button" onclick="exportCSV()" class="btn btn-teal full-width" style="margin-top:14px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                        </svg>
+                        <span>엑셀(CSV) 장부 내보내기</span>
+                    </button>
+
+                    <div class="action-grid">
+                        <button type="button" onclick="exportJSON()" class="btn btn-neutral">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span>JSON 백업</span>
+                        </button>
+                        <label class="btn btn-neutral" style="cursor:pointer;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <span>JSON 복원</span>
+                            <input type="file" id="json-import-input" accept=".json" onchange="importJSON(event)" class="hidden">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 안드로이드 PWA 설치 가이드 카드 -->
+                <div class="card install-card">
+                    <div class="offline-pill">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        <span>100% 오프라인 동작 (지하주차장·엘리베이터 OK)</span>
+                    </div>
+                    <h2 style="font-size:17px;font-weight:900;margin-bottom:6px;">안드로이드 홈 화면에 앱으로 설치</h2>
+                    <p style="font-size:12px;color:rgba(255,255,255,0.88);line-height:1.5;">
+                        플레이스토어 설치 없이 안드로이드 바탕화면에 아이콘을 추가해 일반 앱처럼 전체화면으로 실행할 수 있습니다.
+                    </p>
+
+                    <div class="install-step">
+                        <span class="step-num">1</span>
+                        <span>안드로이드 <strong>Chrome</strong> 우측 상단 <strong>⋮ (메뉴)</strong> 버튼을 누릅니다.</span>
+                    </div>
+                    <div class="install-step">
+                        <span class="step-num">2</span>
+                        <span><strong>'홈 화면에 추가'</strong> 또는 <strong>'앱 설치'</strong>를 선택합니다.</span>
+                    </div>
+                    <div class="install-step">
+                        <span class="step-num">3</span>
+                        <span>바탕화면에 생성된 <strong>'친절한도어락'</strong> 아이콘으로 바로 실행하세요.</span>
+                    </div>
+
+                    <button type="button" id="pwa-install-btn" onclick="triggerPwaInstall()" class="btn full-width" style="margin-top:15px;background:#FFFFFF;color:#1976D2;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        <span id="pwa-install-btn-text">안드로이드 앱 바로 설치 / 안내</span>
+                    </button>
+                </div>
+
+                <!-- 초기화 카드 -->
+                <div class="card">
+                    <h2 class="section-title" style="margin-bottom:6px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                            <path d="M3 3v5h5"></path>
+                        </svg>
+                        <span>데이터 초기화</span>
+                    </h2>
+                    <p style="font-size:12px;color:var(--text-muted);line-height:1.5;">
+                        실사용 시작 전 샘플 입출고 이력만 비우거나, 기본 브랜드·품목 샘플 상태로 되돌릴 수 있습니다.
+                    </p>
+                    <div class="action-grid">
+                        <button type="button" onclick="confirmResetSample()" class="btn btn-neutral" style="font-size:13px;">
+                            샘플 데이터 복원
+                        </button>
+                        <button type="button" onclick="confirmClearHistory()" class="btn btn-danger-soft" style="font-size:13px;">
+                            이력만 전체 비우기
+                        </button>
+                    </div>
+                </div>
+
+                <div style="text-align:center;padding:6px 0 4px;font-size:11px;color:var(--text-muted);font-weight:600;">
+                    친절한 열쇠 도어락 v3.0 · Custom Brands & Material 3 Offline PWA
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ======================================================================
+         FAB (+ 품목) — 재고 탭 전용
+         ====================================================================== -->
+    <button type="button" id="fab-add-item" class="fab" onclick="openItemModal()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        <span>품목</span>
+    </button>
+
+    <!-- ======================================================================
+         하단 Material 3 고정 내비게이션 바 (4탭)
+         ====================================================================== -->
+    <nav class="bottom-nav" aria-label="하단 내비게이션">
+        <div class="bottom-nav-inner">
+            <button type="button" class="nav-item active" id="nav-inventory" onclick="switchTab('inventory')">
+                <span class="nav-pill">
+                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path>
+                        <path d="m3.3 7 8.7 5 8.7-5"></path>
+                        <path d="M12 22V12"></path>
+                    </svg>
+                </span>
+                <span>재고</span>
+            </button>
+
+            <button type="button" class="nav-item" id="nav-analytics" onclick="switchTab('analytics')">
+                <span class="nav-pill">
+                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 3v18h18"></path>
+                        <rect width="4" height="7" x="7" y="10" rx="1"></rect>
+                        <rect width="4" height="12" x="15" y="5" rx="1"></rect>
+                    </svg>
+                </span>
+                <span>매출·통계</span>
+            </button>
+
+            <button type="button" class="nav-item" id="nav-history" onclick="switchTab('history')">
+                <span class="nav-pill">
+                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="8" y1="13" x2="16" y2="13"></line>
+                        <line x1="8" y1="17" x2="13" y2="17"></line>
+                    </svg>
+                </span>
+                <span>이력</span>
+            </button>
+
+            <button type="button" class="nav-item" id="nav-settings" onclick="switchTab('settings')">
+                <span class="nav-pill">
+                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z"></path>
+                    </svg>
+                </span>
+                <span>관리</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ======================================================================
+         바텀시트 1: 브랜드 관리 (추가 · 이름/색상 수정 · 순서 변경 · 안전한 삭제)
+         ====================================================================== -->
+    <div id="brand-modal" class="modal-backdrop hidden" onclick="backdropClose(event, 'brand-modal')">
+        <div class="bottom-sheet">
+            <div class="sheet-handle"></div>
+            <div class="sheet-header">
+                <div>
+                    <h3 style="font-size:18px;font-weight:900;">🏷️ 브랜드 관리</h3>
+                    <p style="font-size:12px;color:var(--text-muted);margin-top:2px;">브랜드를 추가·수정·순서변경·삭제하면 앱 전체에 즉시 반영됩니다.</p>
+                </div>
+                <button type="button" class="icon-btn" onclick="closeModal('brand-modal')" aria-label="닫기">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- 새 브랜드 추가 폼 -->
+            <div class="brand-add-box">
+                <label class="form-label">새 브랜드 추가</label>
+                <div style="display:flex;gap:8px;">
+                    <input type="text" id="new-brand-name" class="form-input" style="background:#FFFFFF;" placeholder="새 브랜드명 (예: 밀레, 유니코, 코콤)" onkeydown="if(event.key==='Enter'){event.preventDefault();addNewBrand();}">
+                    <button type="button" class="btn btn-primary" style="flex-shrink:0;padding:0 18px;" onclick="addNewBrand()">추가</button>
+                </div>
+                <div style="margin-top:8px;">
+                    <span style="font-size:11px;font-weight:700;color:var(--text-muted);">배지 색상 선택</span>
+                    <div class="swatch-row" id="new-brand-swatches">
+                        <!-- JS 렌더링 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 등록된 브랜드 목록 (순서 변경 · 인라인 수정 · 품목 이동 후 삭제) -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                <span class="form-label" style="margin-bottom:0;">등록된 브랜드 목록 (<span id="brand-modal-count">0</span>개)</span>
+                <span style="font-size:11px;color:var(--text-muted);font-weight:600;">▲▼ 버튼으로 필터 순서 변경</span>
+            </div>
+            <div id="brand-manage-list">
+                <!-- JS 동적 렌더링 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         바텀시트 2: 출고(시공) / 입고 처리
+         ====================================================================== -->
+    <div id="tx-modal" class="modal-backdrop hidden" onclick="backdropClose(event, 'tx-modal')">
+        <div class="bottom-sheet">
+            <div class="sheet-handle"></div>
+            <div class="sheet-header">
+                <div>
+                    <span id="tx-mode-badge" class="badge" style="margin-bottom:6px;">출고(시공)</span>
+                    <h3 id="tx-item-title" style="font-size:17px;font-weight:900;line-height:1.3;">품목명</h3>
+                    <div style="font-size:12px;color:var(--text-muted);margin-top:3px;font-weight:600;">
+                        현재 재고 <strong id="tx-stock-now" style="color:var(--text-main);">0</strong>개 · 매입가 <strong id="tx-unit-cost-text">0원</strong>
+                    </div>
+                </div>
+                <button type="button" class="icon-btn" onclick="closeModal('tx-modal')" aria-label="닫기">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <form id="tx-form" onsubmit="submitTransaction(event)">
+                <input type="hidden" id="tx-item-id">
+                <input type="hidden" id="tx-mode">
+                <input type="hidden" id="tx-payment" value="card">
+
+                <!-- 수량 & 날짜 -->
+                <div class="form-row-2" style="margin-bottom: 14px;">
+                    <div>
+                        <label class="form-label">수량</label>
+                        <div class="stepper">
+                            <button type="button" class="stepper-btn" onclick="stepTxQty(-1)">−</button>
+                            <input type="number" id="tx-qty" class="form-input stepper-input" value="1" min="1" required oninput="onTxQtyChange()">
+                            <button type="button" class="stepper-btn" onclick="stepTxQty(1)">+</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label" id="tx-date-label">시공 날짜</label>
+                        <input type="date" id="tx-date" class="form-input" style="font-size:14px;" required>
+                    </div>
+                </div>
+
+                <!-- 출고(시공) 전용: 결제수단 3종 + 최종 결제금액 + 실시간 순익 -->
+                <div id="tx-out-section">
+                    <div class="form-group">
+                        <label class="form-label">결제수단 선택 *</label>
+                        <div class="payment-selector" role="radiogroup" aria-label="결제수단">
+                            <button type="button" class="pay-toggle-btn active" data-method="card" onclick="selectPaymentMethod('card')">
+                                <span class="pay-emoji">💳</span>
+                                <span>카드</span>
+                            </button>
+                            <button type="button" class="pay-toggle-btn" data-method="transfer" onclick="selectPaymentMethod('transfer')">
+                                <span class="pay-emoji">🏦</span>
+                                <span>계좌이체</span>
+                            </button>
+                            <button type="button" class="pay-toggle-btn" data-method="cash" onclick="selectPaymentMethod('cash')">
+                                <span class="pay-emoji">💵</span>
+                                <span>현금</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">최종 결제금액 (원)</label>
+                        <input type="number" id="tx-revenue" class="form-input" min="0" step="1000" required oninput="updateProfitPreview()" style="font-size:18px;font-weight:900;color:var(--primary);">
+                        <div class="quick-tags">
+                            <button type="button" class="quick-tag-btn" onclick="adjustTxAmount(-20000)">−2만</button>
+                            <button type="button" class="quick-tag-btn" onclick="adjustTxAmount(-10000)">−1만</button>
+                            <button type="button" class="quick-tag-btn" onclick="adjustTxAmount(10000)">+1만</button>
+                            <button type="button" class="quick-tag-btn" onclick="adjustTxAmount(20000)">+2만</button>
+                        </div>
+
+                        <!-- 실시간 예상 원가 / 순이익 / 마진율 -->
+                        <div id="profit-preview-box" class="profit-preview">
+                            <div>
+                                <div style="font-size:10.5px;font-weight:700;color:var(--text-sub);">예상 원가</div>
+                                <div id="preview-cost-val" style="font-size:13.5px;font-weight:800;margin-top:2px;">0원</div>
+                            </div>
+                            <div>
+                                <div style="font-size:10.5px;font-weight:700;color:var(--text-sub);">예상 순이익</div>
+                                <div id="preview-profit-val" style="font-size:14px;font-weight:900;color:var(--secondary);margin-top:2px;">+0원</div>
+                            </div>
+                            <div>
+                                <div style="font-size:10.5px;font-weight:700;color:var(--text-sub);">마진율</div>
+                                <div id="preview-margin-val" style="font-size:14px;font-weight:900;color:var(--secondary);margin-top:2px;">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 입고 전용: 입고 매입단가 -->
+                <div id="tx-in-section" class="hidden">
+                    <div class="form-group">
+                        <label class="form-label">매입 단가 (개당 원)</label>
+                        <input type="number" id="tx-in-cost" class="form-input" min="0" step="1000">
+                    </div>
+                </div>
+
+                <!-- 현장 메모 & 빠른 태그 -->
+                <div class="form-group">
+                    <label class="form-label" id="tx-memo-label">현장 주소 / 시공 메모</label>
+                    <input type="text" id="tx-memo" class="form-input" placeholder="예: 김포 한강메트로자이 204동 1201호">
+                    <div class="quick-tags" id="tx-quick-tags">
+                        <!-- JS 렌더링 -->
+                    </div>
+                </div>
+
+                <button type="submit" id="tx-submit-btn" class="btn btn-primary full-width" style="min-height:52px;font-size:15px;">
+                    출고(시공) 등록 완료
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         바텀시트 3: 품목 추가 / 수정 (+ 새 브랜드 빠른 추가 내장)
+         ====================================================================== -->
+    <div id="item-modal" class="modal-backdrop hidden" onclick="backdropClose(event, 'item-modal')">
+        <div class="bottom-sheet">
+            <div class="sheet-handle"></div>
+            <div class="sheet-header">
+                <h3 id="item-modal-title" style="font-size:18px;font-weight:900;">새 품목 추가</h3>
+                <button type="button" class="icon-btn" onclick="closeModal('item-modal')" aria-label="닫기">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <form id="item-form" onsubmit="saveItem(event)">
+                <input type="hidden" id="edit-item-id">
+
+                <!-- 브랜드 선택 + 새 브랜드 빠른 추가 버튼 -->
+                <div class="form-group">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                        <label class="form-label" style="margin-bottom:0;">브랜드 *</label>
+                        <button type="button" class="quick-tag-btn" style="color:var(--primary);border-color:#93C5FD;background:var(--primary-container);" onclick="toggleQuickBrandAdd()">+ 새 브랜드</button>
+                    </div>
+                    <select id="item-brand-select" class="form-select" required>
+                        <!-- JS 동적 렌더링 -->
+                    </select>
+
+                    <!-- 인라인 빠른 브랜드 추가 패널 -->
+                    <div id="quick-brand-box" class="quick-brand-inline hidden">
+                        <div style="display:flex;gap:6px;">
+                            <input type="text" id="quick-brand-name" class="form-input" style="height:42px;background:#FFFFFF;font-size:14px;" placeholder="새 브랜드명 (예: 밀레, 유니코)">
+                            <button type="button" class="btn btn-primary" style="min-height:42px;padding:0 14px;font-size:13px;" onclick="submitQuickBrandAdd()">추가</button>
+                        </div>
+                        <div class="swatch-row" id="quick-brand-swatches" style="margin-bottom:0;">
+                            <!-- JS 렌더링 -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row-2 form-group">
+                    <div>
+                        <label class="form-label">제품 분류 *</label>
+                        <select id="item-type" class="form-select" required>
+                            <option value="푸시풀">푸시풀</option>
+                            <option value="주키">주키</option>
+                            <option value="보조키">보조키</option>
+                            <option value="부자재">부자재</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label">안전재고 기준 (개) *</label>
+                        <input type="number" id="item-min-stock" class="form-input" min="0" value="2" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">모델명 / 품목명 *</label>
+                    <input type="text" id="item-name" class="form-input" required placeholder="예: 솔리티 안면인식 푸시풀 GP-7000BK">
+                </div>
+
+                <div class="form-row-2 form-group">
+                    <div>
+                        <label class="form-label">현재 재고 (개) *</label>
+                        <input type="number" id="item-stock" class="form-input" min="0" value="2" required>
+                    </div>
+                    <div>
+                        <label class="form-label">매입가 (원) *</label>
+                        <input type="number" id="item-cost" class="form-input" min="0" step="1000" placeholder="150000" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">기본 시공가 (원) *</label>
+                    <input type="number" id="item-price" class="form-input" min="0" step="1000" placeholder="250000" required>
+                </div>
+
+                <div style="display:flex;gap:10px;margin-top:16px;">
+                    <button type="button" id="item-delete-btn" class="btn btn-danger-soft hidden" onclick="confirmDeleteItem()" style="padding:0 18px;">삭제</button>
+                    <button type="submit" class="btn btn-primary" style="flex:1;min-height:52px;">저장하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         커스텀 확인 다이얼로그 (alert / confirm 완전 대체)
+         ====================================================================== -->
+    <div id="confirm-modal" class="modal-backdrop center-modal hidden" onclick="backdropClose(event, 'confirm-modal')">
+        <div class="dialog-box">
+            <h3 id="confirm-title" style="font-size:17px;font-weight:900;margin-bottom:8px;">확인</h3>
+            <p id="confirm-desc" style="font-size:13px;color:var(--text-sub);line-height:1.55;margin-bottom:18px;white-space:pre-line;"></p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                <button type="button" class="btn btn-neutral" style="min-height:44px;" onclick="closeModal('confirm-modal')">취소</button>
+                <button type="button" id="confirm-ok-btn" class="btn btn-danger" style="min-height:44px;">확인</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Android Snackbar / Toast -->
+    <div id="snackbar" class="snackbar" role="status" aria-live="polite">
+        <span id="snackbar-text">처리되었습니다.</span>
+    </div>
+
+    <script>
+        /* ==========================================================================
+           1. 안드로이드 PWA 동적 Web App Manifest 등록 & 설치 프롬프트 핸들러
+           ========================================================================== */
+        let deferredPrompt = null;
+
+        (function setupDynamicPwaManifest() {
+            try {
+                const iconSvg = "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='116' fill='%231976D2'/%3E%3Ccircle cx='208' cy='208' r='82' fill='none' stroke='%23FFD54F' stroke-width='38'/%3E%3Cpath d='M266 266 L398 398 M340 340 L384 296 M376 376 L414 338' stroke='%23FFD54F' stroke-width='38' stroke-linecap='round'/%3E%3C/svg%3E";
+                const manifest = {
+                    name: "친절한 열쇠 도어락 - 재고·매출관리",
+                    short_name: "친절한도어락",
+                    description: "출장 도어락 시공 재고, 사용자 정의 브랜드, 결제수단, 주별·월별 매출/순익 관리 PWA",
+                    start_url: "./",
+                    display: "standalone",
+                    orientation: "portrait",
+                    background_color: "#F4F6FA",
+                    theme_color: "#1976D2",
+                    icons: [
+                        { src: iconSvg, sizes: "192x192", type: "image/svg+xml", purpose: "any maskable" },
+                        { src: iconSvg, sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }
+                    ]
+                };
+                const blob = new Blob([JSON.stringify(manifest)], { type: "application/manifest+json" });
+                const link = document.createElement("link");
+                link.rel = "manifest";
+                link.href = URL.createObjectURL(blob);
+                document.head.appendChild(link);
+            } catch (e) {
+                console.warn("PWA Manifest creation skipped:", e);
+            }
+        })();
+
+        window.addEventListener("beforeinstallprompt", (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const btnText = document.getElementById("pwa-install-btn-text");
+            if (btnText) btnText.textContent = "지금 안드로이드 홈 화면에 바로 설치";
+        });
+
+        async function triggerPwaInstall() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const choice = await deferredPrompt.userChoice;
+                if (choice && choice.outcome === "accepted") {
+                    showSnackbar("안드로이드 홈 화면 설치가 시작되었습니다.");
+                }
+                deferredPrompt = null;
+            } else {
+                showSnackbar("Chrome 우측 상단 ⋮ 메뉴 → '홈 화면에 추가'를 눌러 설치하세요.");
+            }
+        }
+
+        /* ==========================================================================
+           2. 상수, 색상 팔레트, 스토리지 키 및 유틸리티
+           ========================================================================== */
+        const STORAGE_BRANDS = "kindkey_m3_brands_v3";
+        const STORAGE_ITEMS  = "kindkey_m3_items_v3";
+        const STORAGE_LOGS   = "kindkey_m3_logs_v3";
+        // 구버전 마이그레이션 키
+        const LEGACY_ITEMS_V2 = "kindkey_m3_items_v2";
+        const LEGACY_LOGS_V2  = "kindkey_m3_logs_v2";
+
+        // Material Design 3 브랜드 배지 색상 스와치 8종
+        const BRAND_COLORS = [
+            "#1976D2", // Blue (솔리티)
+            "#00897B", // Teal (게이트맨)
+            "#3949AB", // Indigo (삼성)
+            "#E65100", // Deep Orange (혜강)
+            "#546E7A", // Blue Grey (부자재)
+            "#7B1FA2", // Purple
+            "#C62828", // Red
+            "#2E7D32"  // Green
+        ];
+
+        const PAYMENT_META = {
+            card:     { label: "카드",     emoji: "💳", color: "#3949AB", bg: "#E8EAF6", badgeClass: "pay-badge-card" },
+            transfer: { label: "계좌이체", emoji: "🏦", color: "#00897B", bg: "#E0F2F1", badgeClass: "pay-badge-transfer" },
+            cash:     { label: "현금",     emoji: "💵", color: "#E65100", bg: "#FFF3E0", badgeClass: "pay-badge-cash" }
+        };
+
+        const OUT_MEMO_TAGS = ["김포 한강메트로자이", "일산 위시티", "파주 운정", "긴급 출장", "단체 시공"];
+        const IN_MEMO_TAGS  = ["본사 정기 입고", "대리점 긴급 발주", "부자재 보충", "반품 재입고"];
+
+        function formatLocalDate(d) {
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, "0");
+            const day = String(d.getDate()).padStart(2, "0");
+            return `${y}-${m}-${day}`;
+        }
+
+        function formatTimeHHMM(isoStr) {
+            if (!isoStr) return "";
+            const d = new Date(isoStr);
+            if (isNaN(d.getTime())) return "";
+            return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+        }
+
+        function getTodayStr() {
+            return formatLocalDate(new Date());
+        }
+
+        function formatWon(num) {
+            return Math.round(Number(num) || 0).toLocaleString("ko-KR") + "원";
+        }
+
+        function formatCompactWon(num) {
+            const val = Math.round(Number(num) || 0);
+            const abs = Math.abs(val);
+            const sign = val < 0 ? "-" : "";
+            if (abs >= 100000000) return sign + (abs / 100000000).toFixed(1).replace(/\.0$/, "") + "억";
+            if (abs >= 10000) {
+                const man = abs / 10000;
+                return sign + (man >= 100 ? Math.round(man).toLocaleString("ko-KR") : man.toFixed(1).replace(/\.0$/, "")) + "만";
+            }
+            return sign + abs.toLocaleString("ko-KR") + "원";
+        }
+
+        function escapeHtml(str) {
+            return String(str || "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
+
+        // Hex 색상을 반투명 배지 배경(RGBA)으로 변환
+        function hexToRgba(hex, alpha) {
+            const clean = String(hex || "#546E7A").replace("#", "");
+            if (clean.length !== 6) return `rgba(84, 110, 122, ${alpha})`;
+            const r = parseInt(clean.slice(0, 2), 16);
+            const g = parseInt(clean.slice(2, 4), 16);
+            const b = parseInt(clean.slice(4, 6), 16);
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+
+        /* ==========================================================================
+           3. 초기 샘플 데이터 (기본 브랜드 5종, 실무 도어락/부자재 9종, 6개월 시공 이력)
+           ========================================================================== */
+        function createDefaultBrands() {
+            return [
+                { id: "br-solity",  name: "솔리티",   color: "#1976D2" },
+                { id: "br-gateman", name: "게이트맨", color: "#00897B" },
+                { id: "br-samsung", name: "삼성",     color: "#3949AB" },
+                { id: "br-hyegang", name: "혜강",     color: "#E65100" },
+                { id: "br-parts",   name: "부자재",   color: "#546E7A" }
+            ];
+        }
+
+        function createDefaultItems() {
+            return [
+                { id: "item-1", brandId: "br-solity",  brand: "솔리티",   type: "푸시풀", name: "솔리티 안면인식 푸시풀 GP-7000BK", stock: 3,  minStock: 2, cost: 255000, price: 390000 },
+                { id: "item-2", brandId: "br-solity",  brand: "솔리티",   type: "주키",   name: "솔리티 P2000-BH",                   stock: 1,  minStock: 2, cost: 115000, price: 200000 },
+                { id: "item-3", brandId: "br-gateman", brand: "게이트맨", type: "푸시풀", name: "게이트맨 R110-F",                   stock: 4,  minStock: 2, cost: 210000, price: 340000 },
+                { id: "item-4", brandId: "br-gateman", brand: "게이트맨", type: "주키",   name: "게이트맨 G-TOUCH",                  stock: 2,  minStock: 2, cost: 140000, price: 240000 },
+                { id: "item-5", brandId: "br-samsung", brand: "삼성",     type: "푸시풀", name: "삼성 SHP-DP751",                    stock: 3,  minStock: 2, cost: 220000, price: 350000 },
+                { id: "item-6", brandId: "br-hyegang", brand: "혜강",     type: "보조키", name: "혜강 탱크 RT301",                   stock: 5,  minStock: 3, cost: 58000,  price: 120000 },
+                { id: "item-7", brandId: "br-parts",   brand: "부자재",   type: "부자재", name: "Wi-Fi 연동 모듈",                   stock: 2,  minStock: 3, cost: 32000,  price: 65000  },
+                { id: "item-8", brandId: "br-parts",   brand: "부자재",   type: "부자재", name: "NFC 카드키",                        stock: 12, minStock: 5, cost: 10000,  price: 30000  },
+                { id: "item-9", brandId: "br-parts",   brand: "부자재",   type: "부자재", name: "보강판/타공판",                     stock: 9,  minStock: 4, cost: 8000,   price: 25000  }
+            ];
+        }
+
+        function createDefaultLogs(baseItems) {
+            const today = new Date();
+            const map = {};
+            baseItems.forEach(it => { map[it.id] = it; });
+
+            const specs = [
+                // 오늘 & 이번 주
+                { daysAgo: 0,   type: "OUT", itemId: "item-1", qty: 1, adj: 0,      pay: "card",     memo: "김포 한강메트로자이 204동 시공" },
+                { daysAgo: 0,   type: "OUT", itemId: "item-7", qty: 1, adj: 0,      pay: "transfer", memo: "김포 한강메트로자이 모듈 추가" },
+                { daysAgo: 0,   type: "IN",  itemId: "item-3", qty: 2, adj: 0,      pay: null,       memo: "본사 정기 입고" },
+                { daysAgo: 1,   type: "OUT", itemId: "item-4", qty: 1, adj: 10000,  pay: "cash",     memo: "일산 위시티 긴급 출장 교체" },
+                { daysAgo: 2,   type: "OUT", itemId: "item-3", qty: 1, adj: -10000, pay: "card",     memo: "파주 운정 단체 시공" },
+                // 1주 전
+                { daysAgo: 6,   type: "OUT", itemId: "item-5", qty: 1, adj: 0,      pay: "card",     memo: "파주 운정 힐스테이트 시공" },
+                { daysAgo: 8,   type: "OUT", itemId: "item-2", qty: 2, adj: -10000, pay: "transfer", memo: "일산 위시티 단체 시공 2세대" },
+                { daysAgo: 10,  type: "OUT", itemId: "item-6", qty: 1, adj: 10000,  pay: "cash",     memo: "백석역 오피스텔 긴급 출장" },
+                // 2주 전
+                { daysAgo: 14,  type: "OUT", itemId: "item-1", qty: 1, adj: 0,      pay: "card",     memo: "김포 한강메트로자이 3단지 시공" },
+                { daysAgo: 16,  type: "OUT", itemId: "item-4", qty: 1, adj: 0,      pay: "transfer", memo: "화정 별빛마을 주키 교체" },
+                { daysAgo: 18,  type: "OUT", itemId: "item-9", qty: 2, adj: 0,      pay: "cash",     memo: "마두동 상가 보강판/타공판" },
+                // 3주 전
+                { daysAgo: 21,  type: "OUT", itemId: "item-3", qty: 1, adj: 0,      pay: "card",     memo: "일산 위시티 블루밍 시공" },
+                { daysAgo: 23,  type: "OUT", itemId: "item-1", qty: 1, adj: 10000,  pay: "card",     memo: "대화동 긴급 출장 교체" },
+                { daysAgo: 25,  type: "OUT", itemId: "item-6", qty: 2, adj: 0,      pay: "transfer", memo: "라페스타 상가 보조키 2대" },
+                // 4주 전
+                { daysAgo: 29,  type: "OUT", itemId: "item-5", qty: 1, adj: -10000, pay: "transfer", memo: "삼송 아이파크 단체 시공" },
+                { daysAgo: 31,  type: "OUT", itemId: "item-2", qty: 1, adj: 0,      pay: "card",     memo: "탄현 제니스 주키 시공" },
+                { daysAgo: 33,  type: "IN",  itemId: "item-1", qty: 4, adj: 0,      pay: null,       memo: "솔리티 대리점 정기 입고" },
+                // 5주 전
+                { daysAgo: 36,  type: "OUT", itemId: "item-1", qty: 2, adj: -20000, pay: "card",     memo: "파주 운정 단체 시공 2세대" },
+                { daysAgo: 38,  type: "OUT", itemId: "item-4", qty: 1, adj: 0,      pay: "cash",     memo: "주엽동 강선마을 아파트 시공" },
+                { daysAgo: 40,  type: "OUT", itemId: "item-7", qty: 2, adj: 0,      pay: "transfer", memo: "파주 운정 Wi-Fi 모듈 추가" },
+                // 6주 전
+                { daysAgo: 44,  type: "OUT", itemId: "item-3", qty: 1, adj: 10000,  pay: "card",     memo: "중산동 긴급 출장 교체" },
+                { daysAgo: 46,  type: "OUT", itemId: "item-6", qty: 1, adj: 0,      pay: "cash",     memo: "정발산동 주택 보조키 시공" },
+                // 7주 전
+                { daysAgo: 50,  type: "OUT", itemId: "item-5", qty: 1, adj: 0,      pay: "card",     memo: "덕은지구 DMC자이 시공" },
+                { daysAgo: 52,  type: "OUT", itemId: "item-2", qty: 1, adj: 0,      pay: "transfer", memo: "원흥 동일스위트 주키 시공" },
+                { daysAgo: 54,  type: "OUT", itemId: "item-1", qty: 1, adj: 0,      pay: "card",     memo: "풍동 숲속마을 푸시풀 시공" },
+                // 2~3개월 전
+                { daysAgo: 64,  type: "OUT", itemId: "item-1", qty: 2, adj: -20000, pay: "transfer", memo: "김포 한강메트로자이 단체 시공" },
+                { daysAgo: 69,  type: "OUT", itemId: "item-4", qty: 2, adj: 0,      pay: "card",     memo: "백석 흰돌마을 시공" },
+                { daysAgo: 74,  type: "OUT", itemId: "item-3", qty: 1, adj: 0,      pay: "cash",     memo: "일산 후곡마을 푸시풀 교체" },
+                { daysAgo: 80,  type: "OUT", itemId: "item-6", qty: 2, adj: 0,      pay: "transfer", memo: "웨스턴돔 오피스 보조키 2대" },
+                { daysAgo: 86,  type: "OUT", itemId: "item-5", qty: 1, adj: 10000,  pay: "card",     memo: "파주 운정 긴급 출장" },
+                // 3~4개월 전
+                { daysAgo: 94,  type: "OUT", itemId: "item-1", qty: 1, adj: 0,      pay: "card",     memo: "원흥 도래울마을 시공" },
+                { daysAgo: 99,  type: "OUT", itemId: "item-3", qty: 2, adj: -20000, pay: "transfer", memo: "삼송 e편한세상 단체 시공" },
+                { daysAgo: 105, type: "OUT", itemId: "item-2", qty: 2, adj: 0,      pay: "cash",     memo: "행신동 신축빌라 시공" },
+                { daysAgo: 112, type: "OUT", itemId: "item-4", qty: 1, adj: 0,      pay: "card",     memo: "대화동 성저마을 교체" },
+                // 4~5개월 전
+                { daysAgo: 122, type: "OUT", itemId: "item-5", qty: 2, adj: -10000, pay: "card",     memo: "김포 한강메트로자이 1단지" },
+                { daysAgo: 128, type: "OUT", itemId: "item-1", qty: 1, adj: 0,      pay: "transfer", memo: "일산 위시티 4단지 시공" },
+                { daysAgo: 135, type: "OUT", itemId: "item-6", qty: 3, adj: 0,      pay: "cash",     memo: "장항동 상가 3개실 일괄" },
+                { daysAgo: 141, type: "OUT", itemId: "item-3", qty: 1, adj: 0,      pay: "card",     memo: "화정 옥빛마을 푸시풀 설치" },
+                // 5~6개월 전
+                { daysAgo: 149, type: "OUT", itemId: "item-1", qty: 1, adj: 0,      pay: "card",     memo: "일산 문촌마을 푸시풀 시공" },
+                { daysAgo: 154, type: "OUT", itemId: "item-4", qty: 2, adj: 0,      pay: "transfer", memo: "파주 운정 야당역 단체 시공" },
+                { daysAgo: 160, type: "OUT", itemId: "item-2", qty: 1, adj: 10000,  pay: "cash",     memo: "능곡동 긴급 출장 교체" },
+                { daysAgo: 165, type: "OUT", itemId: "item-8", qty: 3, adj: 0,      pay: "card",     memo: "덕양구 사무실 NFC 카드키 납품" }
+            ];
+
+            return specs.map((sp, idx) => {
+                const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() - sp.daysAgo);
+                d.setHours(9 + (idx % 10), (idx * 13) % 60, 0, 0);
+                const it = map[sp.itemId];
+                const totalCost = it.cost * sp.qty;
+                const totalRevenue = sp.type === "OUT" ? Math.max(0, it.price * sp.qty + sp.adj) : 0;
+                const profit = sp.type === "OUT" ? totalRevenue - totalCost : 0;
+
+                return {
+                    id: `tx-seed-${idx + 1}`,
+                    date: formatLocalDate(d),
+                    createdAt: d.toISOString(),
+                    type: sp.type,
+                    itemId: it.id,
+                    itemName: it.name,
+                    brandId: it.brandId,
+                    brand: it.brand,
+                    qty: sp.qty,
+                    unitCost: it.cost,
+                    totalCost,
+                    totalRevenue,
+                    profit,
+                    paymentMethod: sp.pay,
+                    memo: sp.memo
+                };
+            });
+        }
+
+        /* ==========================================================================
+           4. 앱 상태, 로컬스토리지 저장 및 자동 마이그레이션
+           ========================================================================== */
+        let brands = [];
+        let items = [];
+        let logs = [];
+
+        let activeTab = "inventory";
+        let invBrandFilter = "ALL";     // "ALL" 또는 brand.id
+        let invLowStockOnly = false;    // 품절 임박 단독 필터
+        let analyticsMode = "weekly";   // "weekly" | "monthly"
+        let selectedBarIndex = null;    // null = 기간 전체 합계, 숫자 = 해당 막대
+        let historyTypeFilter = "ALL";  // "ALL" | "OUT" | "IN"
+        let historyPayFilter = "ALL";   // "ALL" | "card" | "transfer" | "cash"
+
+        // 브랜드 관리 모달 내부 상태
+        let newBrandColor = BRAND_COLORS[0];
+        let quickBrandColor = BRAND_COLORS[5];
+        let editingBrandId = null;
+        let editingBrandColor = BRAND_COLORS[0];
+        let deletingBrandId = null;     // 품목 이동 선택 UI를 연 브랜드 ID
+
+        function getBrandById(brandId) {
+            return brands.find(b => b.id === brandId) || null;
+        }
+
+        function getBrandByName(name) {
+            return brands.find(b => b.name === name) || null;
+        }
+
+        // 품목/로그의 최신 브랜드 정보(이름, 색상) 반환
+        function resolveBrandInfo(brandId, fallbackName) {
+            const byId = brandId ? getBrandById(brandId) : null;
+            if (byId) return byId;
+            const byName = fallbackName ? getBrandByName(fallbackName) : null;
+            if (byName) return byName;
+            return { id: brandId || "", name: fallbackName || "기타", color: "#546E7A" };
+        }
+
+        // 브랜드 목록과 품목/로그 간의 brandId 정합성 보장 (레거시 백업 및 v2 마이그레이션 공용)
+        function ensureBrandIntegrity(loadedBrands, loadedItems, loadedLogs) {
+            let nextBrands = Array.isArray(loadedBrands) && loadedBrands.length > 0
+                ? loadedBrands.map((b, i) => ({
+                    id: b.id || `br-mig-${i + 1}`,
+                    name: String(b.name || "기타").trim(),
+                    color: b.color || BRAND_COLORS[i % BRAND_COLORS.length]
+                }))
+                : createDefaultBrands();
+
+            const ensureBrand = (name) => {
+                const clean = String(name || "기타").trim() || "기타";
+                let found = nextBrands.find(b => b.name === clean);
+                if (!found) {
+                    found = {
+                        id: "br-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
+                        name: clean,
+                        color: BRAND_COLORS[nextBrands.length % BRAND_COLORS.length]
+                    };
+                    nextBrands.push(found);
+                }
+                return found;
+            };
+
+            const nextItems = (loadedItems || []).map(it => {
+                const matched = (it.brandId && nextBrands.find(b => b.id === it.brandId)) || ensureBrand(it.brand);
+                return { ...it, brandId: matched.id, brand: matched.name };
+            });
+
+            const nextLogs = (loadedLogs || []).map(l => {
+                const matched = (l.brandId && nextBrands.find(b => b.id === l.brandId)) || nextBrands.find(b => b.name === l.brand);
+                return {
+                    ...l,
+                    brandId: matched ? matched.id : (l.brandId || ""),
+                    brand: matched ? matched.name : (l.brand || "기타")
+                };
+            });
+
+            return { brands: nextBrands, items: nextItems, logs: nextLogs };
+        }
+
+        function loadData() {
+            try {
+                const rawBrands = localStorage.getItem(STORAGE_BRANDS);
+                const rawItems = localStorage.getItem(STORAGE_ITEMS);
+                const rawLogs = localStorage.getItem(STORAGE_LOGS);
+
+                if (rawBrands && rawItems && rawLogs) {
+                    const synced = ensureBrandIntegrity(JSON.parse(rawBrands), JSON.parse(rawItems), JSON.parse(rawLogs));
+                    brands = synced.brands;
+                    items = synced.items;
+                    logs = synced.logs;
+                    return;
+                }
+
+                // 구버전(v2) 데이터가 있으면 자동 마이그레이션
+                const legacyItems = localStorage.getItem(LEGACY_ITEMS_V2);
+                const legacyLogs = localStorage.getItem(LEGACY_LOGS_V2);
+                if (legacyItems && legacyLogs) {
+                    const synced = ensureBrandIntegrity(null, JSON.parse(legacyItems), JSON.parse(legacyLogs));
+                    brands = synced.brands;
+                    items = synced.items;
+                    logs = synced.logs;
+                    saveData();
+                    return;
+                }
+
+                // 최초 실행: 샘플 데이터 생성
+                brands = createDefaultBrands();
+                items = createDefaultItems();
+                logs = createDefaultLogs(items);
+                saveData();
+            } catch (err) {
+                console.error("Storage load error:", err);
+                brands = createDefaultBrands();
+                items = createDefaultItems();
+                logs = createDefaultLogs(items);
+            }
+        }
+
+        function saveData() {
+            try {
+                localStorage.setItem(STORAGE_BRANDS, JSON.stringify(brands));
+                localStorage.setItem(STORAGE_ITEMS, JSON.stringify(items));
+                localStorage.setItem(STORAGE_LOGS, JSON.stringify(logs));
+            } catch (e) {
+                showSnackbar("저장 공간이 부족하여 데이터를 저장하지 못했습니다.");
+            }
+        }
+
+        function refreshAllViews() {
+            renderDashboard();
+            renderBrandFilterChips();
+            renderInventory();
+            renderSettingsBrandPreview();
+            if (activeTab === "analytics") renderAnalytics();
+            if (activeTab === "history") renderHistory();
+        }
+
+        /* ==========================================================================
+           5. 핵심 기능 1: 커스텀 브랜드 관리 (추가 · 수정 · 순서변경 · 안전삭제)
+           ========================================================================== */
+        function renderColorSwatches(containerId, selectedColor, onSelectFnName) {
+            const wrap = document.getElementById(containerId);
+            if (!wrap) return;
+            wrap.innerHTML = BRAND_COLORS.map(color => `
+                <button type="button"
+                        class="swatch-btn ${color.toUpperCase() === String(selectedColor).toUpperCase() ? "selected" : ""}"
+                        style="background:${color};"
+                        aria-label="색상 ${color}"
+                        onclick="${onSelectFnName}('${color}')"></button>
+            `).join("");
+        }
+
+        function selectNewBrandColor(color) {
+            newBrandColor = color;
+            renderColorSwatches("new-brand-swatches", newBrandColor, "selectNewBrandColor");
+        }
+
+        function selectQuickBrandColor(color) {
+            quickBrandColor = color;
+            renderColorSwatches("quick-brand-swatches", quickBrandColor, "selectQuickBrandColor");
+        }
+
+        function selectEditBrandColor(color) {
+            editingBrandColor = color;
+            renderColorSwatches("edit-brand-swatches", editingBrandColor, "selectEditBrandColor");
+        }
+
+        function openBrandManagerModal() {
+            editingBrandId = null;
+            deletingBrandId = null;
+            document.getElementById("new-brand-name").value = "";
+            newBrandColor = BRAND_COLORS[brands.length % BRAND_COLORS.length];
+            renderColorSwatches("new-brand-swatches", newBrandColor, "selectNewBrandColor");
+            renderBrandManageList();
+            document.getElementById("brand-modal").classList.remove("hidden");
+        }
+
+        function addNewBrand() {
+            const input = document.getElementById("new-brand-name");
+            const name = input.value.trim();
+            if (!name) {
+                showSnackbar("추가할 브랜드명을 입력해 주세요.");
+                input.focus();
+                return;
+            }
+            if (brands.some(b => b.name.toLowerCase() === name.toLowerCase())) {
+                showSnackbar(`'${name}' 브랜드는 이미 등록되어 있습니다.`);
+                return;
+            }
+
+            const created = {
+                id: "br-" + Date.now(),
+                name,
+                color: newBrandColor
+            };
+            brands.push(created);
+            saveData();
+
+            input.value = "";
+            newBrandColor = BRAND_COLORS[brands.length % BRAND_COLORS.length];
+            renderColorSwatches("new-brand-swatches", newBrandColor, "selectNewBrandColor");
+            renderBrandManageList();
+            refreshAllViews();
+            showSnackbar(`'${name}' 브랜드가 추가되었습니다.`);
+        }
+
+        function moveBrand(index, delta) {
+            const target = index + delta;
+            if (target < 0 || target >= brands.length) return;
+            const temp = brands[index];
+            brands[index] = brands[target];
+            brands[target] = temp;
+            saveData();
+            renderBrandManageList();
+            refreshAllViews();
+        }
+
+        function startEditBrand(brandId) {
+            const b = getBrandById(brandId);
+            if (!b) return;
+            deletingBrandId = null;
+            editingBrandId = b.id;
+            editingBrandColor = b.color;
+            renderBrandManageList();
+            renderColorSwatches("edit-brand-swatches", editingBrandColor, "selectEditBrandColor");
+            const inp = document.getElementById("edit-brand-name-input");
+            if (inp) inp.focus();
+        }
+
+        function cancelEditBrand() {
+            editingBrandId = null;
+            renderBrandManageList();
+        }
+
+        function saveEditBrand(brandId) {
+            const b = getBrandById(brandId);
+            if (!b) return;
+            const inp = document.getElementById("edit-brand-name-input");
+            const newName = inp ? inp.value.trim() : "";
+
+            if (!newName) {
+                showSnackbar("브랜드명은 비워둘 수 없습니다.");
+                return;
+            }
+            if (brands.some(other => other.id !== brandId && other.name.toLowerCase() === newName.toLowerCase())) {
+                showSnackbar(`'${newName}' 브랜드명이 이미 존재합니다.`);
+                return;
+            }
+
+            const oldName = b.name;
+            b.name = newName;
+            b.color = editingBrandColor;
+
+            // 소속 품목 및 기존 입출고 이력의 브랜드명 자동 동기화
+            items.forEach(it => {
+                if (it.brandId === brandId || it.brand === oldName) {
+                    it.brandId = brandId;
+                    it.brand = newName;
+                }
+            });
+            logs.forEach(l => {
+                if (l.brandId === brandId || l.brand === oldName) {
+                    l.brandId = brandId;
+                    l.brand = newName;
+                }
+            });
+
+            editingBrandId = null;
+            saveData();
+            renderBrandManageList();
+            refreshAllViews();
+            showSnackbar(`'${newName}' 브랜드 정보가 수정되었습니다.`);
+        }
+
+        function requestDeleteBrand(brandId) {
+            if (brands.length <= 1) {
+                showSnackbar("최소 1개 이상의 브랜드는 남겨두어야 합니다.");
+                return;
+            }
+
+            const b = getBrandById(brandId);
+            if (!b) return;
+            const assignedCount = items.filter(it => it.brandId === brandId).length;
+
+            if (assignedCount === 0) {
+                openConfirmDialog(
+                    "브랜드 삭제",
+                    `'${b.name}' 브랜드에 등록된 품목이 없습니다.\n이 브랜드를 삭제하시겠습니까?`,
+                    () => {
+                        brands = brands.filter(x => x.id !== brandId);
+                        if (invBrandFilter === brandId) invBrandFilter = "ALL";
+                        saveData();
+                        renderBrandManageList();
+                        refreshAllViews();
+                        showSnackbar(`'${b.name}' 브랜드가 삭제되었습니다.`);
+                    }
+                );
+            } else {
+                // 소속 품목이 있으면 인라인 이동 대상 선택 패널 표시
+                editingBrandId = null;
+                deletingBrandId = deletingBrandId === brandId ? null : brandId;
+                renderBrandManageList();
+            }
+        }
+
+        function executeReassignAndDeleteBrand(brandId) {
+            const b = getBrandById(brandId);
+            if (!b) return;
+            const selectEl = document.getElementById(`reassign-select-${brandId}`);
+            if (!selectEl) return;
+
+            let targetBrandId = selectEl.value;
+            let targetBrand = null;
+
+            if (targetBrandId === "__CREATE_ETC__") {
+                targetBrand = {
+                    id: "br-etc-" + Date.now(),
+                    name: "기타",
+                    color: "#546E7A"
+                };
+                brands.push(targetBrand);
+                targetBrandId = targetBrand.id;
+            } else {
+                targetBrand = getBrandById(targetBrandId);
+            }
+
+            if (!targetBrand) return;
+
+            // 소속 품목 전부 새 브랜드로 안전 이동
+            let movedCount = 0;
+            items.forEach(it => {
+                if (it.brandId === brandId) {
+                    it.brandId = targetBrand.id;
+                    it.brand = targetBrand.name;
+                    movedCount += 1;
+                }
+            });
+
+            brands = brands.filter(x => x.id !== brandId);
+            if (invBrandFilter === brandId) invBrandFilter = "ALL";
+            deletingBrandId = null;
+
+            saveData();
+            renderBrandManageList();
+            refreshAllViews();
+            showSnackbar(`품목 ${movedCount}개를 '${targetBrand.name}'(으)로 이동 후 '${b.name}'을 삭제했습니다.`);
+        }
+
+        function renderBrandManageList() {
+            const listEl = document.getElementById("brand-manage-list");
+            document.getElementById("brand-modal-count").textContent = brands.length;
+
+            listEl.innerHTML = brands.map((b, idx) => {
+                const count = items.filter(it => it.brandId === b.id).length;
+                const isEditing = editingBrandId === b.id;
+                const isDeleting = deletingBrandId === b.id;
+                const otherBrands = brands.filter(other => other.id !== b.id);
+                const hasEtcBrand = otherBrands.some(other => other.name === "기타");
+
+                return `
+                    <div class="brand-manage-row">
+                        <div class="brand-row-main">
+                            <div class="brand-row-left">
+                                <span class="badge" style="background:${b.color};color:#FFFFFF;padding:5px 10px;font-size:12px;">${escapeHtml(b.name)}</span>
+                                <span style="font-size:12px;font-weight:700;color:var(--text-muted);">${count}개 품목</span>
+                            </div>
+                            <div class="brand-row-actions">
+                                <button type="button" class="mini-action-btn" ${idx === 0 ? "disabled" : ""} onclick="moveBrand(${idx}, -1)" aria-label="위로 이동">▲</button>
+                                <button type="button" class="mini-action-btn" ${idx === brands.length - 1 ? "disabled" : ""} onclick="moveBrand(${idx}, 1)" aria-label="아래로 이동">▼</button>
+                                <button type="button" class="mini-action-btn" onclick="startEditBrand('${b.id}')">수정</button>
+                                <button type="button" class="mini-action-btn del" onclick="requestDeleteBrand('${b.id}')">삭제</button>
+                            </div>
+                        </div>
+
+                        ${isEditing ? `
+                            <div class="inline-panel">
+                                <label class="form-label">브랜드명 & 색상 변경</label>
+                                <input type="text" id="edit-brand-name-input" class="form-input" style="height:42px;font-size:14px;" value="${escapeHtml(b.name)}" onkeydown="if(event.key==='Enter'){event.preventDefault();saveEditBrand('${b.id}');}">
+                                <div class="swatch-row" id="edit-brand-swatches"></div>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+                                    <button type="button" class="btn btn-neutral" style="min-height:40px;font-size:13px;" onclick="cancelEditBrand()">취소</button>
+                                    <button type="button" class="btn btn-primary" style="min-height:40px;font-size:13px;" onclick="saveEditBrand('${b.id}')">변경 저장</button>
+                                </div>
+                            </div>
+                        ` : ""}
+
+                        ${isDeleting ? `
+                            <div class="inline-panel" style="background:var(--danger-soft);border-radius:12px;padding:11px;border:1px solid var(--danger-border);">
+                                <div style="font-size:12.5px;font-weight:800;color:var(--danger);margin-bottom:8px;">
+                                    이 브랜드에 등록된 ${count}개 품목을 어디로 이동할까요?
+                                </div>
+                                <select id="reassign-select-${b.id}" class="form-select" style="height:42px;background:#FFFFFF;font-size:13.5px;margin-bottom:8px;">
+                                    ${otherBrands.map(ob => `<option value="${ob.id}">${escapeHtml(ob.name)}</option>`).join("")}
+                                    ${!hasEtcBrand ? `<option value="__CREATE_ETC__">기타 (새 브랜드 생성 후 이동)</option>` : ""}
+                                </select>
+                                <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:8px;">
+                                    <button type="button" class="btn btn-neutral" style="min-height:40px;font-size:13px;background:#FFFFFF;" onclick="deletingBrandId=null;renderBrandManageList();">취소</button>
+                                    <button type="button" class="btn btn-danger" style="min-height:40px;font-size:13px;" onclick="executeReassignAndDeleteBrand('${b.id}')">품목 이동 후 삭제</button>
+                                </div>
+                            </div>
+                        ` : ""}
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function renderSettingsBrandPreview() {
+            const countBadge = document.getElementById("settings-brand-count-badge");
+            const pillsEl = document.getElementById("settings-brand-pills");
+            if (!countBadge || !pillsEl) return;
+
+            countBadge.textContent = `총 ${brands.length}개`;
+            pillsEl.innerHTML = brands.map(b => {
+                const count = items.filter(it => it.brandId === b.id).length;
+                return `<span class="badge" style="background:${hexToRgba(b.color, 0.14)};color:${b.color};border:1px solid ${hexToRgba(b.color, 0.3)};padding:5px 10px;font-size:12px;">${escapeHtml(b.name)} · ${count}</span>`;
+            }).join("");
+        }
+
+        /* ==========================================================================
+           6. 탭 1: [재고] 3-카드 대시보드, 동적 브랜드 필터 칩, 품목 리스트
+           ========================================================================== */
+        function isItemLowStock(it) {
+            return Number(it.stock) <= Number(it.minStock);
+        }
+
+        function renderDashboard() {
+            const totalStock = items.reduce((sum, it) => sum + Number(it.stock || 0), 0);
+            const lowCount = items.filter(isItemLowStock).length;
+
+            const today = getTodayStr();
+            let todayIn = 0;
+            let todayOut = 0;
+            logs.forEach(l => {
+                if (l.date === today) {
+                    if (l.type === "IN") todayIn += 1;
+                    else if (l.type === "OUT") todayOut += 1;
+                }
+            });
+
+            document.getElementById("dash-total-stock").textContent = totalStock.toLocaleString("ko-KR");
+            document.getElementById("dash-item-kinds").textContent = `${items.length}개 모델`;
+            document.getElementById("dash-low-count").textContent = lowCount;
+            document.getElementById("dash-low-hint").textContent = invLowStockOnly ? "필터 적용 중" : "터치해 필터링";
+            document.getElementById("dash-today-total").textContent = todayIn + todayOut;
+            document.getElementById("dash-today-split").textContent = `입 ${todayIn} · 출 ${todayOut}`;
+
+            document.getElementById("dash-low-card").classList.toggle("low-active", invLowStockOnly || lowCount > 0);
+            document.getElementById("low-filter-banner").classList.toggle("hidden", !invLowStockOnly);
+        }
+
+        function renderBrandFilterChips() {
+            const wrap = document.getElementById("brand-filter-chips");
+            const isAll = invBrandFilter === "ALL";
+
+            let html = `<button type="button" class="filter-chip ${isAll ? "active" : ""}" onclick="setInvBrandFilter('ALL')">전체</button>`;
+
+            html += brands.map(b => {
+                const isActive = invBrandFilter === b.id;
+                const activeStyle = isActive
+                    ? `background:${b.color};border-color:${b.color};color:#FFFFFF;box-shadow:0 2px 7px ${hexToRgba(b.color, 0.32)};`
+                    : "";
+                return `
+                    <button type="button" class="filter-chip" style="${activeStyle}" onclick="setInvBrandFilter('${b.id}')">
+                        <span class="chip-dot" style="background:${isActive ? "#FFFFFF" : b.color};"></span>
+                        <span>${escapeHtml(b.name)}</span>
+                    </button>
+                `;
+            }).join("");
+
+            html += `<button type="button" class="filter-chip brand-edit-chip" onclick="openBrandManagerModal()">⚙️ 브랜드 편집</button>`;
+            wrap.innerHTML = html;
+        }
+
+        function setInvBrandFilter(brandId) {
+            invBrandFilter = brandId;
+            renderBrandFilterChips();
+            renderInventory();
+        }
+
+        function toggleLowStockOnly() {
+            invLowStockOnly = !invLowStockOnly;
+            renderDashboard();
+            renderInventory();
+        }
+
+        function clearSearch() {
+            document.getElementById("search-input").value = "";
+            renderInventory();
+        }
+
+        function renderInventory() {
+            const q = document.getElementById("search-input").value.trim().toLowerCase();
+            document.getElementById("search-clear-btn").classList.toggle("hidden", q.length === 0);
+
+            const filtered = items.filter(it => {
+                const bInfo = resolveBrandInfo(it.brandId, it.brand);
+                const matchBrand = invBrandFilter === "ALL" || it.brandId === invBrandFilter;
+                const matchLow = !invLowStockOnly || isItemLowStock(it);
+                const matchSearch = !q ||
+                    it.name.toLowerCase().includes(q) ||
+                    bInfo.name.toLowerCase().includes(q) ||
+                    it.type.toLowerCase().includes(q);
+                return matchBrand && matchLow && matchSearch;
+            });
+
+            document.getElementById("inventory-count").textContent = filtered.length;
+            const listEl = document.getElementById("inventory-list");
+
+            if (filtered.length === 0) {
+                listEl.innerHTML = `
+                    <div class="empty-state">
+                        <div style="font-size:15px;font-weight:800;color:var(--text-sub);margin-bottom:4px;">조건에 맞는 품목이 없습니다</div>
+                        <div style="font-size:12px;">필터를 해제하거나 '+ 품목추가' 버튼으로 새 모델을 등록해 보세요.</div>
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = filtered.map(it => {
+                const bInfo = resolveBrandInfo(it.brandId, it.brand);
+                const stock = Number(it.stock);
+                const minStock = Number(it.minStock);
+                const isOut = stock <= 0;
+                const isLow = stock <= minStock;
+                const margin = Number(it.price || 0) - Number(it.cost || 0);
+
+                return `
+                    <article class="item-card ${isLow ? "low-stock" : ""}">
+                        <div class="item-card-top">
+                            <div class="badge-row">
+                                <span class="badge" style="background:${hexToRgba(bInfo.color, 0.14)};color:${bInfo.color};border:1px solid ${hexToRgba(bInfo.color, 0.28)};">${escapeHtml(bInfo.name)}</span>
+                                <span class="badge badge-type">${escapeHtml(it.type)}</span>
+                                ${isOut
+                                    ? `<span class="badge badge-out">재고 소진</span>`
+                                    : isLow
+                                        ? `<span class="badge badge-low">품절 임박</span>`
+                                        : ""}
+                            </div>
+                            <button type="button" class="icon-btn" onclick="openItemModal('${it.id}')" aria-label="품목 수정">
+                                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <h3 class="item-name">${escapeHtml(it.name)}</h3>
+
+                        <div class="item-meta-grid">
+                            <div>
+                                <div class="meta-cell-label">매입가</div>
+                                <div class="meta-cell-val">${formatWon(it.cost)}</div>
+                            </div>
+                            <div>
+                                <div class="meta-cell-label">기본 시공가</div>
+                                <div class="meta-cell-val text-primary">${formatWon(it.price)}</div>
+                            </div>
+                            <div>
+                                <div class="meta-cell-label">예상 마진</div>
+                                <div class="meta-cell-val ${margin >= 0 ? "text-teal" : "text-danger"}">${margin >= 0 ? "+" : ""}${formatWon(margin)}</div>
+                            </div>
+                        </div>
+
+                        <div class="item-stock-row">
+                            <div style="display:flex;align-items:baseline;gap:6px;">
+                                <span style="font-size:12px;font-weight:700;color:var(--text-muted);">현재 재고</span>
+                                <span class="stock-now ${isLow ? "text-danger" : ""}">${stock}개</span>
+                            </div>
+                            <span class="stock-safe">안전재고 ${minStock}개</span>
+                        </div>
+
+                        <div class="item-actions">
+                            <button type="button" class="btn btn-tonal-teal" onclick="openTxModal('${it.id}', 'IN')">
+                                <span>+입고</span>
+                            </button>
+                            <button type="button" class="btn btn-primary" ${isOut ? "disabled" : ""} onclick="openTxModal('${it.id}', 'OUT')">
+                                <span>출고(시공)</span>
+                            </button>
+                        </div>
+                    </article>
+                `;
+            }).join("");
+        }
+
+        /* ==========================================================================
+           7. 출고(시공) / 입고 바텀시트 로직
+           ========================================================================== */
+        let currentTxItem = null;
+
+        function openTxModal(itemId, mode) {
+            const it = items.find(x => x.id === itemId);
+            if (!it) return;
+            currentTxItem = it;
+
+            document.getElementById("tx-item-id").value = it.id;
+            document.getElementById("tx-mode").value = mode;
+            document.getElementById("tx-item-title").textContent = it.name;
+            document.getElementById("tx-stock-now").textContent = it.stock;
+            document.getElementById("tx-unit-cost-text").textContent = formatWon(it.cost);
+            document.getElementById("tx-qty").value = 1;
+            document.getElementById("tx-date").value = getTodayStr();
+            document.getElementById("tx-memo").value = "";
+
+            const badge = document.getElementById("tx-mode-badge");
+            const outSec = document.getElementById("tx-out-section");
+            const inSec = document.getElementById("tx-in-section");
+            const submitBtn = document.getElementById("tx-submit-btn");
+            const dateLabel = document.getElementById("tx-date-label");
+            const memoLabel = document.getElementById("tx-memo-label");
+            const memoInput = document.getElementById("tx-memo");
+            const tagsWrap = document.getElementById("tx-quick-tags");
+
+            if (mode === "OUT") {
+                badge.textContent = "출고 (현장 시공)";
+                badge.style.background = "var(--primary-container)";
+                badge.style.color = "var(--on-primary-container)";
+                outSec.classList.remove("hidden");
+                inSec.classList.add("hidden");
+                dateLabel.textContent = "시공 날짜";
+                memoLabel.textContent = "현장 주소 / 시공 메모";
+                memoInput.placeholder = "예: 김포 한강메트로자이 204동 1201호";
+                submitBtn.textContent = "출고(시공) 등록 완료";
+                submitBtn.className = "btn btn-primary full-width";
+
+                document.getElementById("tx-revenue").value = Number(it.price || 0);
+                selectPaymentMethod("card");
+                updateProfitPreview();
+
+                tagsWrap.innerHTML = OUT_MEMO_TAGS.map(t =>
+                    `<button type="button" class="quick-tag-btn" onclick="appendTxMemo('${t}')">+ ${t}</button>`
+                ).join("");
+            } else {
+                badge.textContent = "자재 입고";
+                badge.style.background = "var(--secondary-container)";
+                badge.style.color = "var(--on-secondary-container)";
+                outSec.classList.add("hidden");
+                inSec.classList.remove("hidden");
+                dateLabel.textContent = "입고 날짜";
+                memoLabel.textContent = "입고처 / 메모 (선택)";
+                memoInput.placeholder = "예: 본사 대리점 정기 입고";
+                submitBtn.textContent = "입고 수량 반영하기";
+                submitBtn.className = "btn btn-teal full-width";
+
+                document.getElementById("tx-in-cost").value = Number(it.cost || 0);
+
+                tagsWrap.innerHTML = IN_MEMO_TAGS.map(t =>
+                    `<button type="button" class="quick-tag-btn" onclick="appendTxMemo('${t}')">+ ${t}</button>`
+                ).join("");
+            }
+
+            document.getElementById("tx-modal").classList.remove("hidden");
+        }
+
+        function stepTxQty(delta) {
+            const input = document.getElementById("tx-qty");
+            let val = (parseInt(input.value, 10) || 1) + delta;
+            if (val < 1) val = 1;
+            input.value = val;
+            onTxQtyChange();
+        }
+
+        function onTxQtyChange() {
+            if (!currentTxItem) return;
+            const mode = document.getElementById("tx-mode").value;
+            const qty = Math.max(1, parseInt(document.getElementById("tx-qty").value, 10) || 1);
+            if (mode === "OUT") {
+                document.getElementById("tx-revenue").value = Number(currentTxItem.price || 0) * qty;
+                updateProfitPreview();
+            }
+        }
+
+        function adjustTxAmount(delta) {
+            const input = document.getElementById("tx-revenue");
+            input.value = Math.max(0, (parseInt(input.value, 10) || 0) + delta);
+            updateProfitPreview();
+        }
+
+        function updateProfitPreview() {
+            if (!currentTxItem) return;
+            const qty = Math.max(1, parseInt(document.getElementById("tx-qty").value, 10) || 1);
+            const rev = Math.max(0, parseInt(document.getElementById("tx-revenue").value, 10) || 0);
+            const totalCost = Number(currentTxItem.cost || 0) * qty;
+            const profit = rev - totalCost;
+            const marginPct = rev > 0 ? ((profit / rev) * 100).toFixed(1) : "0.0";
+
+            const box = document.getElementById("profit-preview-box");
+            const profitEl = document.getElementById("preview-profit-val");
+            const marginEl = document.getElementById("preview-margin-val");
+            document.getElementById("preview-cost-val").textContent = formatWon(totalCost);
+            profitEl.textContent = (profit >= 0 ? "+" : "") + formatWon(profit);
+            marginEl.textContent = marginPct + "%";
+
+            const isLoss = profit < 0;
+            box.classList.toggle("loss", isLoss);
+            profitEl.style.color = isLoss ? "var(--danger)" : "var(--secondary)";
+            marginEl.style.color = isLoss ? "var(--danger)" : "var(--secondary)";
+        }
+
+        function selectPaymentMethod(method) {
+            document.getElementById("tx-payment").value = method;
+            document.querySelectorAll(".pay-toggle-btn").forEach(btn => {
+                btn.classList.toggle("active", btn.dataset.method === method);
+            });
+        }
+
+        function appendTxMemo(tag) {
+            const input = document.getElementById("tx-memo");
+            input.value = input.value.trim() ? `${input.value.trim()} · ${tag}` : tag;
+        }
+
+        function submitTransaction(e) {
+            e.preventDefault();
+            const itemId = document.getElementById("tx-item-id").value;
+            const mode = document.getElementById("tx-mode").value;
+            const qty = Math.max(1, parseInt(document.getElementById("tx-qty").value, 10) || 1);
+            const dateStr = document.getElementById("tx-date").value || getTodayStr();
+            const memo = document.getElementById("tx-memo").value.trim();
+
+            const idx = items.findIndex(x => x.id === itemId);
+            if (idx === -1) return;
+            const item = items[idx];
+            const bInfo = resolveBrandInfo(item.brandId, item.brand);
+
+            if (mode === "OUT") {
+                if (Number(item.stock) < qty) {
+                    showSnackbar(`재고가 부족합니다. (현재 ${item.stock}개 보유)`);
+                    return;
+                }
+                const totalRevenue = Math.max(0, parseInt(document.getElementById("tx-revenue").value, 10) || 0);
+                const unitCost = Number(item.cost || 0);
+                const totalCost = unitCost * qty;
+                const profit = totalRevenue - totalCost;
+                const paymentMethod = document.getElementById("tx-payment").value || "card";
+
+                items[idx].stock = Number(item.stock) - qty;
+
+                logs.unshift({
+                    id: "tx-" + Date.now(),
+                    date: dateStr,
+                    createdAt: new Date().toISOString(),
+                    type: "OUT",
+                    itemId: item.id,
+                    itemName: item.name,
+                    brandId: bInfo.id,
+                    brand: bInfo.name,
+                    qty,
+                    unitCost,
+                    totalCost,
+                    totalRevenue,
+                    profit,
+                    paymentMethod,
+                    memo: memo || "현장 출장 시공"
+                });
+
+                showSnackbar(`${PAYMENT_META[paymentMethod].label} ${formatWon(totalRevenue)} 출고(시공) 등록 완료`);
+            } else {
+                const inCost = Math.max(0, parseInt(document.getElementById("tx-in-cost").value, 10) || Number(item.cost || 0));
+                items[idx].stock = Number(item.stock) + qty;
+                items[idx].cost = inCost;
+
+                logs.unshift({
+                    id: "tx-" + Date.now(),
+                    date: dateStr,
+                    createdAt: new Date().toISOString(),
+                    type: "IN",
+                    itemId: item.id,
+                    itemName: item.name,
+                    brandId: bInfo.id,
+                    brand: bInfo.name,
+                    qty,
+                    unitCost: inCost,
+                    totalCost: inCost * qty,
+                    totalRevenue: 0,
+                    profit: 0,
+                    paymentMethod: null,
+                    memo: memo || "자재 입고"
+                });
+
+                showSnackbar(`${item.name} ${qty}개 입고 처리되었습니다.`);
+            }
+
+            saveData();
+            closeModal("tx-modal");
+            refreshAllViews();
+        }
+
+        /* ==========================================================================
+           8. 품목 추가 / 수정 / 삭제 (+ 새 브랜드 빠른 추가 포함)
+           ========================================================================== */
+        function populateItemBrandSelect(selectedBrandId) {
+            const select = document.getElementById("item-brand-select");
+            select.innerHTML = brands.map(b =>
+                `<option value="${b.id}" ${b.id === selectedBrandId ? "selected" : ""}>${escapeHtml(b.name)}</option>`
+            ).join("");
+        }
+
+        function openItemModal(itemId = null) {
+            const titleEl = document.getElementById("item-modal-title");
+            const delBtn = document.getElementById("item-delete-btn");
+            document.getElementById("quick-brand-box").classList.add("hidden");
+            document.getElementById("quick-brand-name").value = "";
+
+            if (itemId) {
+                const it = items.find(x => x.id === itemId);
+                if (!it) return;
+                titleEl.textContent = "품목 정보 수정";
+                document.getElementById("edit-item-id").value = it.id;
+                populateItemBrandSelect(it.brandId);
+                document.getElementById("item-type").value = it.type;
+                document.getElementById("item-name").value = it.name;
+                document.getElementById("item-stock").value = it.stock;
+                document.getElementById("item-min-stock").value = it.minStock;
+                document.getElementById("item-cost").value = it.cost;
+                document.getElementById("item-price").value = it.price;
+                delBtn.classList.remove("hidden");
+            } else {
+                titleEl.textContent = "새 품목 추가";
+                document.getElementById("edit-item-id").value = "";
+                const defaultBrandId = invBrandFilter !== "ALL" ? invBrandFilter : (brands[0] ? brands[0].id : "");
+                populateItemBrandSelect(defaultBrandId);
+                document.getElementById("item-type").value = "푸시풀";
+                document.getElementById("item-name").value = "";
+                document.getElementById("item-stock").value = 2;
+                document.getElementById("item-min-stock").value = 2;
+                document.getElementById("item-cost").value = "";
+                document.getElementById("item-price").value = "";
+                delBtn.classList.add("hidden");
+            }
+
+            document.getElementById("item-modal").classList.remove("hidden");
+        }
+
+        function toggleQuickBrandAdd() {
+            const box = document.getElementById("quick-brand-box");
+            const willOpen = box.classList.contains("hidden");
+            box.classList.toggle("hidden");
+            if (willOpen) {
+                quickBrandColor = BRAND_COLORS[brands.length % BRAND_COLORS.length];
+                renderColorSwatches("quick-brand-swatches", quickBrandColor, "selectQuickBrandColor");
+                document.getElementById("quick-brand-name").focus();
+            }
+        }
+
+        function submitQuickBrandAdd() {
+            const inp = document.getElementById("quick-brand-name");
+            const name = inp.value.trim();
+            if (!name) {
+                showSnackbar("새 브랜드명을 입력해 주세요.");
+                inp.focus();
+                return;
+            }
+            if (brands.some(b => b.name.toLowerCase() === name.toLowerCase())) {
+                showSnackbar(`'${name}' 브랜드가 이미 존재합니다.`);
+                return;
+            }
+
+            const created = {
+                id: "br-" + Date.now(),
+                name,
+                color: quickBrandColor
+            };
+            brands.push(created);
+            saveData();
+
+            populateItemBrandSelect(created.id);
+            document.getElementById("quick-brand-box").classList.add("hidden");
+            inp.value = "";
+            refreshAllViews();
+            showSnackbar(`'${name}' 브랜드가 추가되고 자동 선택되었습니다.`);
+        }
+
+        function saveItem(e) {
+            e.preventDefault();
+            const editId = document.getElementById("edit-item-id").value;
+            const brandId = document.getElementById("item-brand-select").value;
+            const bInfo = resolveBrandInfo(brandId, "");
+            const type = document.getElementById("item-type").value;
+            const name = document.getElementById("item-name").value.trim();
+            const stock = Math.max(0, parseInt(document.getElementById("item-stock").value, 10) || 0);
+            const minStock = Math.max(0, parseInt(document.getElementById("item-min-stock").value, 10) || 0);
+            const cost = Math.max(0, parseInt(document.getElementById("item-cost").value, 10) || 0);
+            const price = Math.max(0, parseInt(document.getElementById("item-price").value, 10) || 0);
+
+            if (!name) return;
+
+            if (editId) {
+                const idx = items.findIndex(x => x.id === editId);
+                if (idx !== -1) {
+                    items[idx] = { ...items[idx], brandId: bInfo.id, brand: bInfo.name, type, name, stock, minStock, cost, price };
+                    showSnackbar("품목 정보가 수정되었습니다.");
+                }
+            } else {
+                const created = {
+                    id: "item-" + Date.now(),
+                    brandId: bInfo.id,
+                    brand: bInfo.name,
+                    type, name, stock, minStock, cost, price
+                };
+                items.unshift(created);
+                if (stock > 0) {
+                    logs.unshift({
+                        id: "tx-" + Date.now(),
+                        date: getTodayStr(),
+                        createdAt: new Date().toISOString(),
+                        type: "IN",
+                        itemId: created.id,
+                        itemName: created.name,
+                        brandId: bInfo.id,
+                        brand: bInfo.name,
+                        qty: stock,
+                        unitCost: cost,
+                        totalCost: cost * stock,
+                        totalRevenue: 0,
+                        profit: 0,
+                        paymentMethod: null,
+                        memo: "신규 품목 초기 재고 등록"
+                    });
+                }
+                showSnackbar("새 품목이 등록되었습니다.");
+            }
+
+            saveData();
+            closeModal("item-modal");
+            refreshAllViews();
+        }
+
+        function confirmDeleteItem() {
+            const editId = document.getElementById("edit-item-id").value;
+            if (!editId) return;
+            openConfirmDialog(
+                "품목 삭제",
+                "선택한 품목을 재고 목록에서 삭제하시겠습니까?\n(기존 매출·시공 이력은 유지됩니다.)",
+                () => {
+                    items = items.filter(x => x.id !== editId);
+                    saveData();
+                    closeModal("item-modal");
+                    refreshAllViews();
+                    showSnackbar("품목이 삭제되었습니다.");
+                }
+            );
+        }
+
+        /* ==========================================================================
+           9. 탭 2: [매출·통계] 주별(8주) / 월별(6개월) 인터랙티브 순수 SVG 차트
+           ========================================================================== */
+        let cachedAnalytics = { buckets: [], allLogs: [] };
+
+        function setAnalyticsMode(mode) {
+            analyticsMode = mode;
+            selectedBarIndex = null;
+            document.getElementById("seg-weekly").classList.toggle("active", mode === "weekly");
+            document.getElementById("seg-monthly").classList.toggle("active", mode === "monthly");
+            renderAnalytics();
+        }
+
+        function buildWeeklyData() {
+            const today = new Date();
+            const diffToMon = (today.getDay() + 6) % 7;
+            const thisMon = new Date(today.getFullYear(), today.getMonth(), today.getDate() - diffToMon);
+
+            const buckets = [];
+            for (let i = 7; i >= 0; i--) {
+                const start = new Date(thisMon.getFullYear(), thisMon.getMonth(), thisMon.getDate() - i * 7);
+                const end = new Date(start.getFullYear(), start.getMonth(), start.getDate() + 6);
+                buckets.push({
+                    startStr: formatLocalDate(start),
+                    endStr: formatLocalDate(end),
+                    shortLabel: i === 0 ? "이번주" : `${start.getMonth() + 1}/${start.getDate()}`,
+                    fullLabel: `${start.getMonth() + 1}/${start.getDate()} ~ ${end.getMonth() + 1}/${end.getDate()}${i === 0 ? " (이번주)" : ""}`,
+                    rev: 0, cost: 0, profit: 0, jobs: 0, logs: []
+                });
+            }
+
+            const minD = buckets[0].startStr;
+            const maxD = buckets[buckets.length - 1].endStr;
+            const allLogs = [];
+
+            logs.forEach(l => {
+                if (l.type !== "OUT") return;
+                if (l.date >= minD && l.date <= maxD) {
+                    allLogs.push(l);
+                    const b = buckets.find(bk => l.date >= bk.startStr && l.date <= bk.endStr);
+                    if (b) {
+                        b.rev += Number(l.totalRevenue || 0);
+                        b.cost += Number(l.totalCost || 0);
+                        b.profit += Number(l.profit || 0);
+                        b.jobs += 1;
+                        b.logs.push(l);
+                    }
+                }
+            });
+
+            return { buckets, allLogs };
+        }
+
+        function buildMonthlyData() {
+            const today = new Date();
+            const buckets = [];
+
+            for (let i = 5; i >= 0; i--) {
+                const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+                const ym = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+                buckets.push({
+                    key: ym,
+                    shortLabel: `${d.getMonth() + 1}월`,
+                    fullLabel: `${d.getFullYear()}년 ${d.getMonth() + 1}월`,
+                    rev: 0, cost: 0, profit: 0, jobs: 0, logs: []
+                });
+            }
+
+            const keySet = new Set(buckets.map(b => b.key));
+            const allLogs = [];
+
+            logs.forEach(l => {
+                if (l.type !== "OUT") return;
+                const ym = (l.date || "").slice(0, 7);
+                if (keySet.has(ym)) {
+                    allLogs.push(l);
+                    const b = buckets.find(bk => bk.key === ym);
+                    if (b) {
+                        b.rev += Number(l.totalRevenue || 0);
+                        b.cost += Number(l.totalCost || 0);
+                        b.profit += Number(l.profit || 0);
+                        b.jobs += 1;
+                        b.logs.push(l);
+                    }
+                }
+            });
+
+            return { buckets, allLogs };
+        }
+
+        function renderAnalytics() {
+            const isWeekly = analyticsMode === "weekly";
+            cachedAnalytics = isWeekly ? buildWeeklyData() : buildMonthlyData();
+            const { buckets, allLogs } = cachedAnalytics;
+
+            if (selectedBarIndex !== null && selectedBarIndex >= buckets.length) {
+                selectedBarIndex = null;
+            }
+
+            const isSingle = selectedBarIndex !== null;
+            const activeBucket = isSingle ? buckets[selectedBarIndex] : null;
+            const targetLogs = isSingle ? activeBucket.logs : allLogs;
+
+            const totalRev = targetLogs.reduce((s, l) => s + Number(l.totalRevenue || 0), 0);
+            const totalCost = targetLogs.reduce((s, l) => s + Number(l.totalCost || 0), 0);
+            const totalProfit = targetLogs.reduce((s, l) => s + Number(l.profit || 0), 0);
+            const totalJobs = targetLogs.length;
+            const marginPct = totalRev > 0 ? ((totalProfit / totalRev) * 100).toFixed(1) : "0.0";
+
+            const scopeText = isSingle
+                ? activeBucket.fullLabel
+                : (isWeekly ? "최근 8주 전체 합계" : "최근 6개월 전체 합계");
+
+            document.getElementById("analytics-scope-label").textContent = scopeText;
+            document.getElementById("analytics-reset-scope-btn").classList.toggle("hidden", !isSingle);
+            document.getElementById("chart-title").textContent = isWeekly ? "주별 매출 · 순이익 추이" : "월별 매출 · 순이익 추이";
+            document.getElementById("pay-scope-badge").textContent = isSingle ? activeBucket.shortLabel : (isWeekly ? "최근 8주" : "최근 6개월");
+            document.getElementById("top-scope-badge").textContent = isSingle ? activeBucket.shortLabel : (isWeekly ? "최근 8주" : "최근 6개월");
+
+            document.getElementById("stat-rev").textContent = formatWon(totalRev);
+            document.getElementById("stat-cost").textContent = formatWon(totalCost);
+            document.getElementById("stat-profit").textContent = formatWon(totalProfit);
+            document.getElementById("stat-margin").textContent = `마진 ${marginPct}%`;
+            document.getElementById("stat-jobs").textContent = totalJobs.toLocaleString("ko-KR");
+
+            renderSvgBarChart(buckets);
+            renderPaymentBreakdown(targetLogs, totalRev);
+            renderTopModels(targetLogs);
+        }
+
+        function selectChartBar(index) {
+            if (index === null) {
+                selectedBarIndex = null;
+            } else {
+                selectedBarIndex = (selectedBarIndex === index) ? null : index;
+            }
+            renderAnalytics();
+        }
+
+        function renderSvgBarChart(buckets) {
+            const container = document.getElementById("svg-chart-container");
+            const width = 360;
+            const height = 192;
+            const padTop = 20;
+            const padBottom = 30;
+            const padLeft = 42;
+            const padRight = 10;
+            const chartW = width - padLeft - padRight;
+            const chartH = height - padTop - padBottom;
+
+            const maxVal = Math.max(100000, ...buckets.map(b => Math.max(b.rev, Math.max(0, b.profit))));
+            const niceMax = Math.ceil(maxVal / 100000) * 100000;
+
+            const groupW = chartW / buckets.length;
+            const barW = Math.min(16, Math.max(9, groupW * 0.3));
+            const barGap = 3;
+
+            const gridSvg = [0, 0.5, 1].map(r => {
+                const y = padTop + chartH * (1 - r);
+                const lbl = r === 0 ? "0" : formatCompactWon(Math.round(niceMax * r));
+                return `
+                    <line x1="${padLeft}" y1="${y.toFixed(1)}" x2="${width - padRight}" y2="${y.toFixed(1)}"
+                          stroke="${r === 0 ? "#CBD5E1" : "#E2E8F0"}" stroke-width="1" ${r > 0 ? 'stroke-dasharray="3 3"' : ""}></line>
+                    <text x="${padLeft - 6}" y="${(y + 3.5).toFixed(1)}" text-anchor="end" fill="#6B7280" font-size="9.5" font-weight="700">${lbl}</text>
+                `;
+            }).join("");
+
+            const barsSvg = buckets.map((b, i) => {
+                const cx = padLeft + groupW * i + groupW / 2;
+                const isSelected = selectedBarIndex === i;
+                const isDimmed = selectedBarIndex !== null && !isSelected;
+
+                const revH = b.rev > 0 ? Math.max(3, (b.rev / niceMax) * chartH) : 0;
+                const profVal = Math.max(0, b.profit);
+                const profH = profVal > 0 ? Math.max(3, (profVal / niceMax) * chartH) : 0;
+
+                const revX = cx - barW - barGap / 2;
+                const revY = padTop + chartH - revH;
+                const profX = cx + barGap / 2;
+                const profY = padTop + chartH - profH;
+
+                const highlightBg = isSelected
+                    ? `<rect x="${(padLeft + groupW * i + 2).toFixed(1)}" y="${padTop - 8}" width="${(groupW - 4).toFixed(1)}" height="${chartH + 12}" rx="8" fill="#E3F2FD" stroke="#90CAF9" stroke-width="1"></rect>`
+                    : "";
+
+                const revColor = isDimmed ? "#90CAF9" : "#1976D2";
+                const profColor = isDimmed ? "#80CBC4" : "#00897B";
+
+                const topValueLabel = isSelected && b.rev > 0
+                    ? `<text x="${cx.toFixed(1)}" y="${Math.max(11, revY - 5).toFixed(1)}" text-anchor="middle" fill="#1565C0" font-size="9.5" font-weight="900">${formatCompactWon(b.rev)}</text>`
+                    : "";
+
+                return `
+                    <g onclick="selectChartBar(${i})" style="cursor:pointer;">
+                        ${highlightBg}
+                        <rect x="${revX.toFixed(1)}" y="${revY.toFixed(1)}" width="${barW.toFixed(1)}" height="${revH.toFixed(1)}" rx="4" fill="${revColor}"></rect>
+                        <rect x="${profX.toFixed(1)}" y="${profY.toFixed(1)}" width="${barW.toFixed(1)}" height="${profH.toFixed(1)}" rx="4" fill="${profColor}"></rect>
+                        ${topValueLabel}
+                        <text x="${cx.toFixed(1)}" y="${height - 8}" text-anchor="middle"
+                              fill="${isSelected ? "#1976D2" : "#6B7280"}" font-size="10" font-weight="${isSelected ? "900" : "700"}">${b.shortLabel}</text>
+                        <rect x="${(padLeft + groupW * i).toFixed(1)}" y="0" width="${groupW.toFixed(1)}" height="${height}" fill="transparent"></rect>
+                    </g>
+                `;
+            }).join("");
+
+            container.innerHTML = `
+                <svg viewBox="0 0 ${width} ${height}" width="100%" height="auto" role="img" aria-label="매출 및 순이익 막대 그래프">
+                    ${gridSvg}
+                    ${barsSvg}
+                </svg>
+            `;
+        }
+
+        function renderPaymentBreakdown(targetLogs, totalRev) {
+            const stats = {
+                card:     { amount: 0, count: 0 },
+                transfer: { amount: 0, count: 0 },
+                cash:     { amount: 0, count: 0 }
+            };
+
+            targetLogs.forEach(l => {
+                const k = PAYMENT_META[l.paymentMethod] ? l.paymentMethod : "card";
+                stats[k].amount += Number(l.totalRevenue || 0);
+                stats[k].count += 1;
+            });
+
+            const pct = (amt) => totalRev > 0 ? ((amt / totalRev) * 100) : 0;
+            document.getElementById("bar-card").style.width = pct(stats.card.amount).toFixed(1) + "%";
+            document.getElementById("bar-transfer").style.width = pct(stats.transfer.amount).toFixed(1) + "%";
+            document.getElementById("bar-cash").style.width = pct(stats.cash.amount).toFixed(1) + "%";
+
+            document.getElementById("pay-breakdown-rows").innerHTML = ["card", "transfer", "cash"].map(k => {
+                const m = PAYMENT_META[k];
+                const st = stats[k];
+                return `
+                    <div class="pay-row">
+                        <div class="pay-left">
+                            <div class="pay-icon-box" style="background:${m.bg};">${m.emoji}</div>
+                            <div>
+                                <div style="font-size:14px;font-weight:800;">${m.label}</div>
+                                <div style="font-size:11px;font-weight:600;color:var(--text-muted);">${st.count}건 결제</div>
+                            </div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="font-size:15px;font-weight:900;">${formatWon(st.amount)}</div>
+                            <div style="font-size:11px;font-weight:800;color:${m.color};">${pct(st.amount).toFixed(1)}%</div>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function renderTopModels(targetLogs) {
+            const wrap = document.getElementById("top-models-list");
+            const map = {};
+
+            targetLogs.forEach(l => {
+                if (!map[l.itemName]) {
+                    map[l.itemName] = { name: l.itemName, qty: 0, rev: 0, profit: 0 };
+                }
+                map[l.itemName].qty += Number(l.qty || 1);
+                map[l.itemName].rev += Number(l.totalRevenue || 0);
+                map[l.itemName].profit += Number(l.profit || 0);
+            });
+
+            const ranked = Object.values(map)
+                .sort((a, b) => b.qty - a.qty || b.profit - a.profit)
+                .slice(0, 5);
+
+            if (ranked.length === 0) {
+                wrap.innerHTML = `<div style="text-align:center;padding:20px 0;font-size:12px;color:var(--text-muted);">선택된 기간의 시공 내역이 없습니다.</div>`;
+                return;
+            }
+
+            const maxQty = Math.max(1, ranked[0].qty);
+            wrap.innerHTML = ranked.map((m, i) => {
+                const rClass = i === 0 ? "rank-1" : i === 1 ? "rank-2" : i === 2 ? "rank-3" : "";
+                const wPct = Math.max(12, Math.round((m.qty / maxQty) * 100));
+                return `
+                    <div class="top-model-row">
+                        <div class="top-model-head">
+                            <div style="display:flex;align-items:center;gap:8px;min-width:0;">
+                                <span class="rank-badge ${rClass}">${i + 1}</span>
+                                <div style="min-width:0;">
+                                    <div style="font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(m.name)}</div>
+                                    <div style="font-size:11px;color:var(--text-muted);font-weight:600;">시공 ${m.qty}개 · 매출 ${formatCompactWon(m.rev)}</div>
+                                </div>
+                            </div>
+                            <div style="text-align:right;flex-shrink:0;">
+                                <div style="font-size:13px;font-weight:900;color:var(--secondary);">+${formatCompactWon(m.profit)}</div>
+                                <div style="font-size:10px;color:var(--text-muted);font-weight:700;">순이익</div>
+                            </div>
+                        </div>
+                        <div class="mini-bar-track">
+                            <div class="mini-bar-fill" style="width:${wPct}%;"></div>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        /* ==========================================================================
+           10. 탭 3: [이력] 필터링, 렌더링 및 삭제 시 재고 자동 원복
+           ========================================================================== */
+        function setHistoryTypeFilter(type) {
+            historyTypeFilter = type;
+            document.querySelectorAll("#history-type-chips .filter-chip").forEach(btn => {
+                btn.classList.toggle("active", btn.dataset.htype === type);
+            });
+            if (type === "IN") {
+                historyPayFilter = "ALL";
+                document.querySelectorAll("#history-pay-chips .filter-chip").forEach(btn => {
+                    btn.classList.toggle("active", btn.dataset.hpay === "ALL");
+                });
+            }
+            renderHistory();
+        }
+
+        function setHistoryPayFilter(pay) {
+            historyPayFilter = pay;
+            document.querySelectorAll("#history-pay-chips .filter-chip").forEach(btn => {
+                btn.classList.toggle("active", btn.dataset.hpay === pay);
+            });
+            if (pay !== "ALL" && historyTypeFilter === "IN") {
+                setHistoryTypeFilter("OUT");
+                return;
+            }
+            renderHistory();
+        }
+
+        function renderHistory() {
+            const sorted = [...logs].sort((a, b) => {
+                if (a.date !== b.date) return b.date.localeCompare(a.date);
+                return (b.createdAt || "").localeCompare(a.createdAt || "");
+            });
+
+            const filtered = sorted.filter(l => {
+                const matchType = historyTypeFilter === "ALL" || l.type === historyTypeFilter;
+                const matchPay = historyPayFilter === "ALL" || (l.type === "OUT" && l.paymentMethod === historyPayFilter);
+                return matchType && matchPay;
+            });
+
+            const outOnly = filtered.filter(l => l.type === "OUT");
+            const sumRev = outOnly.reduce((s, l) => s + Number(l.totalRevenue || 0), 0);
+            const sumProfit = outOnly.reduce((s, l) => s + Number(l.profit || 0), 0);
+
+            document.getElementById("history-count").textContent = filtered.length;
+            document.getElementById("history-money-summary").textContent = `매출 ${formatWon(sumRev)} · 순익 ${formatWon(sumProfit)}`;
+
+            const listEl = document.getElementById("history-list");
+            if (filtered.length === 0) {
+                listEl.innerHTML = `
+                    <div class="empty-state">
+                        <div style="font-size:15px;font-weight:800;color:var(--text-sub);margin-bottom:4px;">조회된 이력이 없습니다</div>
+                        <div style="font-size:12px;">재고 탭에서 입고 또는 출고(시공)를 기록해 보세요.</div>
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = filtered.map(l => {
+                const isOut = l.type === "OUT";
+                const pm = isOut ? (PAYMENT_META[l.paymentMethod] || PAYMENT_META.card) : null;
+                const bInfo = resolveBrandInfo(l.brandId, l.brand);
+                const hhmm = formatTimeHHMM(l.createdAt);
+
+                return `
+                    <article class="log-card">
+                        <div class="log-top">
+                            <div class="log-badges">
+                                <span style="font-size:12px;font-weight:800;color:var(--text-muted);">${escapeHtml(l.date)} ${hhmm}</span>
+                                <span class="badge" style="background:${isOut ? "var(--primary-container)" : "var(--secondary-container)"};color:${isOut ? "var(--on-primary-container)" : "var(--on-secondary-container)"};">
+                                    ${isOut ? "출고(시공)" : "입고"}
+                                </span>
+                                <span class="badge" style="background:${hexToRgba(bInfo.color, 0.14)};color:${bInfo.color};">${escapeHtml(bInfo.name)}</span>
+                                ${pm ? `<span class="badge ${pm.badgeClass}">${pm.emoji} ${pm.label}</span>` : ""}
+                            </div>
+                            <button type="button" class="mini-action-btn del" onclick="confirmRollbackLog('${l.id}')">삭제</button>
+                        </div>
+
+                        <div class="log-main">
+                            <div style="min-width:0;">
+                                <div style="font-size:14.5px;font-weight:800;">${escapeHtml(l.itemName)}</div>
+                                ${l.memo ? `<div class="log-memo">📍 ${escapeHtml(l.memo)}</div>` : ""}
+                            </div>
+                            <div style="font-size:17px;font-weight:900;flex-shrink:0;color:${isOut ? "var(--primary)" : "var(--secondary)"};">
+                                ${isOut ? "−" : "+"}${l.qty}개
+                            </div>
+                        </div>
+
+                        <div class="log-finance">
+                            ${isOut
+                                ? `
+                                    <span style="color:var(--text-sub);font-weight:700;">결제 <strong style="color:var(--text-main);">${formatWon(l.totalRevenue)}</strong> <span style="color:var(--text-muted);">(원가 ${formatWon(l.totalCost)})</span></span>
+                                    <span style="font-weight:900;color:${l.profit >= 0 ? "var(--secondary)" : "var(--danger)"};">순익 ${l.profit >= 0 ? "+" : ""}${formatWon(l.profit)}</span>
+                                `
+                                : `
+                                    <span style="color:var(--text-sub);font-weight:700;">입고 단가 ${formatWon(l.unitCost)}</span>
+                                    <span style="font-weight:800;color:var(--text-main);">총 매입 ${formatWon(l.totalCost)}</span>
+                                `
+                            }
+                        </div>
+                    </article>
+                `;
+            }).join("");
+        }
+
+        function confirmRollbackLog(logId) {
+            const log = logs.find(l => l.id === logId);
+            if (!log) return;
+            const isOut = log.type === "OUT";
+            const msg = isOut
+                ? `'${log.itemName}' 출고 기록을 삭제하고 재고에 +${log.qty}개를 자동 복원할까요?`
+                : `'${log.itemName}' 입고 기록을 삭제하고 재고에서 ${log.qty}개를 차감할까요?`;
+
+            openConfirmDialog("이력 삭제 및 재고 원복", msg, () => {
+                const idx = items.findIndex(it => it.id === log.itemId);
+                if (idx !== -1) {
+                    items[idx].stock = isOut
+                        ? Number(items[idx].stock) + Number(log.qty)
+                        : Math.max(0, Number(items[idx].stock) - Number(log.qty));
+                }
+                logs = logs.filter(l => l.id !== logId);
+                saveData();
+                refreshAllViews();
+                showSnackbar("이력이 삭제되고 재고가 자동 원복되었습니다.");
+            });
+        }
+
+        /* ==========================================================================
+           11. 탭 4: 엑셀(CSV) 내보내기, JSON 백업/복원, 초기화
+           ========================================================================== */
+        function exportCSV() {
+            const header = ["날짜", "구분", "브랜드", "품목명", "수량", "결제수단", "매출액", "매입원가", "순이익", "현장메모"];
+            const sorted = [...logs].sort((a, b) => b.date.localeCompare(a.date));
+            const esc = (v) => {
+                const s = String(v === null || v === undefined ? "" : v);
+                return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+            };
+
+            const rows = sorted.map(l => {
+                const bInfo = resolveBrandInfo(l.brandId, l.brand);
+                const typeText = l.type === "OUT" ? "출고(시공)" : "입고";
+                const payText = l.type === "OUT" && PAYMENT_META[l.paymentMethod] ? PAYMENT_META[l.paymentMethod].label : "-";
+                return [
+                    l.date, typeText, bInfo.name, l.itemName, l.qty, payText,
+                    l.totalRevenue || 0, l.totalCost || 0, l.profit || 0, l.memo || ""
+                ].map(esc).join(",");
+            });
+
+            // UTF-8 BOM 추가로 엑셀 한글 깨짐 완벽 방지
+            const csv = "\uFEFF" + [header.join(","), ...rows].join("\r\n");
+            downloadBlob(csv, "text/csv;charset=utf-8;", `친절한열쇠_매출재고장부_${getTodayStr()}.csv`);
+            showSnackbar("엑셀(CSV) 장부 파일이 다운로드되었습니다.");
+        }
+
+        function exportJSON() {
+            const payload = {
+                app: "친절한 열쇠 도어락 재고·매출관리",
+                version: 3,
+                exportedAt: new Date().toISOString(),
+                brands,
+                items,
+                logs
+            };
+            downloadBlob(JSON.stringify(payload, null, 2), "application/json;charset=utf-8;", `친절한열쇠_전체백업_${getTodayStr()}.json`);
+            showSnackbar("브랜드·재고·이력 전체 JSON 백업이 저장되었습니다.");
+        }
+
+        function downloadBlob(content, mime, filename) {
+            const blob = new Blob([content], { type: mime });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+
+        function importJSON(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (Array.isArray(data.items) && Array.isArray(data.logs)) {
+                        // brands가 없는 구버전 JSON 백업도 자동 복원
+                        const synced = ensureBrandIntegrity(data.brands || null, data.items, data.logs);
+                        brands = synced.brands;
+                        items = synced.items;
+                        logs = synced.logs;
+                        invBrandFilter = "ALL";
+                        selectedBarIndex = null;
+                        saveData();
+                        refreshAllViews();
+                        showSnackbar("백업 데이터가 성공적으로 복원되었습니다.");
+                    } else {
+                        showSnackbar("올바른 JSON 백업 파일이 아닙니다.");
+                    }
+                } catch (err) {
+                    showSnackbar("백업 파일을 읽는 중 오류가 발생했습니다.");
+                }
+                event.target.value = "";
+            };
+            reader.readAsText(file);
+        }
+
+        function confirmResetSample() {
+            openConfirmDialog(
+                "샘플 데이터로 초기화",
+                "현재 저장된 브랜드·재고·이력을 초기화하고 기본 샘플 데이터로 되돌릴까요?",
+                () => {
+                    brands = createDefaultBrands();
+                    items = createDefaultItems();
+                    logs = createDefaultLogs(items);
+                    invBrandFilter = "ALL";
+                    invLowStockOnly = false;
+                    selectedBarIndex = null;
+                    saveData();
+                    refreshAllViews();
+                    showSnackbar("기본 샘플 데이터로 초기화되었습니다.");
+                }
+            );
+        }
+
+        function confirmClearHistory() {
+            openConfirmDialog(
+                "입출고 이력 전체 비우기",
+                "등록된 브랜드와 품목 재고는 그대로 두고, 모든 입출고·매출 이력만 깨끗하게 비울까요?",
+                () => {
+                    logs = [];
+                    selectedBarIndex = null;
+                    saveData();
+                    refreshAllViews();
+                    showSnackbar("전체 입출고 이력이 비워졌습니다.");
+                }
+            );
+        }
+
+        /* ==========================================================================
+           12. 탭 전환, 모달, 확인 다이얼로그 & 스낵바
+           ========================================================================== */
+        function switchTab(tab) {
+            activeTab = tab;
+            ["inventory", "analytics", "history", "settings"].forEach(t => {
+                document.getElementById(`tab-${t}`).classList.toggle("hidden", t !== tab);
+                document.getElementById(`nav-${t}`).classList.toggle("active", t === tab);
+            });
+
+            document.getElementById("fab-add-item").classList.toggle("hidden", tab !== "inventory");
+
+            if (tab === "analytics") renderAnalytics();
+            if (tab === "history") renderHistory();
+            if (tab === "settings") renderSettingsBrandPreview();
+
+            window.scrollTo({ top: 0, behavior: "instant" });
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add("hidden");
+        }
+
+        function backdropClose(event, id) {
+            if (event.target.id === id) closeModal(id);
+        }
+
+        function openConfirmDialog(title, desc, onConfirm) {
+            document.getElementById("confirm-title").textContent = title;
+            document.getElementById("confirm-desc").textContent = desc;
+            const okBtn = document.getElementById("confirm-ok-btn");
+            okBtn.onclick = () => {
+                closeModal("confirm-modal");
+                onConfirm();
+            };
+            document.getElementById("confirm-modal").classList.remove("hidden");
+        }
+
+        let snackTimer = null;
+        function showSnackbar(text) {
+            const el = document.getElementById("snackbar");
+            document.getElementById("snackbar-text").textContent = text;
+            el.classList.add("show");
+            clearTimeout(snackTimer);
+            snackTimer = setTimeout(() => el.classList.remove("show"), 2600);
+        }
+
+        // 앱 초기화 시작
+        window.addEventListener("DOMContentLoaded", () => {
+            loadData();
+            refreshAllViews();
+        });
+    </script>
+</body>
+</html>
